@@ -1,9 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { NavBar } from './styles/Container.styles';
 
-export default function Nav() {
+type Props = {
+  path: boolean;
+};
+
+export default function Nav(props: Props) {
+  const { path } = props;
   return (
-    <div>
+    <NavBar path={path}>
       <h4>Nav</h4>
       <nav>
         <Link to="/">Home</Link>
@@ -11,6 +17,6 @@ export default function Nav() {
         <Link to="interiors">Interiors</Link>
         <Link to="contact">Contact</Link>
       </nav>
-    </div>
+    </NavBar>
   );
 }
