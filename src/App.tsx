@@ -18,7 +18,7 @@ export default function App() {
   // @ts-ignore
   return (
     <TransitionGroup component={null}>
-      <CSSTransition key={location.key} classNames="fade" timeout={300}>
+      <CSSTransition key={location.key} classNames="fade" timeout={600}>
         <Routes location={location}>
           <Route path="/" element={<Layout path={path} />}>
             <Route index element={<Home />} />

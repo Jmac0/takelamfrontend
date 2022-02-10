@@ -1,0 +1,12 @@
+
+.home-component {
+    background-color: #1d425d;
+    grid-row-start: 1;
+    grid-row-end: 4;
+    grid-column-start: 1;
+    grid-column-end: 4;
+    text-align: center;
+
+
+}
+

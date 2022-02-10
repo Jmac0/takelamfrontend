@@ -2,15 +2,7 @@
   text-align: center;
 }
 
-
-@media (prefers-reduced-motion: no-preference) {
-  /*
-  h1 {
-    animation: App-logo-spin infinite 3s linear;
-  }
-  */
-}
-
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@100&family=Oswald:wght@200;400;500&display=swap');
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

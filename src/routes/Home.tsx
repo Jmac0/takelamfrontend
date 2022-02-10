@@ -1,16 +1,11 @@
 import React from 'react';
+import 'styles/styles.css';
+import logo from 'images/landing_logo.png';
 
 function Home() {
   return (
-    <div
-      style={{
-        gridColumnStart: '2',
-        gridColumnEnd: '5',
-        padding: '1rem 0',
-        textAlign: 'center',
-      }}
-    >
-      <h1>Home</h1>
+    <div className="home-component">
+      <img style={{ maxWidth: '40%', marginTop: '100px' }} src={logo} alt="logo" />
     </div>
   );
 }
