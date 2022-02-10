@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Outlet } from 'react-router-dom';
-import { Container, PageTear } from 'styles/Container.styles';
+import { Container, PageLogo, PageTear } from 'styles/Container.styles';
 import Nav from 'Nav';
 
 interface Path {
@@ -13,9 +13,10 @@ function Layout(props: Path) {
 
   return (
     <Container path={home}>
+      <PageLogo path={home} />
       <Nav path={home} />
-      <PageTear path={home} />
       <Outlet />
+      <PageTear path={home} />
     </Container>
   );
 }

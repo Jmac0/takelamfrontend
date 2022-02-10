@@ -1,12 +1,25 @@
-
-.home-component {
-    background-color: #1d425d;
-    grid-row-start: 1;
-    grid-row-end: 4;
-    grid-column-start: 1;
-    grid-column-end: 4;
-    text-align: center;
-
-
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;300&family=Oranienbaum&family=Oswald:wght@200;400;500&display=swap');
+h1 {
+  margin-bottom: 2.5rem;
+  color: #62707e;
+  font-family: 'Oranienbaum', serif;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
 }
 
+p {
+  font-weight: 300;
+  color: #62707e;
+  font-size: 1rem;
+  font-family: 'Lato', sans-serif;
+  letter-spacing: 0.1em;
+}
+
+.home-component {
+  background-color: #1d425d;
+  grid-row-start: 1;
+  grid-row-end: 4;
+  grid-column-start: 1;
+  grid-column-end: 4;
+  text-align: center;
+}

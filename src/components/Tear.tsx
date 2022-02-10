@@ -1,5 +1,5 @@
 import React from 'react';
-import { PageTear } from '../src/styles/Container.styles';
+import { PageTear } from '../styles/Container.styles';
 
 type Props = {
   path: boolean;

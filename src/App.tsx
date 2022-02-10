@@ -5,8 +5,8 @@ import 'App.css';
 import 'styles/routeAnimation.css';
 import Layout from './routes/Layout';
 import Home from './routes/Home';
-import About from './routes/about';
-import Interiors from './routes/interiors';
+import About from './routes/About';
+import Interiors from './routes/Interiors';
 import Contact from './routes/Contact';
 import NotFound from './routes/NotFound';
 

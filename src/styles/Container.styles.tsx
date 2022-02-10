@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
-import tear from 'images/tear.png';
+import tearWhite from 'images/tear_white.png';
+import tearTan from 'images/tear_tan.png';
+import Logo from 'images/logo_blue.png';
 
 type Props = {
   path: boolean;
@@ -39,8 +41,21 @@ const Container = styled.div<Props>`
   }
 `;
 
+const PageLogo = styled.div<Props>`
+  margin-top: 2rem;
+  z-index: 0;
+  grid-area: logo;
+  max-width: 80%;
+  max-height: 80% ;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  background-image: url(${((props) => (props.path ? '' : Logo))});
+  
+`;
+
 const NavBar = styled.nav<Props>`
-  padding: 20% 0 0 20%;
+  padding: 10px 0 0 20%;
   margin: 0;
   z-index: 1;
   align-self: center;
@@ -66,17 +81,11 @@ const PageTear = styled.div<Props>`
   z-index: 0;
   height: 100%;
   max-width: 100%;
-  /*
-  grid-row-start: 3;
-  grid-column-start: 2;
-  grid-column-end: 4;
-  grid-row-end: 4;
-  */
   grid-area: footer;
   background-repeat: no-repeat;
   background-position: bottom right;
-  background-image: url(${tear});
+  background-image: url(${((props) => (props.path ? tearWhite : tearTan))});
 `;
 export {
-  NavContainer, NavBar, NavElement, Container, PageTear,
+  NavContainer, NavBar, NavElement, Container, PageTear, PageLogo,
 };
