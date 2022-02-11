@@ -46,35 +46,33 @@ const PageLogo = styled.div<Props>`
   z-index: 0;
   grid-area: logo;
   max-width: 80%;
-  max-height: 80% ;
+  max-height: 80%;
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
-  background-image: url(${((props) => (props.path ? '' : Logo))});
-  
+  background-image: url(${(props) => (props.path ? '' : Logo)});
 `;
 
 const NavBar = styled.nav<Props>`
-  padding: 10px 0 0 20%;
+  padding: 60px 0 0 20%;
+  width: 100%;
   margin: 0;
   z-index: 1;
-  align-self: center;
   grid-area: nav;
-`;
-
-const NavContainer = styled.nav`
   display: flex;
-  flex-direction: column;
 `;
 
 const NavElement = styled(NavLink)`
-  color: #e3d8c1;
+  color: #ccbd91;
   font-size: 1.2rem;
   font-family: 'Oswald', sans-serif;
-  font-weight: 400;
+  font-weight: 300;
   letter-spacing: 0.15em;
   text-decoration: none;
   margin: 0.3rem;
+  &:hover {
+    text-decoration: underline;
+  }
 `;
 
 const PageTear = styled.div<Props>`
@@ -84,8 +82,8 @@ const PageTear = styled.div<Props>`
   grid-area: footer;
   background-repeat: no-repeat;
   background-position: bottom right;
-  background-image: url(${((props) => (props.path ? tearWhite : tearTan))});
+  background-image: url(${(props) => (props.path ? tearWhite : tearTan)});
 `;
 export {
-  NavContainer, NavBar, NavElement, Container, PageTear, PageLogo,
+  NavBar, NavElement, Container, PageTear, PageLogo,
 };

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Outlet } from 'react-router-dom';
 import { Container, PageLogo, PageTear } from 'styles/Container.styles';
-import Nav from 'Nav';
+import Nav from 'components/Nav';
 
 interface Path {
   path: string;
@@ -10,11 +10,12 @@ interface Path {
 function Layout(props: Path) {
   const { path } = props;
   const home = path === '/';
+  const about = path === '/about';
 
   return (
     <Container path={home}>
       <PageLogo path={home} />
-      <Nav path={home} />
+      <Nav path={home} about={about} />
       <Outlet />
       <PageTear path={home} />
     </Container>

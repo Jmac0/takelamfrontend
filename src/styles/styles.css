@@ -23,3 +23,7 @@ p {
   grid-column-end: 4;
   text-align: center;
 }
+
+.subMenu {
+  color: #1d425d !important;
+}

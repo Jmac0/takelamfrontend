@@ -1,6 +1,6 @@
 import React from 'react';
 import { PageTear } from '../styles/Container.styles';
-
+// todo Delete this component
 type Props = {
   path: boolean;
 };
