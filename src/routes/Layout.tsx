@@ -10,7 +10,7 @@ interface Path {
 function Layout(props: Path) {
   const { path } = props;
   const home = path === '/';
-  const about = path === '/about';
+  const about = path.includes('/about');
 
   return (
     <Container path={home}>

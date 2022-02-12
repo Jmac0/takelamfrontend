@@ -19,7 +19,7 @@ export default function Nav(props: Props) {
           {about && '     →'}
         </NavElement>
 
-        <NavElement to="interiors">PROPERTIES</NavElement>
+        <NavElement to="properties">PROPERTIES</NavElement>
         <NavElement to="contact">CONTACT</NavElement>
       </div>
       {about && (
@@ -33,13 +33,13 @@ export default function Nav(props: Props) {
             left: '20px',
           }}
         >
-          <NavElement className="subMenu" to="about">
+          <NavElement className="subMenu" to="about/our-vision">
             OUR VISION
           </NavElement>
-          <NavElement className="subMenu" to="about">
+          <NavElement className="subMenu" to="about/interiors">
             INTERIOR DESIGN
           </NavElement>
-          <NavElement className="subMenu" to="about">
+          <NavElement className="subMenu" to="about/uk-services">
             UK SERVICES
           </NavElement>
         </div>

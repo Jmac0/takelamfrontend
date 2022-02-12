@@ -54,7 +54,7 @@ const PageLogo = styled.div<Props>`
 `;
 
 const NavBar = styled.nav<Props>`
-  padding: 60px 0 0 20%;
+  padding: 140px 0 0 20%;
   width: 100%;
   margin: 0;
   z-index: 1;

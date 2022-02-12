@@ -7,8 +7,11 @@ import Layout from './routes/Layout';
 import Home from './routes/Home';
 import About from './routes/About';
 import Interiors from './routes/Interiors';
+import Properties from './routes/Properties';
 import Contact from './routes/Contact';
 import NotFound from './routes/NotFound';
+import OurVision from './routes/OurVision';
+import UkServices from './routes/UkServices';
 
 export default function App() {
   const location = useLocation();
@@ -23,7 +26,10 @@ export default function App() {
           <Route path="/" element={<Layout path={path} />}>
             <Route index element={<Home />} />
             <Route path="about" element={<About />} />
-            <Route path="interiors" element={<Interiors />} />
+            <Route path="properties" element={<Properties />} />
+            <Route path="/about/our-vision" element={<OurVision />} />
+            <Route path="/about/interiors" element={<Interiors />} />
+            <Route path="/about/uk-services" element={<UkServices />} />
             <Route path="contact" element={<Contact />} />
             <Route path="*" element={<NotFound />} />
           </Route>
