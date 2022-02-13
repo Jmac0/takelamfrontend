@@ -1,8 +1,9 @@
 import React from 'react';
+import 'styles/styles.css';
 
 function Contact() {
   return (
-    <div style={{ padding: '1rem 0' }}>
+    <div className="main-page-content">
       <h1>Contact</h1>
     </div>
   );

@@ -15,6 +15,11 @@ p {
   letter-spacing: 0.1em;
 }
 
+.subMenu {
+    color: #1d425d !important;
+}
+
+
 .home-component {
   background-color: #1d425d;
   grid-row-start: 1;
@@ -24,6 +29,11 @@ p {
   text-align: center;
 }
 
-.subMenu {
-  color: #1d425d !important;
+.main-page-content {
+
+    margin-top: 10rem;
+    background-color: white;
+    grid-area: main;
+    padding: 1rem 0;
+    text-align: left;
 }

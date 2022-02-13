@@ -1,16 +1,9 @@
 import React from 'react';
+import 'styles/styles.css';
 
 function Properties() {
   return (
-    <div
-      style={{
-        marginTop: '10rem',
-        backgroundColor: 'white',
-        gridArea: 'main',
-        padding: '1rem 0',
-        textAlign: 'left',
-      }}
-    >
+    <div className="main-page-content">
       <h1>
         PROPERTIES
         {' '}

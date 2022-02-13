@@ -1,16 +1,9 @@
 import React from 'react';
+import 'styles/styles.css';
 
-function Properties() {
+function OurVision() {
   return (
-    <div
-      style={{
-        marginTop: '10rem',
-        backgroundColor: 'white',
-        gridArea: 'main',
-        padding: '1rem 0',
-        textAlign: 'left',
-      }}
-    >
+    <div className="main-page-content">
       <h1>
         Our Vision
         {' '}
@@ -40,4 +33,4 @@ function Properties() {
   );
 }
 
-export default Properties;
+export default OurVision;

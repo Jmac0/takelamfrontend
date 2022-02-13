@@ -3,15 +3,7 @@ import 'styles/styles.css';
 
 function About() {
   return (
-    <div
-      style={{
-        marginTop: '10rem',
-        backgroundColor: 'white',
-        gridArea: 'main',
-        padding: '1rem 0',
-        textAlign: 'left',
-      }}
-    >
+    <div className="main-page-content">
       <h1>
         Luxury Property Finders & Developers, based between Quinta do Lago &
         Surrey

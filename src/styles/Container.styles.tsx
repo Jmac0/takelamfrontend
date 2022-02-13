@@ -50,6 +50,7 @@ const PageLogo = styled.div<Props>`
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
+  /*Hide top left logo on splash page*/
   background-image: url(${(props) => (props.path ? '' : Logo)});
 `;
 
@@ -82,6 +83,7 @@ const PageTear = styled.div<Props>`
   grid-area: footer;
   background-repeat: no-repeat;
   background-position: bottom right;
+  /*change tear image from white to tan if no on splash page*/
   background-image: url(${(props) => (props.path ? tearWhite : tearTan)});
 `;
 export {

@@ -15,7 +15,6 @@ import UkServices from './routes/UkServices';
 
 export default function App() {
   const location = useLocation();
-  // eslint-disable-next-line no-console
   const path: string = location.pathname;
 
   // @ts-ignore

@@ -48,13 +48,16 @@ function Interiors() {
           top: '-15%',
           width: '40%',
           marginRight: '5%',
+          contain: 'content',
         }}
       >
         <img
           src={InteriorsImage}
           style={{
+            contain: 'content',
             overflow: 'hidden',
             height: '100%',
+            width: '80%',
           }}
           alt="designer interior"
         />
