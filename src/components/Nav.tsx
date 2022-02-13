@@ -9,7 +9,6 @@ type Props = {
 
 export default function Nav(props: Props) {
   const { path, about } = props;
-  // @ts-ignore
   return (
     <NavBar path={path}>
       <div style={{ display: 'flex', flexDirection: 'column' }}>

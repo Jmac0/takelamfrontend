@@ -1,7 +1,9 @@
 import React from 'react';
 
 import { Outlet } from 'react-router-dom';
-import { Container, PageLogo, PageTear } from 'styles/Container.styles';
+import {
+  Container, PageLogo, PageTear, MobileNavBar,
+} from 'styles/Container.styles';
 import Nav from 'components/Nav';
 
 interface Path {
@@ -14,6 +16,7 @@ function Layout(props: Path) {
 
   return (
     <Container path={home}>
+      <MobileNavBar />
       <PageLogo path={home} />
       <Nav path={home} about={about} />
       <Outlet />
