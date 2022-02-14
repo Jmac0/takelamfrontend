@@ -1,30 +1,13 @@
 import React from 'react';
 import InteriorsImage from 'images/interiors_page.png';
+import 'styles/styles.css';
 
 function Interiors() {
   return (
-    <div
-      style={{
-        justifyContent: 'space-between',
-        marginTop: '10rem',
-        display: 'flex',
-        gridRowStart: '1',
-        gridRowEnd: '3',
-        gridColumnStart: '2',
-        gridColumnEnd: '4',
-        flexDirection: 'row',
-        padding: '1rem 0',
-        textAlign: 'left',
-      }}
-    >
-      <div style={{ width: '50%' }}>
+    <div className="three-column-page">
+      <div className="three-column-page-text">
         <h1>
-          INTERIORS
-          {' '}
-          <br />
-          We place a great deal of emphasis on meeting our clients’ requirement
-          and finding the best possible fit for you. The feeling and character
-          of the property are vital components in a truly successful deal.
+          Interior Design Services by Takelam.
         </h1>
         <p>
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam
@@ -42,23 +25,10 @@ function Interiors() {
           sequi tenetur.
         </p>
       </div>
-      <div
-        style={{
-          position: 'relative',
-          top: '-15%',
-          width: '40%',
-          marginRight: '5%',
-          contain: 'content',
-        }}
-      >
+      <div className="three-column-page-image-container">
         <img
           src={InteriorsImage}
-          style={{
-            contain: 'content',
-            overflow: 'hidden',
-            height: '100%',
-            width: '80%',
-          }}
+          style={{ width: '100%' }}
           alt="designer interior"
         />
       </div>

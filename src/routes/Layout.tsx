@@ -1,22 +1,26 @@
 import React from 'react';
 
 import { Outlet } from 'react-router-dom';
-import {
-  Container, PageLogo, PageTear, MobileNavBar,
-} from 'styles/Container.styles';
+import MobileNavBar from 'components/MobileNavBar';
+import { Container, PageLogo, PageTear } from 'styles/Container.styles';
 import Nav from 'components/Nav';
+import MobileNavMenu
+  from '../components/MobileNavMenu';
+import ToggleOpen from '../hooks/useToggleState';
 
 interface Path {
   path: string;
 }
 function Layout(props: Path) {
   const { path } = props;
-  const home = path === '/';
-  const about = path.includes('/about');
+  const home: boolean = path === '/';
+  const about: boolean = path.includes('/about');
+  const [open, setOpen] = ToggleOpen(false);
 
   return (
     <Container path={home}>
-      <MobileNavBar />
+      <MobileNavBar path={home} open={open} setOpen={setOpen} />
+      <MobileNavMenu open={open} />
       <PageLogo path={home} />
       <Nav path={home} about={about} />
       <Outlet />

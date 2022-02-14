@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;300&family=Oranienbaum&family=Oswald:wght@200;400;500&display=swap');
-.body{
-    overflow: scroll;
+.body {
+  overflow: scroll;
 }
 h1 {
   margin-bottom: 2.5rem;
@@ -25,24 +25,78 @@ p {
 .home-component {
   background-color: #1d425d;
   grid-row-start: 1;
-  grid-row-end: 4;
+  grid-row-end: 5;
+  height: 100vh;
   grid-column-start: 1;
-  grid-column-end: 4;
+  grid-column-end: 2;
   text-align: center;
 }
 
 .main-page-content {
   margin-bottom: -7rem;
-  margin-top: .5rem;
+  margin-top: 0.5rem;
   background-color: white;
   grid-area: main;
   padding: 2rem;
   text-align: left;
 }
 
+.three-column-page {
+  display: flex;
+  flex-direction: column;
+  margin-top: 0.5rem;
+  background-color: white;
+  grid-area: main;
+  padding: 2rem;
+  text-align: left;
+}
+.three-column-page-text {
+  width: 100%;
+}
+
+.three-column-page-image-container {
+  width: 100%;
+  top: -15%;
+  margin-right: 10%;
+  height: 100%;
+}
+
+/***********************Desk top************************8 */
 @media screen and (min-width: 680px) {
   .main-page-content {
     margin-top: 10rem;
     grid-area: main;
+  }
+  .three-column-page {
+    justify-content: space-between;
+    margin-top: 10rem;
+    display: flex;
+    grid-row-start: 1;
+    grid-row-end: 3;
+    grid-column-start: 2;
+    grid-column-end: 4;
+    flex-direction: row;
+    padding: 1rem 0;
+    text-align: left;
+  }
+
+  .three-column-page-text {
+    width: 50%;
+  }
+
+  .three-column-page-image-container {
+    top: -15%;
+    margin-right: 10%;
+    contain: content;
+    height: 100%;
+    width: 30%;
+  }
+  .home-component {
+    background-color: #1d425d;
+    grid-row-start: 1;
+    grid-row-end: 4;
+    grid-column-start: 1;
+    grid-column-end: 4;
+    text-align: center;
   }
 }
