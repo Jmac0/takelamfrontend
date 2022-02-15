@@ -32,6 +32,7 @@ const Container = styled.div<Props>`
       'nav  main side'
       'footer footer footer';
   }
+  /*
   &.fade-enter {
     opacity: 0;
     z-index: 2;
@@ -50,6 +51,7 @@ const Container = styled.div<Props>`
 
     transition: opacity 200ms ease-out;
   }
+  */
 `;
 
 const PageLogo = styled.div<Props>`

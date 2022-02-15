@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { NavElement } from './Container.styles';
 
 interface Props {
   path?: boolean;
@@ -46,16 +47,16 @@ const Hamburger = styled.div<Props>`
     transition: all 0.3s linear;
     
     &:nth-child(1) {
-      transform: ${({ open }) => (open ? 'rotate(405deg)' : 'rotate(0)')};
+      transform: ${({ open }) => (open ? 'rotate(45deg)' : 'rotate(0)')};
     }
     &:nth-child(2) {
-      transform: ${({ open }) => (open ? 'translateX(2000%) scale(200%)' : 'translateX(0)')};
+      transform: ${({ open }) => (open ? 'translateX(0%) scale(0%)' : 'translateX(0)')};
      //filter: blur(2px);
-       filter: ${({ open }) => (open ? 'blur(5px)' : 'blur(0px)')};
+       filter: ${({ open }) => (open ? 'blur(0px)' : 'blur(0px)')};
       opacity: ${({ open }) => (open ? 0 : 1)};
     }
     &:nth-child(3) {
-      transform: ${({ open }) => (open ? 'rotate(-405deg)' : 'rotate(0)')};
+      transform: ${({ open }) => (open ? 'rotate(-45deg)' : 'rotate(0)')};
     }
   }
     
@@ -65,8 +66,8 @@ const Hamburger = styled.div<Props>`
 
 const SlideOutMenu = styled.div<Props>`
   display: flex;
-  padding-top: 5rem;
-  align-items: center;
+  padding-top: 13rem;
+  align-items: flex-start;
   flex-flow: column nowrap;
   position: fixed;
   transform: translateX(-100%);
@@ -75,12 +76,17 @@ const SlideOutMenu = styled.div<Props>`
   background-color: #1d425d;
   opacity: 0;
   z-index: -1;
+${NavElement}{
+  margin: .5rem 0 1rem 3rem;
+  
+}
+    
 
   @media (max-width: 680px) {
     transform: ${({ open }) => open && 'translateX(0) '};
     opacity: ${({ open }) => open && '1'};
   }
-  transition: all 0.5s;
+  transition: all .5s;
 `;
 
 export { MobileNavBarContainer, Hamburger, SlideOutMenu };

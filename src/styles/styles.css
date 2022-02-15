@@ -35,7 +35,6 @@ p {
 .main-page-content {
   margin-bottom: -7rem;
   margin-top: 0.5rem;
-  background-color: white;
   grid-area: main;
   padding: 2rem;
   text-align: left;
@@ -59,6 +58,66 @@ p {
   top: -15%;
   margin-right: 10%;
   height: 100%;
+}
+
+.form-input:focus{
+    outline: none;
+    border: 1px solid #D0C6B7;
+    border-radius: 6px;
+    background-color: #f3f3f1;
+}
+
+.form-input{
+    margin: 10px 0 1rem 1rem;
+    border: 1px solid #D0C6B7;
+    border-radius: 6px;
+}
+.text-area{
+
+    font-weight: 300;
+    color: #62707e;
+    font-size: 1rem;
+    font-family: 'Lato', sans-serif;
+    letter-spacing: 0.1em;
+    margin: 10px 0 10px 0;
+    border-radius: 6px;
+    border: 1px solid #D0C6B7
+}
+
+
+.text-area:focus,
+.text-area:active {
+    outline: none;
+    background-color: #f3f3f1;
+    border: 1px solid #D0C6B7
+
+}
+
+.form-label {
+    font-weight: 300;
+    color: #62707e;
+    font-size: 1rem;
+    font-family: 'Lato', sans-serif;
+    letter-spacing: 0.1em;
+}
+
+.submit-button{
+    text-transform: uppercase;
+    font-weight: 300;
+    color: #62707e;
+    font-size: 1rem;
+    font-family: 'Lato', sans-serif;
+    letter-spacing: 0.1em;
+    border-radius: 6px;
+    width: 100px;
+    height: 40px;
+    margin: 5px 0 0 0;
+    border: 1px solid #D0C6B7;
+    background: white;
+}
+.submit-button:hover{
+    background: #D0C6B7;
+    transition-duration: 0.4s;
 }
 
 /***********************Desk top************************8 */

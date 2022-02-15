@@ -20,7 +20,7 @@ function Layout(props: Path) {
   return (
     <Container path={home}>
       <MobileNavBar path={home} open={open} setOpen={setOpen} />
-      <MobileNavMenu open={open} />
+      <MobileNavMenu setOpen={setOpen} open={open} />
       <PageLogo path={home} />
       <Nav path={home} about={about} />
       <Outlet />

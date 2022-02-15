@@ -13,7 +13,7 @@ function MobileNavBar(props: Path) {
   return (
     <MobileNavBarContainer path={path}>
       <HamburgerIcon open={open} setOpen={setOpen} />
-      <MobileNavMenu open={open} />
+      <MobileNavMenu open={open} setOpen={setOpen} />
     </MobileNavBarContainer>
   );
 }
