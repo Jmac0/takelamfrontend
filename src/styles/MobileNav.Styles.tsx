@@ -77,7 +77,7 @@ const SlideOutMenu = styled.div<Props>`
   opacity: 0;
   z-index: -1;
 ${NavElement}{
-  margin: .5rem 0 1rem 3rem;
+  margin: .3rem 0 1rem 3rem;
   
 }
     

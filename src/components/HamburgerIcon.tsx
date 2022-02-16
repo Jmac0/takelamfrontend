@@ -6,8 +6,7 @@ interface Props {
   setOpen: () => void;
 }
 
-function HamburgerIcon(props: Props) {
-  const { open, setOpen } = props;
+function HamburgerIcon({ open, setOpen }: Props) {
   return (
     <Hamburger open={open} onClick={setOpen}>
       <div />

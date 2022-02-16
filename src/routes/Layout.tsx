@@ -11,8 +11,7 @@ import ToggleOpen from '../hooks/useToggleState';
 interface Path {
   path: string;
 }
-function Layout(props: Path) {
-  const { path } = props;
+function Layout({ path }:Path) {
   const home: boolean = path === '/';
   const about: boolean = path.includes('/about');
   const [open, setOpen] = ToggleOpen(false);

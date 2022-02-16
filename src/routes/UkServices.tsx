@@ -5,10 +5,6 @@ function Properties() {
   return (
     <div className="main-page-content">
       <h1>
-        Uk Services
-        {' '}
-        <br />
-        {' '}
         We place a great deal of emphasis on meeting our
         clients’ requirement and finding the best possible fit for you. The
         feeling and character of the property are vital components in a truly
