@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import 'App.css';
@@ -16,7 +16,10 @@ import UkServices from './routes/UkServices';
 export default function App() {
   const location = useLocation();
   const path: string = location.pathname;
-
+  const scrollInto = useRef<null | HTMLElement>(null);
+  useEffect(() => {
+      scrollInto!.current!.scrollIntoView();
+  });
   // @ts-ignore
   return (
     <TransitionGroup component={null}>
