@@ -82,6 +82,7 @@ const NavBar = styled.nav<Props>`
   z-index: 0;
   display: ${(props) => !props.path && 'none'};
   width: 100%;
+  margin-top: ${(props) => props.path && '10rem'};;
   margin-left: 20%;
   
   

@@ -59,6 +59,9 @@ const Hamburger = styled.div<Props>`
     
   }
 
+@media screen and (min-width: 850px){
+  display: none;
+}
 `;
 
 const SlideOutMenu = styled.div<Props>`
@@ -78,6 +81,10 @@ const SlideOutMenu = styled.div<Props>`
   transform: ${({ open }) => (open ? 'translateX(0)' : 'translateX(-100%)')};
   opacity: ${({ open }) => open && '1'};
   transition: all 0.5s;
+  
+  @media screen and (min-width: 850px){
+    display: none;
+  }
 `;
 
 export { MobileNavBarContainer, Hamburger, SlideOutMenu };

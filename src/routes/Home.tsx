@@ -7,7 +7,7 @@ function Home() {
     <div className="home-component">
       <img
         style={{
-          maxWidth: '70%', marginTop: '100px', marginBottom: '38rem',
+          maxWidth: '70%', marginTop: '100px', marginBottom: '22rem',
         }}
         src={logo}
         alt="logo"
