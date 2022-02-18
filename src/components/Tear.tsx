@@ -1,3 +1,6 @@
+export {};
+
+/*
 import React from 'react';
 import { PageTear } from '../styles/Container.styles';
 // todo Delete this component
@@ -11,3 +14,4 @@ function Tear(props: Props) {
 }
 
 export default Tear;
+*/

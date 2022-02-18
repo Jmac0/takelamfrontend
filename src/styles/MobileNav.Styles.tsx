@@ -15,7 +15,7 @@ const MobileNavBarContainer = styled.nav<Props>`
   grid-area: nav;
   display: ${(props) => props.path && 'none'};
 
-  @media screen and (min-width: 680px) {
+  @media screen and (min-width: 850px) {
     display: none;
   }
 `;
@@ -26,14 +26,11 @@ const Hamburger = styled.div<Props>`
   position: fixed;
   top: 10px;
   left: 20px;
-  z-index: 1;
-  display: none;
+  z-index: -1;
+  display: flex;
   
-  @media (max-width: 680px) {
-    display: flex;
     justify-content: space-around;
     flex-flow: column nowrap;
-  }
  
   div {
     //margin: 5px;
@@ -70,23 +67,17 @@ const SlideOutMenu = styled.div<Props>`
   align-items: flex-start;
   flex-flow: column nowrap;
   position: fixed;
-  transform: translateX(-100%);
   width: 75%;
-  height: 100vh;
+  height: 100%;
   background-color: #1d425d;
-  opacity: 0;
-  z-index: -1;
-${NavElement}{
-  margin: .3rem 0 1rem 3rem;
-  
-}
-    
-
-  @media (max-width: 680px) {
-    transform: ${({ open }) => open && 'translateX(0) '};
-    opacity: ${({ open }) => open && '1'};
+  z-index: -3;
+  ${NavElement} {
+    margin: 0.3rem 0 1rem 3rem;
   }
-  transition: all .5s;
+
+  transform: ${({ open }) => (open ? 'translateX(0)' : 'translateX(-100%)')};
+  opacity: ${({ open }) => open && '1'};
+  transition: all 0.5s;
 `;
 
 export { MobileNavBarContainer, Hamburger, SlideOutMenu };

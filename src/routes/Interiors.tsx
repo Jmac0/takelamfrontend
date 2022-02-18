@@ -29,7 +29,7 @@ function Interiors() {
         <img
           src={InteriorsImage}
           style={{ width: '100%' }}
-          alt="designer interior"
+          alt="designer interiors"
         />
       </div>
     </div>

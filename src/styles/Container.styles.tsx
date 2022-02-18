@@ -9,6 +9,7 @@ type Props = {
 };
 
 const Container = styled.div<Props>`
+  
   position: absolute;
   display: grid;
   overflow-x: hidden;
@@ -24,34 +25,38 @@ const Container = styled.div<Props>`
   width: 100vw;
   height: 100vh;
 
-  @media screen and (min-width: 680px) {
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 0.8fr;
+@media screen and (min-width: 850px){
+
+  grid-template-rows: 18rem min-content 1fr;
+  grid-template-columns: 0.7fr 1fr;
+  grid-template-areas:
+      'logo main'
+      'nav  main'
+      'footer footer';
+}
+  
+  @media screen and (min-width: 1400px) {
+
+    grid-template-columns: 1fr 1.5fr .5fr;
     grid-template-areas:
       'logo main side'
       'nav  main side'
       'footer footer footer';
-  }
-  /*
-  &.fade-enter {
-    opacity: 0;
-    z-index: 2;
-  }
-  &.fade-enter.fade-enter-active {
-    opacity: 1;
-    transition: opacity 200ms ease-in;
+
   }
 
-  &.fade-exit {
-    z-index: 2;
-    opacity: 1;
-  }
-  &.fade-exit.fade-exit-active {
-    opacity: 0;
+  @media screen and (min-width: 1500px) {
 
-    transition: opacity 200ms ease-out;
+    width: 100%;
+    height: 100%;
+    grid-template-rows: 18rem min-content 1fr;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-areas:
+      'logo main side'
+      'nav  main side'
+      'footer footer footer';
+
   }
-  */
 `;
 
 const PageLogo = styled.div<Props>`
@@ -59,22 +64,18 @@ const PageLogo = styled.div<Props>`
   margin-top: 5rem;
   background-image: url(${(props) => (props.path ? '' : Logo)});
   height: 10rem;
+  align-self: start;
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
 
-  @media screen and (min-width: 680px) {
-    margin-top: 2rem;
-    height: 80%;
-    z-index: 0;
-    grid-area: logo;
-    max-width: 80%;
-    max-height: 80%;
-    background-position: center;
-    background-size: contain;
+  
+  @media screen and (min-width: 850px) {
+    background-position: 30%;
+    height: 12rem;
   }
+  
 `;
-
 /* todo Rename for desk-top  */
 const NavBar = styled.nav<Props>`
   grid-area: main;
@@ -82,7 +83,10 @@ const NavBar = styled.nav<Props>`
   display: ${(props) => !props.path && 'none'};
   width: 100%;
   margin-left: 20%;
-  @media screen and (min-width: 680px) {
+  
+  
+  
+  @media screen and (min-width: 850px) {
     padding: 140px 0 0 20%;
     width: 100%;
     margin: 0;
@@ -106,25 +110,20 @@ const NavElement = styled(NavLink)`
 `;
 
 const PageTear = styled.div<Props>`
+  align-self: end;
   z-index: 0;
-  height: 17rem;
-  align-self: stretch;
-  max-width: 100%;
+  height: 271px;
+  width: 100%;
+  margin-top: 5rem;
   contain: content;
   grid-area: footer;
   background-color: transparent;
   background-repeat: no-repeat;
   background-image: url(${(props) => (props.path ? tearWhite : tearTan)});
+  background-position: bottom right;
 
-  @media screen and (min-width: 680px) {
-    z-index: 0;
-    height: 100%;
-    max-width: 100%;
-    grid-area: footer;
-    background-repeat: no-repeat;
-    background-position: bottom right;
-    background-image: url(${(props) => (props.path ? tearWhite : tearTan)});
-  }
+
+
 `;
 export {
   NavBar, NavElement, Container, PageTear, PageLogo,

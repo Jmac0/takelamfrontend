@@ -32,6 +32,7 @@ export default function Nav(props: Props) {
             left: '20px',
           }}
         >
+            {/* todo change routs to be siblings */}
           <NavElement className="subMenu" to="about/our-vision">
             OUR VISION
           </NavElement>

@@ -4,15 +4,16 @@ import { Outlet } from 'react-router-dom';
 import MobileNavBar from 'components/MobileNavBar';
 import { Container, PageLogo, PageTear } from 'styles/Container.styles';
 import Nav from 'components/Nav';
-import MobileNavMenu
-  from '../components/MobileNavMenu';
+import MobileNavMenu from '../components/MobileNavMenu';
 import ToggleOpen from '../hooks/useToggleState';
 
 interface Path {
   path: string;
 }
-function Layout({ path }:Path) {
+function Layout({ path }: Path) {
   const home: boolean = path === '/';
+  /* todo check for individual routs to show sub
+      menu see if that fixes the animation */
   const about: boolean = path.includes('/about');
   const [open, setOpen] = ToggleOpen(false);
 
