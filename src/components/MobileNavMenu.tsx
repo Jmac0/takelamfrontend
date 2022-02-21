@@ -13,13 +13,13 @@ function MobileNavMenu(props: Props) {
     <SlideOutMenu open={open}>
       <NavElement onClick={setOpen} to="about">ABOUT</NavElement>
 
-      <NavElement to="about/our-vision">
+      <NavElement onClick={setOpen} to="about/our-vision">
         OUR VISION
       </NavElement>
-      <NavElement to="about/interiors">
+      <NavElement onClick={setOpen} to="about/interiors">
         INTERIOR DESIGN
       </NavElement>
-      <NavElement to="about/uk-services">
+      <NavElement onClick={setOpen} to="about/uk-services">
         UK SERVICES
       </NavElement>
 

@@ -64,6 +64,7 @@ const PageLogo = styled.div<Props>`
   margin-top: 5rem;
   background-image: url(${(props) => (props.path ? '' : Logo)});
   height: 10rem;
+  z-index: -2;
   align-self: start;
   background-position: center;
   background-size: contain;

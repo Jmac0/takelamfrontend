@@ -71,7 +71,7 @@ const SlideOutMenu = styled.div<Props>`
   flex-flow: column nowrap;
   position: fixed;
   width: 75%;
-  height: 100%;
+  height: 100vh;
   background-color: #1d425d;
   z-index: -3;
   ${NavElement} {

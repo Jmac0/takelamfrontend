@@ -1,10 +1,12 @@
 import React from 'react';
 import 'styles/styles.css';
+import { Outlet } from 'react-router-dom';
 
 function About() {
   return (
     <div className="main-page-content">
       <h1>
+        <Outlet />
         Luxury Property Finders & Developers, based between Quinta do Lago &
         Surrey
       </h1>

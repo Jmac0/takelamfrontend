@@ -41,7 +41,6 @@ p {
   display: flex;
   flex-direction: column;
   margin-top: 0.5rem;
-  background-color: white;
   grid-area: main;
   padding: 2rem;
   text-align: left;

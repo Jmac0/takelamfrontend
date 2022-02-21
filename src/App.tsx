@@ -23,11 +23,13 @@ export default function App() {
         <Routes location={location}>
           <Route path="/" element={<Layout path={path} />}>
             <Route index element={<Home />} />
-            <Route path="about" element={<About />} />
             <Route path="properties" element={<Properties />} />
-            <Route path="/about/our-vision" element={<OurVision />} />
-            <Route path="/about/interiors" element={<Interiors />} />
-            <Route path="/about/uk-services" element={<UkServices />} />
+
+            <Route path="about" element={<About />} />
+            <Route path="about/our-vision" element={<OurVision />} />
+            <Route path="about/interiors" element={<Interiors />} />
+            <Route path="about/uk-services" element={<UkServices />} />
+
             <Route path="contact" element={<Contact />} />
             <Route path="*" element={<NotFound />} />
           </Route>
