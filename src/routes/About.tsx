@@ -1,14 +1,19 @@
 import React from 'react';
 import 'styles/styles.css';
-import { Outlet } from 'react-router-dom';
 
-function About() {
+interface Props {
+// eslint-disable-next-line react/no-unused-prop-types,react/require-default-props
+aboutTitle?: {}
+
+}
+// eslint-disable-next-line react/prop-types
+// @ts-ignore
+// eslint-disable-next-line react/prop-types
+function About({ aboutTitle }: Props) {
   return (
     <div className="main-page-content">
       <h1>
-        <Outlet />
-        Luxury Property Finders & Developers, based between Quinta do Lago &
-        Surrey
+        {aboutTitle}
       </h1>
       <p>
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam

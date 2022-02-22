@@ -12,12 +12,11 @@ interface Path {
 }
 function Layout({ path }: Path) {
   const home: boolean = path === '/';
-  /* todo check for individual routs to show sub
-      menu see if that fixes the animation */
   const about: boolean = path.includes('/about');
   const [open, setOpen] = ToggleOpen(false);
 
   return (
+  /* @ts-ignore */
     <Container path={home}>
       <MobileNavBar path={home} open={open} setOpen={setOpen} />
       <MobileNavMenu setOpen={setOpen} open={open} />

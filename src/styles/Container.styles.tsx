@@ -23,7 +23,8 @@ const Container = styled.div<Props>`
 
   margin: 0 auto;
   width: 100vw;
-  height: 100vh;
+  /*changed to auto from 100vh?*/
+  height: auto;
 
 @media screen and (min-width: 850px){
 

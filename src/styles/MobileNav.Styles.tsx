@@ -8,7 +8,7 @@ interface Props {
 }
 
 const MobileNavBarContainer = styled.nav<Props>`
-  width: 100%;
+  width: 100vw;
   position: fixed;
   height: 3rem;
   background-color: #d0c6b7;

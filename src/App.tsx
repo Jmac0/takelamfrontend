@@ -12,11 +12,18 @@ import Contact from './routes/Contact';
 import NotFound from './routes/NotFound';
 import OurVision from './routes/OurVision';
 import UkServices from './routes/UkServices';
+import fetchContent from './hooks/fetchContent';
 
 export default function App() {
   const location = useLocation();
   const path: string = location.pathname;
-  // @ts-ignore
+  const [state] = fetchContent();
+
+  // const siteContent = state.content[0];
+  // eslint-disable-next-line no-console
+  const { aboutTitle } = state;
+  console.log(aboutTitle);
+
   return (
     <TransitionGroup component={null}>
       <CSSTransition key={location.key} classNames="fade" timeout={450}>
@@ -25,7 +32,7 @@ export default function App() {
             <Route index element={<Home />} />
             <Route path="properties" element={<Properties />} />
 
-            <Route path="about" element={<About />} />
+            <Route path="about" element={<About aboutTitle={aboutTitle} />} />
             <Route path="about/our-vision" element={<OurVision />} />
             <Route path="about/interiors" element={<Interiors />} />
             <Route path="about/uk-services" element={<UkServices />} />
