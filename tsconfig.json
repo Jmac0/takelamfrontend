@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    "noUnusedLocals": false,                /* Report errors on unused locals. */
+    "noUnusedParameters": false,
     "target": "es5",
     "baseUrl": "src",
     "lib": [
@@ -20,6 +22,10 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx"
+  },
+  "rules": {
+    "noUnusedLocals": "off",
+    "@typescript-eslint/no-unused-vars": false
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.jsx", "src"]
 }

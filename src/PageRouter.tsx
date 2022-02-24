@@ -2,14 +2,14 @@ export {};
 /*
 import { Route, Routes } from 'react-router-dom';
 import React from 'react';
-import About from './routes/about';
+import Page from './routes/about';
 import Interiors from './routes/interiors';
 
 export default function PageRouter() {
   return (
     <Routes>
       <Route path="/" element={<App />}>
-        <Route path="about" element={<About />} />
+        <Route path="about" element={<Page />} />
         <Route path="interiors" element={<Interiors />}>
           <Route
             index

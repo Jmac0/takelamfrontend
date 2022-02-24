@@ -35,6 +35,9 @@
         "ts": "never",
         "tsx": "never"
       }
-    ]
+    ],
+    "no-underscore-dangle": ["error", { "allow": ["_id"] }],
+    "no-unused-vars": ["warn", { "vars": "all", "args":
+    "after-used", "ignoreRestSiblings": false }]
   }
 }

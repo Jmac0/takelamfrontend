@@ -2,7 +2,7 @@ import React from 'react';
 import 'styles/styles.css';
 import logo from 'images/landing_logo.png';
 
-function Home() {
+function LandingPage() {
   return (
     <div className="home-component">
       <img
@@ -16,4 +16,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default LandingPage;

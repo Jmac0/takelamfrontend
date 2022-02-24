@@ -11,7 +11,9 @@ interface Path {
   path: string;
 }
 function Layout({ path }: Path) {
+  // show hides mobile menu on home page
   const home: boolean = path === '/';
+  // show sub-menu on about pages
   const about: boolean = path.includes('/about');
   const [open, setOpen] = ToggleOpen(false);
 

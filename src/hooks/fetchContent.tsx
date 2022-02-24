@@ -1,16 +1,18 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
+/*
 interface Content {
     data: {
-    content?: [text: {}]
+    content?: {}
         text?: any
 
     }
 }
+*/
 
 function FetchContent() {
-  const [state, setState] = useState<any>({});
+  const [state, setState] = useState<any>([]);
 
   // @ts-ignore
   useEffect(() => {
@@ -19,14 +21,13 @@ function FetchContent() {
         'http://localhost:8000/api/v1/content',
       );
 
-      // @ts-ignore
-      const { data: { content: [text] } }: Content = response;
+      const { data: { content } } = response;
 
-      setState(text);
+      setState(content);
     }
 
     getContent();
-  }, [state.aboutTitle]);
+  }, []);
   return [state, setState];
 }
 

@@ -4,39 +4,39 @@ import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import 'App.css';
 import 'styles/routeAnimation.css';
 import Layout from './routes/Layout';
-import Home from './routes/Home';
-import About from './routes/About';
-import Interiors from './routes/Interiors';
-import Properties from './routes/Properties';
+import LandingPage from './routes/LandingPage';
+import Page from './routes/Page';
 import Contact from './routes/Contact';
 import NotFound from './routes/NotFound';
-import OurVision from './routes/OurVision';
-import UkServices from './routes/UkServices';
 import fetchContent from './hooks/fetchContent';
+
+interface Component {
+   index: string
+   _id: string
+   componentName: string
+   path: string
+   heading: string
+   bodyText: string
+
+}
 
 export default function App() {
   const location = useLocation();
   const path: string = location.pathname;
   const [state] = fetchContent();
-
-  // const siteContent = state.content[0];
-  // eslint-disable-next-line no-console
-  const { aboutTitle } = state;
-  console.log(aboutTitle);
-
   return (
     <TransitionGroup component={null}>
       <CSSTransition key={location.key} classNames="fade" timeout={450}>
         <Routes location={location}>
           <Route path="/" element={<Layout path={path} />}>
-            <Route index element={<Home />} />
-            <Route path="properties" element={<Properties />} />
-
-            <Route path="about" element={<About aboutTitle={aboutTitle} />} />
-            <Route path="about/our-vision" element={<OurVision />} />
-            <Route path="about/interiors" element={<Interiors />} />
-            <Route path="about/uk-services" element={<UkServices />} />
-
+            <Route index element={<LandingPage />} />
+            {state.map((el: Component) => (
+              <Route
+                key={el._id}
+                path={el.path}
+                element={<Page heading={el.heading} bodyText={el.bodyText} />}
+              />
+            ))}
             <Route path="contact" element={<Contact />} />
             <Route path="*" element={<NotFound />} />
           </Route>
