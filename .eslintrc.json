@@ -36,7 +36,9 @@
         "tsx": "never"
       }
     ],
-    "no-underscore-dangle": ["error", { "allow": ["_id"] }],
+    "react/no-unused-prop-types": "warn",
+    "no-underscore-dangle": ["off", { "allow": ["_"]
+    }],
     "no-unused-vars": ["warn", { "vars": "all", "args":
     "after-used", "ignoreRestSiblings": false }]
   }

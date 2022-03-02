@@ -17,6 +17,7 @@ function Page(props: Props) {
   const threePage = location.pathname.includes('interiors');
   const { heading, bodyText } = props;
 
+  // Different layout for three column pages
   if (threePage) {
     return (
       <div className="three-column-page">
@@ -24,9 +25,8 @@ function Page(props: Props) {
           <h1>
             {heading}
           </h1>
-          <p>
-            {bodyText}
-          </p>
+          <div dangerouslySetInnerHTML={{ __html: bodyText }} />
+
         </div>
         <div className="three-column-page-image-container">
           <img
@@ -39,11 +39,11 @@ function Page(props: Props) {
     );
   }
   return (
-
+  // stangard page layout
     <div className="main-page-content">
       {/* eslint-disable-next-line react/no-danger */}
       <h1>{heading}</h1>
-      <p>{bodyText}</p>
+      <div dangerouslySetInnerHTML={{ __html: bodyText }} />
     </div>
   );
 }

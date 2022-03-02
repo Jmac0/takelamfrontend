@@ -25,7 +25,8 @@
   },
   "rules": {
     "noUnusedLocals": "off",
-    "@typescript-eslint/no-unused-vars": false
+    "react/no-unused-prop-types typescript": false,
+    "@typescript-eslint/no-unused-vars": false,
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.jsx", "src"]
 }
