@@ -23,14 +23,16 @@ interface Component {
 export default function App() {
   const location = useLocation();
   const path: string = location.pathname;
-  const [pageContent] = fetchContent();
+  const [pageContent, setIndex] = fetchContent([]);
+
   return (
     <TransitionGroup component={null}>
-      <CSSTransition key={location.key} classNames="fade" timeout={450}>
+      <CSSTransition key={location.key} classNames="fade" timeout={650}>
         <Routes location={location}>
           <Route path="/" element={<Layout path={path} />}>
             <Route index element={<LandingPage />} />
-            {pageContent.map((el: Component) => (
+
+            { pageContent.map((el: Component) => (
               <Route
                 key={el._id}
                 path={el.path}
@@ -40,7 +42,7 @@ export default function App() {
             <Route path="contact" element={<Contact />} />
             <Route path="*" element={<NotFound />} />
           </Route>
-          <Route path="admin" element={<Admin pages={pageContent} />} />
+          <Route path="admin" element={<Admin pages={pageContent} setIndex={setIndex} />} />
         </Routes>
       </CSSTransition>
     </TransitionGroup>

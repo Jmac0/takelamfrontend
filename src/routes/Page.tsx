@@ -25,7 +25,7 @@ function Page(props: Props) {
           <h1>
             {heading}
           </h1>
-          <div dangerouslySetInnerHTML={{ __html: bodyText }} />
+          <p dangerouslySetInnerHTML={{ __html: bodyText }} />
 
         </div>
         <div className="three-column-page-image-container">
@@ -43,7 +43,7 @@ function Page(props: Props) {
     <div className="main-page-content">
       {/* eslint-disable-next-line react/no-danger */}
       <h1>{heading}</h1>
-      <div dangerouslySetInnerHTML={{ __html: bodyText }} />
+      <p dangerouslySetInnerHTML={{ __html: bodyText }} />
     </div>
   );
 }

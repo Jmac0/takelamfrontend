@@ -6,6 +6,7 @@ import TextEditor from '../components/TextEditor';
 
 interface Props {
   pages: [];
+  setIndex: (arg: (index: number) => number) => void;
 }
 
 interface Page {
@@ -14,12 +15,13 @@ interface Page {
   heading: string;
   bodyText: string
 }
-function Admin({ pages }: Props) {
+function Admin({ pages, setIndex }: Props) {
   const [error, setErr] = useState<string>('');
   const [pageId, setPageId] = useState<string>('');
   const [pageTitle, setPageTitle] = useState<string>('');
   const [pageContent, setPageContent] = useState<string>('');
   const [editing, setEditing] = useState<boolean>(false);
+  const [success, setSuccess] = useState<boolean>(false);
 
   // called from pageListItem updates props in
   // TextEditor inside its useEffect()
@@ -31,10 +33,9 @@ function Admin({ pages }: Props) {
   };
 
   const savePage = async (id: any, heading: any, bodyText: any) => {
-    console.log('PATCH');
     await axios
       .patch(
-        `http://192.168.1.201:8000/api/v1/content/${id}`,
+        `http://192.168.0.14.:8000/api/v1/content/${id}`,
 
         {
           heading,
@@ -45,8 +46,18 @@ function Admin({ pages }: Props) {
           headers: { 'Content-type': 'application/json' },
         },
       )
-      .then((res) => console.log(res))
-      .catch(() => setErr('Page not updated'));
+      .then((res) => {
+        if (res.status === 200) {
+          console.log(res.status);
+          // show saved icon above editor
+          setSuccess(true);
+          /* Updates the index dependency in
+           FetchContent to cause re-render in
+             useEffect */
+          setIndex((index: number) => index + 1);
+        }
+      })
+      .catch(() => setErr('Page not saved'));
   };
 
   return (
@@ -58,13 +69,10 @@ function Admin({ pages }: Props) {
           id={page._id}
           pageTitle={page.heading}
           componentName={page.componentName}
-          setEditing={setEditing}
           pageContent={page.bodyText}
-          updatePage={savePage}
           editPage={editPage}
         />
       ))}
-      (
       { editing
             && (
             <TextEditor
@@ -72,6 +80,10 @@ function Admin({ pages }: Props) {
               pageTitle={pageTitle}
               pageContent={pageContent}
               savePage={savePage}
+              isEditing={setEditing}
+              setSuccess={setSuccess}
+              success={success}
+              error={error}
             />
             )}
     </AdminContainer>

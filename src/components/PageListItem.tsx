@@ -7,9 +7,7 @@ interface Props {
   pageTitle: string;
   pageContent: string;
     // eslint-disable-next-line no-unused-vars
-  updatePage: (arg1: string, arg2: any, arg3: any) => void;
   editPage: (arg1: string, arg2: string, arg3: string) => void;
-  setEditing:any;
 
 }
 /* Simple component. This is a list item for each page
@@ -18,7 +16,7 @@ function PageListItem({
   componentName, id, pageTitle, pageContent, editPage,
 }: Props) {
   const handleEdit = () => {
-    // function to open editior in Admin component
+    // function to open TextEditor in Admin component
     editPage(id, pageTitle, pageContent);
   };
 

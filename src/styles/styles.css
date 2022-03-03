@@ -17,6 +17,7 @@ h1 {
 }
 
 p {
+    margin-top: 1rem;
   font-weight: 300;
   color: #62707e;
   font-size: 1rem;

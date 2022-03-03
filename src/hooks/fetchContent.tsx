@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-function FetchContent() {
-  const [state, setState] = useState<any>([]);
+function FetchContent(initialState: []) {
+  const [state, setState] = useState<any>(initialState);
+  const [index, setIndex] = useState<number>(0);
 
   // @ts-ignore
   useEffect(() => {
@@ -18,8 +19,9 @@ function FetchContent() {
     }
 
     getContent();
-  }, []);
-  return [state, setState];
+    console.log('CALLED');
+  }, [index]);
+  return [state, setIndex];
 }
 
 export default FetchContent;
