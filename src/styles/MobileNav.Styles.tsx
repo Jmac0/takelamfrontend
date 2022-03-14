@@ -14,7 +14,7 @@ const MobileNavBarContainer = styled.nav<Props>`
   background-color: #d0c6b7;
   grid-area: nav;
   display: ${(props) => props.path && 'none'};
-
+  z-index: 10;
   @media screen and (min-width: 850px) {
     display: none;
   }
@@ -87,4 +87,6 @@ const SlideOutMenu = styled.div<Props>`
   }
 `;
 
-export { MobileNavBarContainer, Hamburger, SlideOutMenu };
+export {
+  MobileNavBarContainer, Hamburger, SlideOutMenu,
+};

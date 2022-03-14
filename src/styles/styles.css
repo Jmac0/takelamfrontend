@@ -17,6 +17,7 @@ h1 {
 }
 
 p {
+    min-height: 1rem;
     margin-top: 1rem;
   font-weight: 300;
   color: #62707e;
@@ -25,6 +26,19 @@ p {
   letter-spacing: 0.1em;
 }
 
+ul {
+    min-height: 1rem;
+    margin-top: 1rem;
+    font-weight: 300;
+    color: #62707e;
+    font-size: 1.2rem;
+    font-family: 'Lato', sans-serif;
+    letter-spacing: 0.1em;
+}
+
+.icon {
+    margin-right: 0.5rem;
+}
 .subMenu {
   color: #1d425d !important;
 }

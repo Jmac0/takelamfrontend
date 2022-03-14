@@ -9,6 +9,7 @@ import Contact from './routes/Contact';
 import NotFound from './routes/NotFound';
 import fetchContent from './hooks/fetchContent';
 import Admin from './routes/Admin';
+import SingleProperty from './components/SingleProperty';
 
 interface Component {
    index: string
@@ -41,6 +42,7 @@ export default function App() {
             ))}
             <Route path="contact" element={<Contact />} />
             <Route path="*" element={<NotFound />} />
+            <Route path="property/:id" element={<SingleProperty />} />
           </Route>
           <Route path="admin" element={<Admin pages={pageContent} setIndex={setIndex} />} />
         </Routes>
