@@ -3,6 +3,7 @@ import axios from 'axios';
 import { AdminContainer } from '../styles/Admin.Styles';
 import PageListItem from '../components/PageListItem';
 import TextEditor from '../components/TextEditor';
+import PropertyForm from '../components/PropertyForm';
 
 interface Props {
   pages: [];
@@ -52,8 +53,8 @@ function Admin({ pages, setIndex }: Props) {
           // show saved icon above editor
           setSuccess(true);
           /* Updates the index dependency in
-           FetchContent to cause re-render in
-             useEffect */
+           FetchContent to cause re-render and get
+            the updated data  */
           setIndex((index: number) => index + 1);
         }
       })
@@ -62,6 +63,7 @@ function Admin({ pages, setIndex }: Props) {
 
   return (
     <AdminContainer>
+      <PropertyForm />
       <h1>ADMIN</h1>
       {pages.map((page: Page) => (
         <PageListItem

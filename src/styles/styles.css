@@ -114,7 +114,7 @@ ul {
   font-family: 'Lato', sans-serif;
   letter-spacing: 0.1em;
 }
-
+/*todo moved to styled components Admin Styles*/
 .submit-button {
   text-transform: uppercase;
   font-weight: 300;

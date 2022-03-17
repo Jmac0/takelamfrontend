@@ -19,7 +19,6 @@ function FetchContent(initialState: []) {
     }
 
     getContent();
-    console.log('CALLED');
   }, [index]);
   return [state, setIndex];
 }

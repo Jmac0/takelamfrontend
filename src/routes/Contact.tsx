@@ -57,9 +57,8 @@ function Contact() {
             name="w3review"
             rows={4}
             cols={30}
-          >
-            Message
-          </textarea>
+            placeholder="Message"
+          />
           <button
             type="submit"
             className="submit-button"

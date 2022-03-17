@@ -1,8 +1,9 @@
 import styled from 'styled-components';
 import colors from 'styles/colors';
+import { Cross } from '@styled-icons/entypo/';
 
 const AdminContainer = styled.div`
-  margin: 0 auto;
+  position: relative;
   width: 100vw;
   height: 100%;
   background-color: gainsboro;
@@ -32,10 +33,121 @@ const EditButton = styled.button`
   text-decoration: none;
   height: 1rem;
   background-color: ${colors.tan};
-  
-  &:hover{
+
+  &:hover {
     background-color: black;
   }
 `;
 
-export { AdminContainer, PageItem, EditButton };
+const PropertyFormList = styled.form`
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  border-radius: 30px;
+  border: 5px solid ${colors.blue};
+  height: auto;
+  width: 90vw;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 3rem;
+  background-color: ${colors.tan};
+
+  h1 {
+    color: ${colors.blue};
+    align-self: center;
+  }
+
+  div {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10px;
+
+    label {
+      font-weight: 300;
+      color: ${colors.blue};
+      font-size: 1.2rem;
+      font-family: 'Lato', sans-serif;
+      letter-spacing: 0.1em;
+      min-width: 120px;
+      justify-self: end;
+      padding-right: 30px;
+    }
+    input {
+      width: 25rem;
+      font-size: 1rem;
+      font-family: 'Lato', sans-serif;
+      letter-spacing: 0.1em;
+      height: 2.5rem;
+      max-width: 90%;
+      justify-self: center;
+    }
+
+    input:active,
+    input:focus {
+      outline: none;
+      border: 2px solid ${colors.blue};
+      border-radius: 6px;
+      background-color: #f3f3f1;
+    }
+
+    textarea {
+      border-radius: 10px;
+      flex-grow: 1;
+      height: 12rem;
+      min-width: 20rem;
+      max-width: 90%;
+      justify-self: center;
+      resize: none;
+      font-size: 1rem;
+      font-family: 'Lato', sans-serif;
+      letter-spacing: 0.1em;
+    }
+
+    textarea:focus,
+    textarea:active {
+      outline: none;
+      background-color: #f3f3f1;
+      border: 2px solid ${colors.blue};
+    }
+  }
+`;
+
+const XIcon = styled(Cross)`
+  position: absolute;
+  top: 1.5rem;
+  left: 3rem;
+  margin-top: 1rem;
+color: ${colors.blue};
+  width: 60px;
+  
+  &:hover {
+    color: red;
+  }
+`;
+
+const Button = styled.button`
+  justify-self: center;
+  text-transform: uppercase;
+  font-weight: 300;
+  color: ${colors.blue};
+  font-size: 1rem;
+  font-family: 'Lato', sans-serif;
+  letter-spacing: 0.1em;
+  border-radius: 6px;
+  width: 100px;
+  height: 40px;
+  margin: 5px 0 0 0;
+  border: 1px solid #d0c6b7;
+  background: white;
+
+  &:hover {
+    background: ${colors.blue};
+    color: ${colors.white};
+  }
+`;
+export {
+  AdminContainer, PageItem, EditButton, PropertyFormList, Button, XIcon,
+};

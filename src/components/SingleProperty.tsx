@@ -5,8 +5,11 @@ import { useParams } from 'react-router-dom';
 import { Wrapper, Status } from '@googlemaps/react-wrapper';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBed } from '@fortawesome/free-solid-svg-icons';
+import {
+  faBed, faBathtub, faHouse, faVectorSquare,
+} from '@fortawesome/free-solid-svg-icons';
 import { PropertyList } from 'styles/PropertyPageStyles';
+import useToggleState from '../hooks/useToggleState';
 import 'styles/styles.css';
 
 import { Map, Marker } from './Map';
@@ -17,20 +20,45 @@ interface Property {
   location: string;
   price: number;
   bedrooms: number;
+  bathrooms: number;
   buildSize: string;
   plotSize: string;
   description: string;
   ownership: string;
 }
 function SingleProperty() {
+  const API = process.env.REACT_APP_GOOGLE_API as string;
+  // Get current property from url params
+  const propertyUrlId = useParams();
+  // Property id from url param object
+  const [urlPram, setUrlParam] = useState(propertyUrlId.id);
+  const [loading, setLoading] = useToggleState(true);
+  // State to hold current property data
+  // @ts-ignore
+  const [currentProperty, setCurrentProperty] = useState<Property>({});
+  useEffect(() => {
+    axios
+      .get(`http://localhost:8000/api/v1/properties/${urlPram}`)
+      .then((response) => {
+        const {
+          data: { property },
+        } = response;
+        setCurrentProperty(() => property);
+        setLoading(() => false);
+      });
+  }, [urlPram]);
+
+  // Initial center of google map
   const [center, setCenter] = React.useState<google.maps.LatLngLiteral>({
     lat: 51.32156694051315,
     lng: -0.20484525142481128,
   });
+    // Marker position on map
   const [position, setPosition] = React.useState<google.maps.LatLngLiteral>({
     lat: 0,
     lng: 0,
   });
+    // set map marker position on load
   useEffect(() => {
     setPosition({
 
@@ -39,24 +67,6 @@ function SingleProperty() {
 
     });
   }, []);
-
-  // get current property from url params
-  const propertyUrlId = useParams();
-  // @ts-ignore
-  const [pram, setId] = useState<{ id: string }>(propertyUrlId.id);
-  // @ts-ignore
-  const [currentProperty, setCurrentProperty] = useState<Property>({});
-  useEffect(() => {
-    axios
-      .get(`http://localhost:8000/api/v1/properties/${pram}`)
-      .then((response) => {
-        const {
-          data: { property },
-        } = response;
-        setCurrentProperty(() => property);
-        console.log(pram);
-      });
-  }, [pram]);
 
   const gallery = cloudinary.galleryWidget({
     container: '#my-gallery',
@@ -83,59 +93,83 @@ function SingleProperty() {
   if (currentProperty.title) gallery.render();
 
   // cloudinary gallery
+  // @ts-ignorem
+
   // @ts-ignore
-  return (
-    <div style={{
-      width: '98%', margin: '0 auto', gridArea: 'main', zIndex: '1',
-    }}
-    >
-      <div
-        style={{
-          visibility: `${currentProperty ? 'visible' : 'hidden'}`,
-        }}
-        id="my-gallery"
-      />
+  return (loading
+    ? (
+      <div style={{
+        color: 'white',
+        position: 'absolute',
+        width: '100vw',
+        height: '100vh',
+        zIndex: '1',
+      }}
+      >
+        <h1>LOADINGs</h1>
+      </div>
+    ) : (
+      <div style={{
+        width: '98%',
+        margin: '0 auto',
+        gridArea: 'main',
+        zIndex: '1',
+      }}
+      >
+        <div id="my-gallery" style={{ height: '400px', marginBottom: '15rem' }} />
 
-      <PropertyList>
+        <PropertyList>
 
-        <div>
-          {currentProperty.location}
-        </div>
-        <div>
-          Price $
-          {currentProperty.price}
-        </div>
-        <div>
-          <FontAwesomeIcon icon={faBed} className="icon" />
-          Bedrooms:
-          {' '}
-          {currentProperty.bedrooms}
-        </div>
-        <div>
-          <FontAwesomeIcon icon={faBed} className="icon" />
-          Bathrooms:
-          {' '}
-          {currentProperty.bedrooms}
-        </div>
+          <div>
+            {currentProperty.location}
+          </div>
+          <div>
+            Price $
+            {currentProperty.price}
+          </div>
+          <div>
+            <FontAwesomeIcon
+              icon={faBed}
+              className="icon"
+            />
+            Bedrooms:
+            {' '}
+            {currentProperty.bedrooms}
+          </div>
+          <div>
+            <FontAwesomeIcon
+              icon={faBathtub}
+              className="icon"
+            />
+            Bathrooms:
+            {' '}
+            {currentProperty.bathrooms}
+          </div>
 
-        <div>
-          <FontAwesomeIcon icon={faBed} className="icon" />
-          Build Size:
-          {' '}
-          {currentProperty.buildSize}
-          ms
-        </div>
+          <div>
+            <FontAwesomeIcon
+              icon={faHouse}
+              className="icon"
+            />
+            Build Size:
+            {' '}
+            {currentProperty.buildSize}
+            ms
+          </div>
 
-        <div>
-          <FontAwesomeIcon icon={faBed} className="icon" />
-          Plot Size:
-          {' '}
-          {currentProperty.plotSize}
-        </div>
-        {/*
-          conditionally render ownership
-*/}
-        {currentProperty.ownership && (
+          <div>
+            <FontAwesomeIcon
+              icon={faVectorSquare}
+              className="icon"
+            />
+            Plot Size:
+            {' '}
+            {currentProperty.plotSize}
+          </div>
+          {/*
+             conditionally render ownership
+             */}
+          {currentProperty.ownership && (
           <div>
             <h4>Ownership:</h4>
             <p>
@@ -143,22 +177,25 @@ function SingleProperty() {
               {currentProperty.ownership}
             </p>
           </div>
-        )}
-        <div>
-          <h4>Property Description:</h4>
-          {' '}
-          <p>
+          )}
+          <div>
+            <h4>Property Description:</h4>
             {' '}
-            {currentProperty.description}
-          </p>
-        </div>
-      </PropertyList>
-      <Wrapper apiKey="AIzaSyAmvluV35QOlhwlVPjAbJp8JPNEHzTXzPI">
-        <Map center={center} zoom={10}>
-          <Marker position={position} />
-        </Map>
-      </Wrapper>
-    </div>
+            <p>
+              {' '}
+              {currentProperty.description}
+            </p>
+          </div>
+        </PropertyList>
+        <Wrapper
+          apiKey={API}
+        >
+          <Map center={center} zoom={10}>
+            <Marker position={position} />
+          </Map>
+        </Wrapper>
+      </div>
+    )
   );
   /// /////////////////// Map ///////////////////////
 }
