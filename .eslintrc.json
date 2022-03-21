@@ -1,9 +1,13 @@
 {
+
+
+
+
   "env": {
     "browser": true,
     "es2021": true
   },
-  "extends": ["plugin:react/recommended", "airbnb"],
+  "extends": ["plugin:react/recommended", "airbnb", "prettier"],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaFeatures": {
@@ -13,6 +17,7 @@
     "sourceType": "module"
   },
   "plugins": ["react", "@typescript-eslint"],
+
   "settings": {
     "import/resolver": {
       "node": {
@@ -27,6 +32,7 @@
       "some": ["nesting", "id"]
     }
   }],
+
   "jsx-a11y/label-has-for": [2, {
     "components": [ "Label" ],
     "required": {
@@ -34,6 +40,7 @@
     },
     "allowChildren": false
   }],
+
 
     "react/jsx-filename-extension": [2, { "extensions": [
       ".js", ".jsx", ".ts", ".tsx"
@@ -51,7 +58,9 @@
     "react/no-unused-prop-types": "warn",
     "no-underscore-dangle": ["off", { "allow": ["_"]
     }],
-    "no-unused-vars": ["warn", { "vars": "all", "args":
-    "after-used", "ignoreRestSiblings": false }]
+    "no-unused-vars": [1, { "vars": "all", "args": "all", "argsIgnorePattern": "^_" }],
+    "@typescript-eslint/no-unused-vars": [
+      "warn"
+    ]
   }
 }

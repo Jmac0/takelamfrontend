@@ -9,9 +9,9 @@ interface Props {
   pageId: string;
   pageTitle: string;
   pageContent: string;
-  savePage: (arg1: string, arg2: any, arg3: any) => void;
-  isEditing: (arg: boolean)=> void;
-  setSuccess: (arg: boolean)=> void;
+  savePage: (_arg1: string, _arg2: any, _arg3: any) => void;
+  isEditing: (_arg: boolean)=> void;
+  setSuccess: (_arg: boolean)=> void;
   success: boolean;
   error:string;
 }

@@ -1,38 +1,84 @@
-import React, { useState } from 'react';
-
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import { Property } from '../interfaces';
 import { PropertyFormList, Button, XIcon } from '../styles/Admin.Styles';
 
-function PropertyForm() {
-  const [form, setForm] = useState<Property>({
+interface Props {
+  showPropertyForm: boolean;
+  setShowPropertyForm: (_arg: boolean) => void;
+  requestMethod: string;
+  currentProperty: Property;
+  handleFormClosed: () => void;
+}
+
+// eslint-disable-next-line react/prop-types
+function PropertyForm({
+  showPropertyForm,
+  handleFormClosed,
+  requestMethod,
+  currentProperty,
+}: Props) {
+  const initialState: Property = {
     title: '',
+    _id: '',
+    tag: '',
     location: '',
     price: 0,
+    cords: '',
     bedrooms: 0,
     bathrooms: 0,
     buildSize: '',
     plotSize: '',
     description: '',
     ownership: '',
-  });
-  const [method, setMethod] = useState(true);
+  };
+
+  const handleUpdateDB = async (id: string, data: Property) => {
+    console.log('hello');
+    await axios
+      .patch(
+        `http://192.168.0.24:8000/api/v1/properties/${id}`,
+
+        data,
+
+        {
+          headers: { 'Content-type': 'application/json' },
+        },
+      )
+      .then((response) => {
+        console.log(response);
+      });
+  };
+
+  const [form, setForm] = useState<Property>(initialState);
+
+  /* todo implement cords logic somewhere */
+  // console.log(form.cords.split(',').map((e) =>
+  // Number(e)));
+  // const [title, setTitle] = useState('');
 
   const handleUpdate = (
     evt: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLElement>,
   ) => {
+    // set values from form to state
     // @ts-ignore
     setForm({ ...form, [evt.target.name]: evt.target.value });
   };
 
-  return (
+  useEffect(() => {
+    // eslint-disable-next-line no-unused-expressions
+    requestMethod === 'PATCH' && setForm({ ...currentProperty });
+    // eslint-disable-next-line no-unused-expressions
+    requestMethod === 'POST' && setForm({ ...initialState });
+  }, [requestMethod]);
 
-    <PropertyFormList>
-      <XIcon />
+  return (
+    <PropertyFormList showPropertyForm={showPropertyForm}>
+      <XIcon onClick={handleFormClosed} />
       <h1>
-        Create New Listing
+        {requestMethod === 'POST' ? 'Create New Listing' : 'Edit Listing'}
       </h1>
       <div>
-        {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
         <label htmlFor="title">Title</label>
         <input
           id="title"
@@ -42,7 +88,6 @@ function PropertyForm() {
           onChange={handleUpdate}
         />
       </div>
-
       <div>
         <label htmlFor="price">Price</label>
         <input
@@ -54,7 +99,6 @@ function PropertyForm() {
           onChange={handleUpdate}
         />
       </div>
-
       <div>
         <label htmlFor="bedrooms">Bedrooms</label>
         <input
@@ -66,7 +110,6 @@ function PropertyForm() {
           onChange={handleUpdate}
         />
       </div>
-
       <div>
         <label htmlFor="bathrooms">Bathrooms</label>
         <input
@@ -78,7 +121,6 @@ function PropertyForm() {
           onChange={handleUpdate}
         />
       </div>
-
       <div>
         <label htmlFor="buildSize">Build Size</label>
         <input
@@ -90,19 +132,17 @@ function PropertyForm() {
           onChange={handleUpdate}
         />
       </div>
-
       <div>
         <label htmlFor="plotSize">Plot Size</label>
         <input
           aria-label="plotSize"
           id="plotSize"
           name="plotSize"
-          type="number"
+          type="text"
           value={form.plotSize}
           onChange={handleUpdate}
         />
       </div>
-
       <div>
         <label htmlFor="ownership">Ownership</label>
         <input
@@ -114,9 +154,16 @@ function PropertyForm() {
           onChange={handleUpdate}
         />
       </div>
-      {/*
- todo description needs to be a text editor
-*/}
+      <div>
+        <label htmlFor="location">cords</label>
+        <input
+          type="text"
+          id="cords"
+          name="cords"
+          value={form.cords}
+          onChange={handleUpdate}
+        />
+      </div>
       <div>
         <label htmlFor="location">Location</label>
         <textarea
@@ -138,9 +185,13 @@ function PropertyForm() {
         />
       </div>
       <div style={{ justifyContent: 'center' }}>
-        { method
-          ? <Button type="submit">Create</Button>
-          : <Button type="submit">Update</Button>}
+        {requestMethod === 'POST' ? (
+          <Button type="submit">Create</Button>
+        ) : (
+          <Button onClick={() => handleUpdateDB(form._id, form)} type="button">
+            Update
+          </Button>
+        )}
       </div>
     </PropertyFormList>
   );

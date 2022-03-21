@@ -2,13 +2,17 @@ import styled from 'styled-components';
 import colors from 'styles/colors';
 import { Cross } from '@styled-icons/entypo/';
 
+interface Props {
+  showPropertyForm: boolean;
+}
 const AdminContainer = styled.div`
   position: relative;
   width: 100vw;
   height: 100%;
   background-color: gainsboro;
 `;
-
+/* List in admin, an item component for each page of
+ site */
 const PageItem = styled.div`
   display: flex;
   flex-direction: row;
@@ -22,7 +26,20 @@ const PageItem = styled.div`
   background-color: ${colors.blue};
   border: 5px solid ${colors.tan};
 `;
-
+/* List item in admin, for each property in the DB */
+const PropertyItem = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  align-content: space-between;
+  margin: 3rem;
+  padding: 0;
+  width: 400px;
+  height: 200px;
+  background-color: ${colors.blue};
+  border: 5px solid ${colors.tan};
+`;
 const EditButton = styled.button`
   width: 30%;
   margin: 1rem;
@@ -39,17 +56,17 @@ const EditButton = styled.button`
   }
 `;
 
-const PropertyFormList = styled.form`
-  display: flex;
+const PropertyFormList = styled.form<Props>`
+  display: ${(props) => (props.showPropertyForm ? 'flex' : 'none')};
   flex-direction: column;
   flex-wrap: wrap;
   justify-content: center;
   border-radius: 30px;
   border: 5px solid ${colors.blue};
   height: auto;
-  width: 90vw;
+  width: 80vw;
   position: absolute;
-  top: 100%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   padding: 3rem;
@@ -76,6 +93,7 @@ const PropertyFormList = styled.form`
       padding-right: 30px;
     }
     input {
+      padding: 5px;
       width: 25rem;
       font-size: 1rem;
       font-family: 'Lato', sans-serif;
@@ -94,6 +112,7 @@ const PropertyFormList = styled.form`
     }
 
     textarea {
+      padding: 5px;
       border-radius: 10px;
       flex-grow: 1;
       height: 12rem;
@@ -114,15 +133,15 @@ const PropertyFormList = styled.form`
     }
   }
 `;
-
+/* close popup icon */
 const XIcon = styled(Cross)`
   position: absolute;
   top: 1.5rem;
   left: 3rem;
   margin-top: 1rem;
-color: ${colors.blue};
+  color: ${colors.blue};
   width: 60px;
-  
+
   &:hover {
     color: red;
   }
@@ -149,5 +168,11 @@ const Button = styled.button`
   }
 `;
 export {
-  AdminContainer, PageItem, EditButton, PropertyFormList, Button, XIcon,
+  AdminContainer,
+  PageItem,
+  EditButton,
+  PropertyFormList,
+  Button,
+  XIcon,
+  PropertyItem,
 };
