@@ -66,9 +66,12 @@ const PropertyFormList = styled.form<Props>`
   height: auto;
   width: 80vw;
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  z-index: 199999;
+  overflow-y:auto;
+  top: 0;
+  left: 2rem;
+  align-self: center;
+  justify-self: center;
   padding: 3rem;
   background-color: ${colors.tan};
 

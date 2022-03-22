@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import { Property } from '../interfaces';
 import { PropertyFormList, Button, XIcon } from '../styles/Admin.Styles';
 
 interface Props {
   showPropertyForm: boolean;
-  setShowPropertyForm: (_arg: boolean) => void;
   requestMethod: string;
   currentProperty: Property;
   handleFormClosed: () => void;
+  createProperty: ( _data: Property ) => void;
+  updateProperty: (_id: string, _form: Property) => void;
 }
 
 // eslint-disable-next-line react/prop-types
@@ -17,38 +17,24 @@ function PropertyForm({
   handleFormClosed,
   requestMethod,
   currentProperty,
+  createProperty,
+  updateProperty
 }: Props) {
   const initialState: Property = {
     title: '',
-    _id: '',
     tag: '',
-    location: '',
-    price: 0,
-    cords: '',
-    bedrooms: 0,
-    bathrooms: 0,
-    buildSize: '',
-    plotSize: '',
     description: '',
     ownership: '',
+    plotSize: '',
+    buildSize: '',
+    bedrooms: 0,
+    bathrooms: 0,
+    price: 0,
+    location: '',
+    cords: '',
+    _id: '',
   };
 
-  const handleUpdateDB = async (id: string, data: Property) => {
-    console.log('hello');
-    await axios
-      .patch(
-        `http://192.168.0.24:8000/api/v1/properties/${id}`,
-
-        data,
-
-        {
-          headers: { 'Content-type': 'application/json' },
-        },
-      )
-      .then((response) => {
-        console.log(response);
-      });
-  };
 
   const [form, setForm] = useState<Property>(initialState);
 
@@ -65,10 +51,13 @@ function PropertyForm({
     setForm({ ...form, [evt.target.name]: evt.target.value });
   };
 
+
+
+
   useEffect(() => {
-    // eslint-disable-next-line no-unused-expressions
+    /* set state to currently editing property or
+       default */
     requestMethod === 'PATCH' && setForm({ ...currentProperty });
-    // eslint-disable-next-line no-unused-expressions
     requestMethod === 'POST' && setForm({ ...initialState });
   }, [requestMethod]);
 
@@ -85,6 +74,16 @@ function PropertyForm({
           name="title"
           type="text"
           value={form.title}
+          onChange={handleUpdate}
+        />
+      </div>
+      <div>
+        <label htmlFor="title">Tag</label>
+        <input
+          id="tag"
+          name="tag"
+          type="text"
+          value={form.tag}
           onChange={handleUpdate}
         />
       </div>
@@ -186,9 +185,9 @@ function PropertyForm({
       </div>
       <div style={{ justifyContent: 'center' }}>
         {requestMethod === 'POST' ? (
-          <Button type="submit">Create</Button>
+          <Button type="button" onClick={() => createProperty(form)}>Create</Button>
         ) : (
-          <Button onClick={() => handleUpdateDB(form._id, form)} type="button">
+          <Button onClick={() =>updateProperty(currentProperty._id, form)} type="button">
             Update
           </Button>
         )}

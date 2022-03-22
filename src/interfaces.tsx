@@ -1,6 +1,5 @@
 export interface Property {
   title: string;
-  _id: string;
   tag: string;
   location: string;
   cords: string;
@@ -11,4 +10,5 @@ export interface Property {
   plotSize: string;
   description: string;
   ownership: string;
+  _id: string
 }
