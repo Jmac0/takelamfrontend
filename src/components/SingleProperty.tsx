@@ -86,7 +86,7 @@ function SingleProperty() {
     },
     mediaAssets: [
       // @ts-ignore
-      { tag: `${currentProperty.title}` },
+      { tag: `${currentProperty.tag}` },
     ],
   });
 

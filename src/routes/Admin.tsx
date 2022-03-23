@@ -96,16 +96,18 @@ function Admin({ pages, setIndex }: Props) {
       .catch((err) => console.log(err.response.data));
   };
 
-  const updateProperty = async (id: string, data: Property) => {
+  const updateProperty = async (id: string, body: any, images: string) => {
+    console.log(images);
+    const data = new FormData();
+    Object.values(images).forEach((file) => {
+      data.append('images', file);
+    });
+    data.append('body', body);
     await axios
       .patch(
         `http://192.168.0.24:8000/api/v1/properties/${id}`,
 
         data,
-
-        {
-          headers: { 'Content-type': 'application/json' },
-        },
       )
       .then((response) => {
         if (response.status === 200) {
@@ -116,20 +118,17 @@ function Admin({ pages, setIndex }: Props) {
       });
   };
 
-
-    const deleteProperty = async (id: string) => {
-        await axios
-            .delete(
-                `http://192.168.0.24:8000/api/v1/properties/${id}`,
-            )
-            .then((response) => {
-                if (response.status === 204) {
-                    console.log(response);
-                    setPropertyIndex((cur: number) => cur + 1);
-                }
-                console.log(response);
-            });
-    };
+  const deleteProperty = async (id: string) => {
+    await axios
+      .delete(`http://192.168.0.24:8000/api/v1/properties/${id}`)
+      .then((response) => {
+        if (response.status === 204) {
+          console.log(response);
+          setPropertyIndex((cur: number) => cur + 1);
+        }
+        console.log(response);
+      });
+  };
 
   const handleOpenPropertyForm = (useMethod: string) => {
     /* show/hide property form */

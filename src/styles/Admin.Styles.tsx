@@ -29,16 +29,23 @@ const PageItem = styled.div`
 /* List item in admin, for each property in the DB */
 const PropertyItem = styled.div`
   display: flex;
+  border-radius: 15px;
   flex-direction: row;
   align-items: center;
   justify-content: center;
   align-content: space-between;
-  margin: 3rem;
-  padding: 0;
+  margin: 1rem;
+  padding: 1rem;
   width: 400px;
   height: 200px;
   background-color: ${colors.blue};
   border: 5px solid ${colors.tan};
+  
+  h1{
+    color: white;
+  }
+  
+  
 `;
 const EditButton = styled.button`
   width: 30%;
@@ -168,6 +175,11 @@ const Button = styled.button`
   &:hover {
     background: ${colors.blue};
     color: ${colors.white};
+  }
+  
+  &:disabled {
+    background-color: gray;
+    color: lightgrey;
   }
 `;
 export {

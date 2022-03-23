@@ -7,8 +7,8 @@ interface Props {
   requestMethod: string;
   currentProperty: Property;
   handleFormClosed: () => void;
-  createProperty: ( _data: Property ) => void;
-  updateProperty: (_id: string, _form: Property) => void;
+  createProperty: (_data: Property) => void;
+  updateProperty: (_id: string, _form: Property, _images: string) => void;
 }
 
 // eslint-disable-next-line react/prop-types
@@ -18,7 +18,7 @@ function PropertyForm({
   requestMethod,
   currentProperty,
   createProperty,
-  updateProperty
+  updateProperty,
 }: Props) {
   const initialState: Property = {
     title: '',
@@ -35,9 +35,8 @@ function PropertyForm({
     _id: '',
   };
 
-
   const [form, setForm] = useState<Property>(initialState);
-
+  const [images, setImages] = useState('');
   /* todo implement cords logic somewhere */
   // console.log(form.cords.split(',').map((e) =>
   // Number(e)));
@@ -50,9 +49,12 @@ function PropertyForm({
     // @ts-ignore
     setForm({ ...form, [evt.target.name]: evt.target.value });
   };
-
-
-
+  const handleImageInput = (
+    evt: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLElement>,
+  ) => {
+    // @ts-ignore
+    setImages(evt.target.files);
+  };
 
   useEffect(() => {
     /* set state to currently editing property or
@@ -185,13 +187,25 @@ function PropertyForm({
       </div>
       <div style={{ justifyContent: 'center' }}>
         {requestMethod === 'POST' ? (
-          <Button type="button" onClick={() => createProperty(form)}>Create</Button>
+          <Button type="button" onClick={() => createProperty(form)}>
+            Create
+          </Button>
         ) : (
-          <Button onClick={() =>updateProperty(currentProperty._id, form)} type="button">
+          <Button
+            onClick={() => updateProperty(currentProperty._id, form, images)}
+            type="button"
+          >
             Update
           </Button>
         )}
       </div>
+      <input
+        type="file"
+        id="images"
+        name="images"
+        onChange={handleImageInput}
+        multiple
+      />
     </PropertyFormList>
   );
 }
