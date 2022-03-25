@@ -6,9 +6,10 @@ interface Props {
   showPropertyForm: boolean;
 }
 const AdminContainer = styled.div`
+  overflow-x: hidden;
   position: relative;
   width: 100vw;
-  height: 100%;
+  height: 100vh;
   background-color: gainsboro;
 `;
 /* List in admin, an item component for each page of
@@ -30,22 +31,19 @@ const PageItem = styled.div`
 const PropertyItem = styled.div`
   display: flex;
   border-radius: 15px;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   align-content: space-between;
-  margin: 1rem;
   padding: 1rem;
-  width: 400px;
-  height: 200px;
+  width: 20rem;
+  height: 13rem;
   background-color: ${colors.blue};
   border: 5px solid ${colors.tan};
-  
-  h1{
+
+  h1 {
     color: white;
   }
-  
-  
 `;
 const EditButton = styled.button`
   width: 30%;
@@ -64,6 +62,7 @@ const EditButton = styled.button`
 `;
 
 const PropertyFormList = styled.form<Props>`
+  z-index: 10;
   display: ${(props) => (props.showPropertyForm ? 'flex' : 'none')};
   flex-direction: column;
   flex-wrap: wrap;
@@ -73,10 +72,8 @@ const PropertyFormList = styled.form<Props>`
   height: auto;
   width: 80vw;
   position: absolute;
-  z-index: 199999;
-  overflow-y:auto;
   top: 0;
-  left: 2rem;
+  left: 0;
   align-self: center;
   justify-self: center;
   padding: 3rem;
@@ -91,6 +88,7 @@ const PropertyFormList = styled.form<Props>`
     display: flex;
     flex-wrap: wrap;
     padding: 10px;
+    width: 80vw;
 
     label {
       font-weight: 300;
@@ -119,6 +117,26 @@ const PropertyFormList = styled.form<Props>`
       border: 2px solid ${colors.blue};
       border-radius: 6px;
       background-color: #f3f3f1;
+    }
+    /*Styles for image upload button*/
+    input[type='file']::file-selector-button {
+      width: 10rem;
+      text-transform: uppercase;
+      font-weight: 300;
+      color: ${colors.blue};
+      font-size: 1rem;
+      font-family: 'Lato', sans-serif;
+      letter-spacing: 0.1em;
+      border-radius: 6px;
+      height: 40px;
+      border: 1px solid #d0c6b7;
+      background: white;
+      transition: 0.5s;
+    }
+
+    input[type='file']::file-selector-button:hover {
+      background: ${colors.blue};
+      color: ${colors.white};
     }
 
     textarea {
@@ -158,7 +176,6 @@ const XIcon = styled(Cross)`
 `;
 
 const Button = styled.button`
-  justify-self: center;
   text-transform: uppercase;
   font-weight: 300;
   color: ${colors.blue};
@@ -172,11 +189,12 @@ const Button = styled.button`
   border: 1px solid #d0c6b7;
   background: white;
 
+  transition: 1s;
   &:hover {
     background: ${colors.blue};
     color: ${colors.white};
   }
-  
+
   &:disabled {
     background-color: gray;
     color: lightgrey;

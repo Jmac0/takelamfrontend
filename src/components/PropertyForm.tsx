@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import { Property } from '../interfaces';
 import { PropertyFormList, Button, XIcon } from '../styles/Admin.Styles';
 
@@ -37,20 +37,21 @@ function PropertyForm({
 
   const [form, setForm] = useState<Property>(initialState);
   const [images, setImages] = useState('');
+
   /* todo implement cords logic somewhere */
   // console.log(form.cords.split(',').map((e) =>
   // Number(e)));
   // const [title, setTitle] = useState('');
 
   const handleUpdate = (
-    evt: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLElement>,
+    evt: React.ChangeEvent,
   ) => {
     // set values from form to state
     // @ts-ignore
     setForm({ ...form, [evt.target.name]: evt.target.value });
   };
   const handleImageInput = (
-    evt: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLElement>,
+    evt: React.ChangeEvent,
   ) => {
     // @ts-ignore
     setImages(evt.target.files);
@@ -185,27 +186,34 @@ function PropertyForm({
           onChange={handleUpdate}
         />
       </div>
-      <div style={{ justifyContent: 'center' }}>
         {requestMethod === 'POST' ? (
+      <div style={{ justifyContent: 'center' }}>
           <Button type="button" onClick={() => createProperty(form)}>
             Create
           </Button>
-        ) : (
-          <Button
-            onClick={() => updateProperty(currentProperty._id, form, images)}
-            type="button"
-          >
-            Update
-          </Button>
-        )}
       </div>
-      <input
-        type="file"
-        id="images"
-        name="images"
-        onChange={handleImageInput}
-        multiple
-      />
+        ) : (
+
+            <div style={{marginLeft: '1%', display: 'flex', flexDirection: 'row', flexWrap: 'wrap', alignContent:'center' }}>
+            <Button
+              style={{width: '10rem', marginRight: '1rem'}}
+              onClick={() => updateProperty(currentProperty._id, form, images)}
+              type="button"
+            >
+              Save
+            </Button>
+
+
+            <input
+              style={{paddingLeft: '0', backgroundColor: '#d0c6b7', borderStyle: 'none'}}
+              type="file"
+              id="images"
+              name="images"
+              onChange={handleImageInput}
+              multiple
+            />
+            </div>
+        )}
     </PropertyFormList>
   );
 }

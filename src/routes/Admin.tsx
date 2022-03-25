@@ -84,7 +84,7 @@ function Admin({ pages, setIndex }: Props) {
     // eslint-disable-next-line no-param-reassign
     delete data._id;
     await axios
-      .post(`http://192.168.0.24:8000/api/v1/properties`, data, {
+      .post(`http://192.168.0.14:8000/api/v1/properties`, data, {
         headers: { 'Content-type': 'application/json' },
       })
       .then((response) => {
@@ -97,15 +97,17 @@ function Admin({ pages, setIndex }: Props) {
   };
 
   const updateProperty = async (id: string, body: any, images: string) => {
-    console.log(images);
+    console.log(body);
     const data = new FormData();
-    Object.values(images).forEach((file) => {
+      Object.values(images).forEach((file) => {
       data.append('images', file);
     });
-    data.append('body', body);
+      Object.entries(body).forEach(([key, value]) => {
+          data.append(`${key}`,  `${value}`)
+      });
     await axios
       .patch(
-        `http://192.168.0.24:8000/api/v1/properties/${id}`,
+        `http://192.168.0.14:8000/api/v1/properties/${id}`,
 
         data,
       )
@@ -130,6 +132,7 @@ function Admin({ pages, setIndex }: Props) {
       });
   };
 
+  /* Open property form with POST method, will set empty form */
   const handleOpenPropertyForm = (useMethod: string) => {
     /* show/hide property form */
     setShowPropertyForm(!showPropertyForm);
@@ -156,7 +159,6 @@ function Admin({ pages, setIndex }: Props) {
   // @ts-ignore
   return (
     <AdminContainer>
-      {/* show property Form */}
       <PropertyForm
         showPropertyForm={showPropertyForm}
         handleFormClosed={handleFormClosed}
@@ -167,6 +169,7 @@ function Admin({ pages, setIndex }: Props) {
       />
       <h1>ADMIN</h1>
       {/* show list of pages */}
+
       {pages.map((page: Page) => (
         <PageListItem
           key={page._id}
@@ -178,18 +181,29 @@ function Admin({ pages, setIndex }: Props) {
         />
       ))}
 
+
       <Button type="button" onClick={() => handleOpenPropertyForm('POST')}>
         Create New
       </Button>
-      {properties.map((property: Property) => (
-        <PropertyListItem
-          key={property._id}
-          id={property._id}
-          title={property.title}
-          editProperty={editProperty}
-          deleteProperty={deleteProperty}
-        />
-      ))}
+      <div
+        style={{
+          backgroundColor: 'dodgerblue',
+          width: '90%',
+          display: 'grid',
+          gridGap: '1rem',
+          gridTemplateColumns: `repeat(auto-fit, minmax(26rem, 1fr))`,
+        }}
+      >
+        {properties.map((property: Property) => (
+          <PropertyListItem
+            key={property._id}
+            id={property._id}
+            title={property.title}
+            editProperty={editProperty}
+            deleteProperty={deleteProperty}
+          />
+        ))}
+      </div>
       {editing && (
         <TextEditor
           pageId={pageId}

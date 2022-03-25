@@ -6,7 +6,10 @@ import { Wrapper, Status } from '@googlemaps/react-wrapper';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  faBed, faBathtub, faHouse, faVectorSquare,
+  faBed,
+  faBathtub,
+  faHouse,
+  faVectorSquare,
 } from '@fortawesome/free-solid-svg-icons';
 import { PropertyList } from 'styles/PropertyPageStyles';
 import useToggleState from '../hooks/useToggleState';
@@ -17,6 +20,7 @@ import { Map, Marker } from './Map';
 declare const cloudinary: any;
 interface Property {
   title: string;
+  cords: number[];
   location: string;
   price: number;
   bedrooms: number;
@@ -36,6 +40,17 @@ function SingleProperty() {
   // State to hold current property data
   // @ts-ignore
   const [currentProperty, setCurrentProperty] = useState<Property>({});
+
+  // Initial center of google map
+  const [center, setCenter] = React.useState<google.maps.LatLngLiteral>({
+    lat: 51.32156694051315,
+    lng: -0.20484525142481128,
+  });
+  // Marker position on map
+  const [position, setPosition] = React.useState<google.maps.LatLngLiteral>({
+    lat: 0,
+    lng: 0,
+  });
   useEffect(() => {
     axios
       .get(`http://localhost:8000/api/v1/properties/${urlPram}`)
@@ -43,30 +58,23 @@ function SingleProperty() {
         const {
           data: { property },
         } = response;
+
+        const {
+          data: {
+            property: { cords },
+          },
+        } = response;
+        setCenter({ lat: cords[0], lng: cords[1] });
+        setPosition({ lat: cords[0], lng: cords[1] });
         setCurrentProperty(() => property);
         setLoading(() => false);
       });
   }, [urlPram]);
 
-  // Initial center of google map
-  const [center, setCenter] = React.useState<google.maps.LatLngLiteral>({
-    lat: 51.32156694051315,
-    lng: -0.20484525142481128,
-  });
-    // Marker position on map
-  const [position, setPosition] = React.useState<google.maps.LatLngLiteral>({
-    lat: 0,
-    lng: 0,
-  });
-    // set map marker position on load
-  useEffect(() => {
-    setPosition({
-
-      lat: 51.29555368260512,
-      lng: -0.3214003112747932,
-
-    });
-  }, []);
+  /*
+      setCenter({lat: currentProperty.cords[0], lng: currentProperty.cords[1] })
+      setPosition({lat: currentProperty.cords[0], lng: currentProperty.cords[1] })
+*/
 
   const gallery = cloudinary.galleryWidget({
     container: '#my-gallery',
@@ -96,106 +104,70 @@ function SingleProperty() {
   // @ts-ignorem
 
   // @ts-ignore
-  return (loading
-    ? (
-      <div style={{
+  return loading ? (
+    <div
+      style={{
         color: 'white',
         position: 'absolute',
         width: '100vw',
         height: '100vh',
         zIndex: '1',
       }}
-      >
-        <h1>LOADINGs</h1>
-      </div>
-    ) : (
-      <div style={{
+    >
+      <h1>LOADINGs</h1>
+    </div>
+  ) : (
+    <div
+      style={{
         width: '98%',
         margin: '0 auto',
         gridArea: 'main',
         zIndex: '1',
       }}
-      >
-        <div id="my-gallery" style={{ height: '400px', marginBottom: '15rem' }} />
+    >
+      <div id="my-gallery" style={{ height: '400px', marginBottom: '15rem' }} />
 
-        <PropertyList>
+      <PropertyList>
+        <div>{currentProperty.location}</div>
+        <div>Price ${currentProperty.price}</div>
+        <div>
+          <FontAwesomeIcon icon={faBed} className="icon" />
+          Bedrooms: {currentProperty.bedrooms}
+        </div>
+        <div>
+          <FontAwesomeIcon icon={faBathtub} className="icon" />
+          Bathrooms: {currentProperty.bathrooms}
+        </div>
 
-          <div>
-            {currentProperty.location}
-          </div>
-          <div>
-            Price $
-            {currentProperty.price}
-          </div>
-          <div>
-            <FontAwesomeIcon
-              icon={faBed}
-              className="icon"
-            />
-            Bedrooms:
-            {' '}
-            {currentProperty.bedrooms}
-          </div>
-          <div>
-            <FontAwesomeIcon
-              icon={faBathtub}
-              className="icon"
-            />
-            Bathrooms:
-            {' '}
-            {currentProperty.bathrooms}
-          </div>
+        <div>
+          <FontAwesomeIcon icon={faHouse} className="icon" />
+          Build Size: {currentProperty.buildSize}
+          ms
+        </div>
 
-          <div>
-            <FontAwesomeIcon
-              icon={faHouse}
-              className="icon"
-            />
-            Build Size:
-            {' '}
-            {currentProperty.buildSize}
-            ms
-          </div>
-
-          <div>
-            <FontAwesomeIcon
-              icon={faVectorSquare}
-              className="icon"
-            />
-            Plot Size:
-            {' '}
-            {currentProperty.plotSize}
-          </div>
-          {/*
+        <div>
+          <FontAwesomeIcon icon={faVectorSquare} className="icon" />
+          Plot Size: {currentProperty.plotSize}
+        </div>
+        {/*
              conditionally render ownership
              */}
-          {currentProperty.ownership && (
+        {currentProperty.ownership && (
           <div>
             <h4>Ownership:</h4>
-            <p>
-              {' '}
-              {currentProperty.ownership}
-            </p>
+            <p> {currentProperty.ownership}</p>
           </div>
-          )}
-          <div>
-            <h4>Property Description:</h4>
-            {' '}
-            <p>
-              {' '}
-              {currentProperty.description}
-            </p>
-          </div>
-        </PropertyList>
-        <Wrapper
-          apiKey={API}
-        >
-          <Map center={center} zoom={10}>
-            <Marker position={position} />
-          </Map>
-        </Wrapper>
-      </div>
-    )
+        )}
+        <div>
+          <h4>Property Description:</h4> <p> {currentProperty.description}</p>
+        </div>
+      </PropertyList>
+      <Wrapper apiKey={API}>
+        <Map center={center} zoom={12}>
+          <Marker position={position} />
+        </Map>
+      </Wrapper>
+    </div>
   );
   /// /////////////////// Map ///////////////////////
 }
