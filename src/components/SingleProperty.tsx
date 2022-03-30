@@ -42,12 +42,12 @@ function SingleProperty() {
   const [currentProperty, setCurrentProperty] = useState<Property>({});
 
   // Initial center of google map
-  const [center, setCenter] = React.useState<google.maps.LatLngLiteral>({
+  const [mapCenter, setMapCenter] = React.useState<google.maps.LatLngLiteral>({
     lat: 51.32156694051315,
     lng: -0.20484525142481128,
   });
   // Marker position on map
-  const [position, setPosition] = React.useState<google.maps.LatLngLiteral>({
+  const [mapMarkerPosition, setMapMarkerPosition] = React.useState<google.maps.LatLngLiteral>({
     lat: 0,
     lng: 0,
   });
@@ -64,8 +64,8 @@ function SingleProperty() {
             property: { cords },
           },
         } = response;
-        setCenter({ lat: cords[0], lng: cords[1] });
-        setPosition({ lat: cords[0], lng: cords[1] });
+        setMapCenter({ lat: cords[0], lng: cords[1] });
+        setMapMarkerPosition({ lat: cords[0], lng: cords[1] });
         setCurrentProperty(() => property);
         setLoading(() => false);
       });
@@ -100,10 +100,7 @@ function SingleProperty() {
 
   if (currentProperty.title) gallery.render();
 
-  // cloudinary gallery
-  // @ts-ignorem
 
-  // @ts-ignore
   return loading ? (
     <div
       style={{
@@ -163,8 +160,8 @@ function SingleProperty() {
         </div>
       </PropertyList>
       <Wrapper apiKey={API}>
-        <Map center={center} zoom={12}>
-          <Marker position={position} />
+        <Map center={mapCenter} zoom={12}>
+          <Marker position={mapMarkerPosition} />
         </Map>
       </Wrapper>
     </div>

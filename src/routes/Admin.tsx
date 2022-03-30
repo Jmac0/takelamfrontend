@@ -188,10 +188,10 @@ function Admin({ pages, setIndex }: Props) {
       <div
         style={{
           backgroundColor: 'dodgerblue',
-          width: '90%',
+          width: '100%',
           display: 'grid',
-          gridGap: '1rem',
-          gridTemplateColumns: `repeat(auto-fit, minmax(26rem, 1fr))`,
+          gridGap: '.2rem',
+          gridTemplateColumns: `repeat(auto-fit, minmax(22rem, 1fr))`,
         }}
       >
         {properties.map((property: Property) => (

@@ -209,6 +209,7 @@ function PropertyForm({
               type="file"
               id="images"
               name="images"
+              data-buttonText="Your label here."
               onChange={handleImageInput}
               multiple
             />

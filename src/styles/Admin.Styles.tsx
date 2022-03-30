@@ -1,12 +1,15 @@
 import styled from 'styled-components';
 import colors from 'styles/colors';
 import { Cross } from '@styled-icons/entypo/';
+import {Warning } from '@styled-icons/fluentui-system-filled/Warning';
 
 interface Props {
   showPropertyForm: boolean;
 }
 const AdminContainer = styled.div`
   overflow-x: hidden;
+  padding: 0;
+  margin: 0 auto;
   position: relative;
   width: 100vw;
   height: 100vh;
@@ -132,11 +135,13 @@ const PropertyFormList = styled.form<Props>`
       border: 1px solid #d0c6b7;
       background: white;
       transition: 0.5s;
+      text: 'hello';
     }
 
     input[type='file']::file-selector-button:hover {
       background: ${colors.blue};
       color: ${colors.white};
+      
     }
 
     textarea {
@@ -175,6 +180,12 @@ const XIcon = styled(Cross)`
   }
 `;
 
+const WarningIcon = styled(Warning)`
+    height: 1.5rem;
+  margin-right: 0.5rem;
+  color: ${colors.tan}
+`;
+
 const Button = styled.button`
   text-transform: uppercase;
   font-weight: 300;
@@ -208,4 +219,5 @@ export {
   Button,
   XIcon,
   PropertyItem,
+  WarningIcon,
 };
