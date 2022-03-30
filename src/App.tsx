@@ -12,13 +12,12 @@ import Admin from './routes/Admin';
 import SingleProperty from './components/SingleProperty';
 
 interface Component {
-   index: string
-   _id: string
-   componentName: string
-   path: string
-   heading: string
-   bodyText: string
-
+  index: string;
+  _id: string;
+  componentName: string;
+  path: string;
+  heading: string;
+  bodyText: string;
 }
 
 export default function App() {
@@ -33,7 +32,7 @@ export default function App() {
           <Route path="/" element={<Layout path={path} />}>
             <Route index element={<LandingPage />} />
 
-            { pageContent.map((el: Component) => (
+            {pageContent.map((el: Component) => (
               <Route
                 key={el._id}
                 path={el.path}
@@ -42,9 +41,15 @@ export default function App() {
             ))}
             <Route path="contact" element={<Contact />} />
             <Route path="*" element={<NotFound />} />
+              {/* view property admin */}
             <Route path="property/:id" element={<SingleProperty />} />
+              {/* view property client */}
+            <Route path="property/view/:id" element={<SingleProperty />} />
           </Route>
-          <Route path="admin" element={<Admin pages={pageContent} setIndex={setIndex} />} />
+          <Route
+            path="admin"
+            element={<Admin pages={pageContent} setIndex={setIndex} />}
+          />
         </Routes>
       </CSSTransition>
     </TransitionGroup>

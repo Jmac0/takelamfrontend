@@ -1,7 +1,7 @@
 /* eslint-disable no-undef, @typescript-eslint/no-unused-vars, no-unused-vars */
 
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import {useLocation, useParams} from 'react-router-dom';
 import { Wrapper, Status } from '@googlemaps/react-wrapper';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -30,12 +30,18 @@ interface Property {
   description: string;
   ownership: string;
 }
+
+interface UrlParams {
+    id?: string;
+}
 function SingleProperty() {
   const API = process.env.REACT_APP_GOOGLE_API as string;
   // Get current property from url params
   const propertyUrlId = useParams();
+  const location = useLocation()
+
   // Property id from url param object
-  const [urlPram, setUrlParam] = useState(propertyUrlId.id);
+  let [urlPram] = useState(propertyUrlId.id);
   const [loading, setLoading] = useToggleState(true);
   // State to hold current property data
   // @ts-ignore
@@ -51,9 +57,21 @@ function SingleProperty() {
     lat: 0,
     lng: 0,
   });
+
   useEffect(() => {
+// set path for admin property view
+      let path = `http://localhost:8000/api/v1/properties`
+      // set path for client property view
+      if(location.pathname.includes('view')){
+
+       urlPram = encodeURIComponent(urlPram as string);
+          path = `http://localhost:8000/api/v1/properties/client`
+      }
+
+
+
     axios
-      .get(`http://localhost:8000/api/v1/properties/${urlPram}`)
+      .get(`${path}/${urlPram}`)
       .then((response) => {
         const {
           data: { property },
@@ -75,7 +93,6 @@ function SingleProperty() {
       setCenter({lat: currentProperty.cords[0], lng: currentProperty.cords[1] })
       setPosition({lat: currentProperty.cords[0], lng: currentProperty.cords[1] })
 */
-
   const gallery = cloudinary.galleryWidget({
     container: '#my-gallery',
     cloudName: 'takelam',
