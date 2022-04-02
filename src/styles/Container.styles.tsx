@@ -25,7 +25,8 @@ const Container = styled.div<Props>`
   width: 100vw;
   /*changed to auto from 100vh?*/
 
-  height: -webkit-fill-available;
+  height: 100vh;
+  min-height: -webkit-fill-available;
 @media screen and (min-width: 850px){
 
   grid-template-rows: 18rem min-content 1fr;

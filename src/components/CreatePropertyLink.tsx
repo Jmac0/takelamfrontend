@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import baseUrl from 'utils/urls';
 import { Button } from '../styles/Admin.Styles';
 
 interface Props {
@@ -11,7 +12,7 @@ function CreatePropertyLink({ id }: Props) {
   const [copied, setCopied] = useState(false);
   const createLink = async () => {
     await axios
-      .get(`http://localhost:8000/api/v1/link/${id}`)
+      .get(`${baseUrl}/link/${id}`)
       .then((response) => {
         const {
           data: { link },

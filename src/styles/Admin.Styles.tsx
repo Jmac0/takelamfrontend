@@ -1,24 +1,57 @@
 import styled from 'styled-components';
 import colors from 'styles/colors';
 import { Cross } from '@styled-icons/entypo/';
-import {Warning } from '@styled-icons/fluentui-system-filled/Warning';
+import { Warning } from '@styled-icons/fluentui-system-filled/Warning';
 
 interface Props {
   showPropertyForm: boolean;
+  onSubmit: any;
 }
 const AdminContainer = styled.div`
+  //position: relative;
   overflow-x: hidden;
-  padding: 0;
-  margin: 0 auto;
-  position: relative;
-  width: 100vw;
   height: 100vh;
-  background-color: gainsboro;
+  width: 100%;
+  margin: 0;
+  /* mobile viewport bug fix */
+  display: grid;
+  grid-gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(22.5rem, 1fr));
+  justify-content: center;
+  min-height: -webkit-fill-available;
+
+`;
+
+const AdminMenu = styled.div`
+  display: grid;
+  position: relative;
+  padding: 0 2rem 0 2rem;
+  grid-template-areas: 
+"logo nav side";
+  grid-template-columns: repeat(1fr);
+  align-items:center;
+  border-bottom: 3px solid ${colors.tan};
+  background-color: ${colors.blue};
+  
+  .logo {
+    grid-area: logo;
+    color: ${colors.tan};
+  }
+  
+  h1{ grid-area: nav;
+    color: ${colors.tan};
+    transition: all 0.5s;
+    &:hover {
+      
+      color: white;
+    }
+  }
+  
 `;
 /* List in admin, an item component for each page of
  site */
 const PageItem = styled.div`
-  display: flex;
+  display: none;
   flex-direction: row;
   align-items: center;
   justify-content: center;
@@ -39,15 +72,12 @@ const PropertyItem = styled.div`
   justify-content: center;
   align-content: space-between;
   padding: 1rem;
-  width: 20rem;
+  width: .7fr;
   height: 13rem;
   background-color: ${colors.blue};
-  border: 5px solid ${colors.tan};
-
-  h1 {
-    color: white;
-  }
+  border: 5px solid ${colors.tan}
 `;
+
 const EditButton = styled.button`
   width: 30%;
   margin: 1rem;
@@ -70,16 +100,14 @@ const PropertyFormList = styled.form<Props>`
   flex-direction: column;
   flex-wrap: wrap;
   justify-content: center;
-  border-radius: 30px;
-  border: 5px solid ${colors.blue};
   height: auto;
-  width: 80vw;
+  width: 100vw;
   position: absolute;
   top: 0;
   left: 0;
   align-self: center;
   justify-self: center;
-  padding: 3rem;
+  padding: 1rem;
   background-color: ${colors.tan};
 
   h1 {
@@ -135,13 +163,11 @@ const PropertyFormList = styled.form<Props>`
       border: 1px solid #d0c6b7;
       background: white;
       transition: 0.5s;
-      text: 'hello';
     }
 
     input[type='file']::file-selector-button:hover {
       background: ${colors.blue};
       color: ${colors.white};
-      
     }
 
     textarea {
@@ -169,8 +195,8 @@ const PropertyFormList = styled.form<Props>`
 /* close popup icon */
 const XIcon = styled(Cross)`
   position: absolute;
-  top: 1.5rem;
-  left: 3rem;
+  top: .5rem;
+  left: 1rem;
   margin-top: 1rem;
   color: ${colors.blue};
   width: 60px;
@@ -181,26 +207,27 @@ const XIcon = styled(Cross)`
 `;
 
 const WarningIcon = styled(Warning)`
-    height: 1.5rem;
+  height: 1.5rem;
   margin-right: 0.5rem;
-  color: ${colors.tan}
+  color: ${colors.tan};
 `;
 
 const Button = styled.button`
   text-transform: uppercase;
+  padding: 0 1rem 0 1rem ;
   font-weight: 300;
   color: ${colors.blue};
   font-size: 1rem;
   font-family: 'Lato', sans-serif;
   letter-spacing: 0.1em;
   border-radius: 6px;
-  width: 100px;
+  width: auto;
   height: 40px;
   margin: 5px 0 0 0;
   border: 1px solid #d0c6b7;
   background: white;
 
-  transition: 1s;
+  transition: .5s;
   &:hover {
     background: ${colors.blue};
     color: ${colors.white};
@@ -220,4 +247,5 @@ export {
   XIcon,
   PropertyItem,
   WarningIcon,
+  AdminMenu,
 };

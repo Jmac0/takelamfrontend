@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Property } from 'interfaces';
-import { AdminContainer, Button } from '../styles/Admin.Styles';
+import baseUrl from 'utils/urls';
+import { AdminContainer, AdminMenu, Button } from '../styles/Admin.Styles';
 import PageListItem from '../components/PageListItem';
 import TextEditor from '../components/TextEditor';
 import PropertyForm from '../components/PropertyForm';
-import { fetchProperties } from '../hooks/fetchProperties';
+import fetchProperties from '../hooks/fetchProperties';
 import PropertyListItem from '../components/PropertyListItem';
 
 interface Props {
@@ -37,6 +38,8 @@ function Admin({ pages, setIndex }: Props) {
   const [editing, setEditing] = useState<boolean>(false);
   /* status of page update */
   const [success, setSuccess] = useState<boolean>(false);
+  /* loading boolean */
+    const [loading, setLoading] = useState<string>('')
   /* show or hide property form */
   const [showPropertyForm, setShowPropertyForm] = useState<boolean>(false);
   /* show different button in property form for
@@ -51,10 +54,11 @@ function Admin({ pages, setIndex }: Props) {
     setPageContent(content);
     setEditing(true);
   };
+
   const savePage = async (id: any, heading: any, bodyText: any) => {
     await axios
       .patch(
-        `http://192.168.0.14.:8000/api/v1/content/${id}`,
+        `${baseUrl}/content/${id}`,
 
         {
           heading,
@@ -78,13 +82,12 @@ function Admin({ pages, setIndex }: Props) {
       })
       .catch(() => setErr('Page not saved'));
   };
-
   const createProperty = async (data: Property) => {
     // @ts-ignore
     // eslint-disable-next-line no-param-reassign
     delete data._id;
     await axios
-      .post(`http://192.168.0.14:8000/api/v1/properties`, data, {
+      .post(`${baseUrl}/properties`, data, {
         headers: { 'Content-type': 'application/json' },
       })
       .then((response) => {
@@ -93,45 +96,42 @@ function Admin({ pages, setIndex }: Props) {
           setPropertyIndex((cur: number) => cur + 1);
         }
       })
-      .catch((err) => console.log(err.response.data));
+      .catch((err) => setErr(err.response.data.message));
   };
-
   const updateProperty = async (id: string, body: any, images: string) => {
-    console.log(body);
+      setLoading('SAVING');
     const data = new FormData();
-      Object.values(images).forEach((file) => {
+    Object.values(images).forEach((file) => {
       data.append('images', file);
     });
-      Object.entries(body).forEach(([key, value]) => {
-          data.append(`${key}`,  `${value}`)
-      });
+    Object.entries(body).forEach(([key, value]) => {
+      data.append(`${key}`, `${value}`);
+    });
     await axios
       .patch(
-        `http://192.168.0.14:8000/api/v1/properties/${id}`,
+        `${baseUrl}/properties/${id}`,
 
         data,
       )
       .then((response) => {
         if (response.status === 200) {
-          console.log(response);
+            console.log(response);
           setPropertyIndex((cur: number) => cur + 1);
-        }
-        console.log(response);
-      });
-  };
+          setErr('');
+          setLoading('');
 
+        }
+      }).catch(err => setErr(err.response.data.message));
+  };
   const deleteProperty = async (id: string) => {
-    await axios
-      .delete(`http://192.168.0.24:8000/api/v1/properties/${id}`)
-      .then((response) => {
-        if (response.status === 204) {
-          console.log(response);
-          setPropertyIndex((cur: number) => cur + 1);
-        }
+    await axios.delete(`${baseUrl}/properties/${id}`).then((response) => {
+      if (response.status === 204) {
         console.log(response);
-      });
+        setPropertyIndex((cur: number) => cur + 1);
+      }
+      console.log(response);
+    });
   };
-
   /* Open property form with POST method, will set empty form */
   const handleOpenPropertyForm = (useMethod: string) => {
     /* show/hide property form */
@@ -139,6 +139,7 @@ function Admin({ pages, setIndex }: Props) {
     /* show different button in form depending on
          method */
     setRequestMethod(useMethod);
+    setLoading('');
   };
   /* open form, set current property id & request
    method */
@@ -153,21 +154,39 @@ function Admin({ pages, setIndex }: Props) {
   const handleFormClosed = () => {
     setRequestMethod('');
     setShowPropertyForm(false);
+    setLoading('')
   };
+  // @ts-ignore
 
-  // @ts-ignore
-  // @ts-ignore
   return (
-    <AdminContainer>
-      <PropertyForm
+      <div style={{overflowX: 'hidden'}}>
+        <AdminMenu>
+            <h1 className="logo">ADMIN</h1>
+<div style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly'}}>
+            <h1>Pages</h1>
+            <h1>Properties</h1>
+</div>
+        </AdminMenu>
+          {/* button to create new property */}
+          <div style={{flexDirection: 'row', marginBottom: '1rem', justifyContent: 'center', display: `${showPropertyForm ? 'none': 'flex'}`}}>
+
+              <Button type="button" onClick={() => handleOpenPropertyForm('POST')}>
+                  Create New Property
+              </Button>
+          </div>
+
+          <AdminContainer>
+
+              <PropertyForm
         showPropertyForm={showPropertyForm}
         handleFormClosed={handleFormClosed}
         requestMethod={requestMethod}
         currentProperty={currentProperty as Property}
         createProperty={createProperty}
         updateProperty={updateProperty}
+        error={error}
+        loading={loading}
       />
-      <h1>ADMIN</h1>
       {/* show list of pages */}
 
       {pages.map((page: Page) => (
@@ -181,19 +200,6 @@ function Admin({ pages, setIndex }: Props) {
         />
       ))}
 
-
-      <Button type="button" onClick={() => handleOpenPropertyForm('POST')}>
-        Create New
-      </Button>
-      <div
-        style={{
-          backgroundColor: 'dodgerblue',
-          width: '100%',
-          display: 'grid',
-          gridGap: '.2rem',
-          gridTemplateColumns: `repeat(auto-fit, minmax(22rem, 1fr))`,
-        }}
-      >
         {properties.map((property: Property) => (
           <PropertyListItem
             key={property._id}
@@ -203,7 +209,6 @@ function Admin({ pages, setIndex }: Props) {
             deleteProperty={deleteProperty}
           />
         ))}
-      </div>
       {editing && (
         <TextEditor
           pageId={pageId}
@@ -217,6 +222,7 @@ function Admin({ pages, setIndex }: Props) {
         />
       )}
     </AdminContainer>
+      </div>
   );
 }
 

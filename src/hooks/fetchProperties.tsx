@@ -1,18 +1,16 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Property } from '../interfaces';
+import baseUrl from 'utils/urls';
 
-
-function fetchProperties(initialState: []) {
+export default function fetchProperties(initialState: []) {
   const [propertyData, setPropertyData] = useState<any>(initialState);
   const [propertyIndex, setPropertyIndex] = useState<number>(0);
-  console.log(`CALLED: ${  propertyIndex}`)
 
   // @ts-ignore
   useEffect(() => {
     async function getProperties(): Promise<void> {
       await axios
-        .get('http://localhost:8000/api/v1/properties')
+        .get(`${baseUrl}/properties`)
         .then((res) => {
           const {
             data: { properties },
@@ -30,4 +28,3 @@ function fetchProperties(initialState: []) {
 }
 
 
-export { fetchProperties };

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import baseUrl from 'utils/urls';
 
 function FetchContent(initialState: []) {
   const [state, setState] = useState<any>(initialState);
@@ -9,7 +10,7 @@ function FetchContent(initialState: []) {
   useEffect(() => {
     async function getContent(): Promise<void> {
       await axios
-        .get('http://localhost:8000/api/v1/content')
+        .get(`${baseUrl}/content`)
         .then((res) => {
           const {
             data: { content },

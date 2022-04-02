@@ -1,9 +1,10 @@
 /* eslint-disable no-undef, @typescript-eslint/no-unused-vars, no-unused-vars */
 
 import React, { useState, useEffect } from 'react';
-import {useLocation, useParams} from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { Wrapper, Status } from '@googlemaps/react-wrapper';
 import axios from 'axios';
+import baseUrl from 'utils/urls';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faBed,
@@ -32,13 +33,13 @@ interface Property {
 }
 
 interface UrlParams {
-    id?: string;
+  id?: string;
 }
 function SingleProperty() {
   const API = process.env.REACT_APP_GOOGLE_API as string;
   // Get current property from url params
   const propertyUrlId = useParams();
-  const location = useLocation()
+  const location = useLocation();
 
   // Property id from url param object
   let [urlPram] = useState(propertyUrlId.id);
@@ -53,40 +54,38 @@ function SingleProperty() {
     lng: -0.20484525142481128,
   });
   // Marker position on map
-  const [mapMarkerPosition, setMapMarkerPosition] = React.useState<google.maps.LatLngLiteral>({
-    lat: 0,
-    lng: 0,
-  });
+  const [mapMarkerPosition, setMapMarkerPosition] =
+    React.useState<google.maps.LatLngLiteral>({
+      lat: 0,
+      lng: 0,
+    });
+
 
   useEffect(() => {
-// set path for admin property view
-      let path = `http://localhost:8000/api/v1/properties`
-      // set path for client property view
-      if(location.pathname.includes('view')){
+    // set path for admin property view
+    let path = `${baseUrl}/properties`;
+    // set path for client property view
+    if (location.pathname.includes('view')) {
+      // re-encode url param as browser ads slashes back in
+      urlPram = encodeURIComponent(urlPram as string);
+      path = `${baseUrl}/properties/client`;
+    }
 
-       urlPram = encodeURIComponent(urlPram as string);
-          path = `http://localhost:8000/api/v1/properties/client`
-      }
+    axios.get(`${path}/${urlPram}`).then((response) => {
+      const {
+        data: { property },
+      } = response;
 
-
-
-    axios
-      .get(`${path}/${urlPram}`)
-      .then((response) => {
-        const {
-          data: { property },
-        } = response;
-
-        const {
-          data: {
-            property: { cords },
-          },
-        } = response;
-        setMapCenter({ lat: cords[0], lng: cords[1] });
-        setMapMarkerPosition({ lat: cords[0], lng: cords[1] });
-        setCurrentProperty(() => property);
-        setLoading(() => false);
-      });
+      const {
+        data: {
+          property: { cords },
+        },
+      } = response;
+      setMapCenter({ lat: cords[0], lng: cords[1] });
+      setMapMarkerPosition({ lat: cords[0], lng: cords[1] });
+      setCurrentProperty(() => property);
+      setLoading(() => false);
+    });
   }, [urlPram]);
 
   /*
@@ -116,7 +115,6 @@ function SingleProperty() {
   });
 
   if (currentProperty.title) gallery.render();
-
 
   return loading ? (
     <div
