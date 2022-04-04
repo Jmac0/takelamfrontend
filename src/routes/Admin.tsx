@@ -8,6 +8,7 @@ import TextEditor from '../components/TextEditor';
 import PropertyForm from '../components/PropertyForm';
 import fetchProperties from '../hooks/fetchProperties';
 import PropertyListItem from '../components/PropertyListItem';
+import useToggleState from '../hooks/useToggleState';
 
 interface Props {
   pages: [];
@@ -38,8 +39,13 @@ function Admin({ pages, setIndex }: Props) {
   const [editing, setEditing] = useState<boolean>(false);
   /* status of page update */
   const [success, setSuccess] = useState<boolean>(false);
+
+  /* show property or pages items in admin */
+
+  const [showPropertiesOrPages, setShowPropertiesOrPages] =
+    useState('properties');
   /* loading boolean */
-    const [loading, setLoading] = useState<string>('')
+  const [loading, setLoading] = useState<string>('');
   /* show or hide property form */
   const [showPropertyForm, setShowPropertyForm] = useState<boolean>(false);
   /* show different button in property form for
@@ -99,7 +105,7 @@ function Admin({ pages, setIndex }: Props) {
       .catch((err) => setErr(err.response.data.message));
   };
   const updateProperty = async (id: string, body: any, images: string) => {
-      setLoading('SAVING');
+    setLoading('SAVING');
     const data = new FormData();
     Object.values(images).forEach((file) => {
       data.append('images', file);
@@ -115,13 +121,13 @@ function Admin({ pages, setIndex }: Props) {
       )
       .then((response) => {
         if (response.status === 200) {
-            console.log(response);
+          console.log(response);
           setPropertyIndex((cur: number) => cur + 1);
           setErr('');
           setLoading('');
-
         }
-      }).catch(err => setErr(err.response.data.message));
+      })
+      .catch((err) => setErr(err.response.data.message));
   };
   const deleteProperty = async (id: string) => {
     await axios.delete(`${baseUrl}/properties/${id}`).then((response) => {
@@ -154,54 +160,63 @@ function Admin({ pages, setIndex }: Props) {
   const handleFormClosed = () => {
     setRequestMethod('');
     setShowPropertyForm(false);
-    setLoading('')
+    setLoading('');
   };
   // @ts-ignore
 
   return (
-      <div style={{overflowX: 'hidden'}}>
-        <AdminMenu>
-            <h1 className="logo">ADMIN</h1>
-<div style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly'}}>
-            <h1>Pages</h1>
-            <h1>Properties</h1>
-</div>
-        </AdminMenu>
-          {/* button to create new property */}
-          <div style={{flexDirection: 'row', marginBottom: '1rem', justifyContent: 'center', display: `${showPropertyForm ? 'none': 'flex'}`}}>
+    <div style={{ overflowX: 'hidden' }}>
+      <AdminMenu>
+        <h1 className="logo">ADMIN</h1>
+        <div style={{gridArea: "side"}}
+        >
+            {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */}
+          <Button type="button" onClick={() => setShowPropertiesOrPages('properties')}> Properties</Button>
+            <Button type="button" onClick={() => setShowPropertiesOrPages('pages')}>Pages</Button>
+        </div>
+      </AdminMenu>
+      {/* button to create new property */}
+      <div
+        style={{
+          flexDirection: 'row',
+          marginBottom: '1rem',
+          justifyContent: 'center',
+          display: `${showPropertyForm ? 'none' : 'flex'}`,
+        }}
+      >
+        <Button type="button" onClick={() => handleOpenPropertyForm('POST')}>
+          Create New Property
+        </Button>
+      </div>
 
-              <Button type="button" onClick={() => handleOpenPropertyForm('POST')}>
-                  Create New Property
-              </Button>
-          </div>
-
-          <AdminContainer>
-
-              <PropertyForm
-        showPropertyForm={showPropertyForm}
-        handleFormClosed={handleFormClosed}
-        requestMethod={requestMethod}
-        currentProperty={currentProperty as Property}
-        createProperty={createProperty}
-        updateProperty={updateProperty}
-        error={error}
-        loading={loading}
-      />
-      {/* show list of pages */}
-
-      {pages.map((page: Page) => (
-        <PageListItem
-          key={page._id}
-          id={page._id}
-          pageTitle={page.heading}
-          componentName={page.componentName}
-          pageContent={page.bodyText}
-          editPage={editPage}
+      <AdminContainer>
+        <PropertyForm
+          showPropertyForm={showPropertyForm}
+          handleFormClosed={handleFormClosed}
+          requestMethod={requestMethod}
+          currentProperty={currentProperty as Property}
+          createProperty={createProperty}
+          updateProperty={updateProperty}
+          error={error}
+          loading={loading}
         />
-      ))}
+        {/* show list of pages */}
+
+        {pages.map((page: Page) => (
+          <PageListItem
+            showPropertiesOrPages={showPropertiesOrPages}
+            key={page._id}
+            id={page._id}
+            pageTitle={page.heading}
+            componentName={page.componentName}
+            pageContent={page.bodyText}
+            editPage={editPage}
+          />
+        ))}
 
         {properties.map((property: Property) => (
           <PropertyListItem
+            showPropertiesOrPages={showPropertiesOrPages}
             key={property._id}
             id={property._id}
             title={property.title}
@@ -209,20 +224,20 @@ function Admin({ pages, setIndex }: Props) {
             deleteProperty={deleteProperty}
           />
         ))}
-      {editing && (
-        <TextEditor
-          pageId={pageId}
-          pageTitle={pageTitle}
-          pageContent={pageContent}
-          savePage={savePage}
-          isEditing={setEditing}
-          setSuccess={setSuccess}
-          success={success}
-          error={error}
-        />
-      )}
-    </AdminContainer>
-      </div>
+        {editing && (
+          <TextEditor
+            pageId={pageId}
+            pageTitle={pageTitle}
+            pageContent={pageContent}
+            savePage={savePage}
+            isEditing={setEditing}
+            setSuccess={setSuccess}
+            success={success}
+            error={error}
+          />
+        )}
+      </AdminContainer>
+    </div>
   );
 }
 

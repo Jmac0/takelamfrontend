@@ -4,16 +4,18 @@ import { Cross } from '@styled-icons/entypo/';
 import { Warning } from '@styled-icons/fluentui-system-filled/Warning';
 
 interface Props {
-  showPropertyForm: boolean;
-  onSubmit: any;
+  showPropertyForm?: boolean;
+  onSubmit?: any;
+  showPropertiesOrPages?: string
 }
 const AdminContainer = styled.div`
   //position: relative;
-  overflow-x: hidden;
   height: 100vh;
-  width: 100%;
+  width: 100vw;
+  padding: 1rem;
   margin: 0;
   /* mobile viewport bug fix */
+  box-sizing:border-box;
   display: grid;
   grid-gap: 1rem;
   grid-template-columns: repeat(auto-fit, minmax(22.5rem, 1fr));
@@ -24,11 +26,11 @@ const AdminContainer = styled.div`
 
 const AdminMenu = styled.div`
   display: grid;
-  position: relative;
+  text-align: center;
   padding: 0 2rem 0 2rem;
   grid-template-areas: 
 "logo nav side";
-  grid-template-columns: repeat(1fr);
+  grid-template-columns: auto 1fr auto;
   align-items:center;
   border-bottom: 3px solid ${colors.tan};
   background-color: ${colors.blue};
@@ -38,20 +40,24 @@ const AdminMenu = styled.div`
     color: ${colors.tan};
   }
   
-  h1{ grid-area: nav;
-    color: ${colors.tan};
+ button{ 
+   grid-area: side;
+   background-color: transparent;
+   border: none;
+   font-size: 1.2rem;
+   color: ${colors.tan};
     transition: all 0.5s;
     &:hover {
-      
       color: white;
+      text-decoration: underline;
     }
   }
   
 `;
 /* List in admin, an item component for each page of
  site */
-const PageItem = styled.div`
-  display: none;
+const PageItem = styled.div<Props>`
+  display: ${(props) => (props.showPropertiesOrPages === 'pages' ? 'flex' : 'none')};
   flex-direction: row;
   align-items: center;
   justify-content: center;
@@ -64,8 +70,8 @@ const PageItem = styled.div`
   border: 5px solid ${colors.tan};
 `;
 /* List item in admin, for each property in the DB */
-const PropertyItem = styled.div`
-  display: flex;
+const PropertyItem = styled.div<Props>`
+  display: ${(props) => (props.showPropertiesOrPages === 'properties' ? 'flex' : 'none')};
   border-radius: 15px;
   flex-direction: column;
   align-items: center;

@@ -8,14 +8,15 @@ interface Props {
   title: string;
   editProperty: (_id: string) => void;
   deleteProperty: (_id: string) => void;
+  showPropertiesOrPages: string;
 }
-function PropertyListItem({ id, title, editProperty, deleteProperty }: Props) {
+function PropertyListItem({ id, title, editProperty, deleteProperty, showPropertiesOrPages }: Props) {
   const [isChecked, setIsChecked] = useState(false);
   const handleCheck = () => {
     setIsChecked(!isChecked);
   };
   return (
-    <PropertyItem>
+    <PropertyItem showPropertiesOrPages={showPropertiesOrPages}>
       <h1>
         <NavElement target="blank" to={`/property/${id}`}>
           {title}

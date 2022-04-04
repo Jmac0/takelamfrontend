@@ -6,6 +6,7 @@ interface Props {
   id: string;
   pageTitle: string;
   pageContent: string;
+  showPropertiesOrPages: string;
     // eslint-disable-next-line no-unused-vars
   editPage: (arg1: string, arg2: string, arg3: string) => void;
 
@@ -13,7 +14,7 @@ interface Props {
 /* Simple component. This is a list item for each page
  with an edit button */
 function PageListItem({
-  componentName, id, pageTitle, pageContent, editPage,
+  componentName, id, pageTitle, pageContent, editPage, showPropertiesOrPages
 }: Props) {
   const handleEdit = () => {
     // function to open TextEditor in Admin component
@@ -21,7 +22,7 @@ function PageListItem({
   };
 
   return (
-    <PageItem>
+    <PageItem showPropertiesOrPages={showPropertiesOrPages}>
       <p>{componentName}</p>
       <EditButton type="submit" onClick={handleEdit}>
         EDIT
