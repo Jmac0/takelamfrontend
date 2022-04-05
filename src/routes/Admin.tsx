@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Property } from 'interfaces';
 import baseUrl from 'utils/urls';
+import ButtonLoading from '../components/ButtonLoading'
 import { AdminContainer, AdminMenu, Button } from '../styles/Admin.Styles';
 import PageListItem from '../components/PageListItem';
 import TextEditor from '../components/TextEditor';
 import PropertyForm from '../components/PropertyForm';
 import fetchProperties from '../hooks/fetchProperties';
 import PropertyListItem from '../components/PropertyListItem';
-import useToggleState from '../hooks/useToggleState';
 
 interface Props {
   pages: [];
@@ -45,7 +45,7 @@ function Admin({ pages, setIndex }: Props) {
   const [showPropertiesOrPages, setShowPropertiesOrPages] =
     useState('properties');
   /* loading boolean */
-  const [loading, setLoading] = useState<string>('');
+  const [loading, setLoading] = useState<boolean>(false);
   /* show or hide property form */
   const [showPropertyForm, setShowPropertyForm] = useState<boolean>(false);
   /* show different button in property form for
@@ -89,6 +89,7 @@ function Admin({ pages, setIndex }: Props) {
       .catch(() => setErr('Page not saved'));
   };
   const createProperty = async (data: Property) => {
+      setLoading(true)
     // @ts-ignore
     // eslint-disable-next-line no-param-reassign
     delete data._id;
@@ -100,12 +101,13 @@ function Admin({ pages, setIndex }: Props) {
         console.log(data);
         if (response.status === 201) {
           setPropertyIndex((cur: number) => cur + 1);
+          setLoading(false);
         }
       })
       .catch((err) => setErr(err.response.data.message));
   };
   const updateProperty = async (id: string, body: any, images: string) => {
-    setLoading('SAVING');
+    setLoading(true);
     const data = new FormData();
     Object.values(images).forEach((file) => {
       data.append('images', file);
@@ -120,11 +122,11 @@ function Admin({ pages, setIndex }: Props) {
         data,
       )
       .then((response) => {
-        if (response.status === 200) {
+        if (response.status === 204) {
           console.log(response);
           setPropertyIndex((cur: number) => cur + 1);
           setErr('');
-          setLoading('');
+          setLoading(false);
         }
       })
       .catch((err) => setErr(err.response.data.message));
@@ -145,7 +147,7 @@ function Admin({ pages, setIndex }: Props) {
     /* show different button in form depending on
          method */
     setRequestMethod(useMethod);
-    setLoading('');
+    setLoading(false);
   };
   /* open form, set current property id & request
    method */
@@ -160,7 +162,7 @@ function Admin({ pages, setIndex }: Props) {
   const handleFormClosed = () => {
     setRequestMethod('');
     setShowPropertyForm(false);
-    setLoading('');
+    setLoading(false);
   };
   // @ts-ignore
 
@@ -168,11 +170,21 @@ function Admin({ pages, setIndex }: Props) {
     <div style={{ overflowX: 'hidden' }}>
       <AdminMenu>
         <h1 className="logo">ADMIN</h1>
-        <div style={{gridArea: "side"}}
-        >
-            {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */}
-          <Button type="button" onClick={() => setShowPropertiesOrPages('properties')}> Properties</Button>
-            <Button type="button" onClick={() => setShowPropertiesOrPages('pages')}>Pages</Button>
+        <div style={{ gridArea: 'side' }}>
+          {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */}
+          <Button
+            type="button"
+            onClick={() => setShowPropertiesOrPages('properties')}
+          >
+            {' '}
+            Properties
+          </Button>
+          <Button
+            type="button"
+            onClick={() => setShowPropertiesOrPages('pages')}
+          >
+            Pages
+          </Button>
         </div>
       </AdminMenu>
       {/* button to create new property */}
@@ -187,10 +199,11 @@ function Admin({ pages, setIndex }: Props) {
         <Button type="button" onClick={() => handleOpenPropertyForm('POST')}>
           Create New Property
         </Button>
+
       </div>
 
-      <AdminContainer>
-        <PropertyForm
+        <AdminContainer>
+            <PropertyForm
           showPropertyForm={showPropertyForm}
           handleFormClosed={handleFormClosed}
           requestMethod={requestMethod}
@@ -240,5 +253,4 @@ function Admin({ pages, setIndex }: Props) {
     </div>
   );
 }
-
 export default Admin;

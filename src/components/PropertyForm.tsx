@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import ButtonLoader from 'components/ButtonLoading'
 import { Property } from '../interfaces';
-import { PropertyFormList, Button, XIcon } from '../styles/Admin.Styles';
+import { PropertyFormList, XIcon } from '../styles/Admin.Styles';
 
 interface Props {
   showPropertyForm: boolean;
@@ -10,7 +11,7 @@ interface Props {
   createProperty: (_data: Property) => void;
   updateProperty: (_id: string, _form: Property, _images: string) => void;
   error: string;
-  loading: string;
+  loading: boolean;
 }
 
 // eslint-disable-next-line react/prop-types
@@ -204,11 +205,10 @@ function PropertyForm({
       </div>
 
       <p style={{display: `${!error && 'none'}`}}>{error}</p>
-      <p style={{display: `${!loading && 'none'}`}}>{loading}</p>
 
       {requestMethod === 'POST' ? (
         <div style={{ justifyContent: 'center' }}>
-          <Button type="submit">Create</Button>
+            <ButtonLoader loading={loading}>Create</ButtonLoader>
         </div>
       ) : (
         <div
@@ -220,9 +220,7 @@ function PropertyForm({
             alignContent: 'center',
           }}
         >
-          <Button style={{ width: '10rem', marginRight: '1rem' }} type="submit">
-            Save
-          </Button>
+            <ButtonLoader loading={loading}>Save</ButtonLoader>
 
           <input
             style={{

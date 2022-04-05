@@ -6,7 +6,7 @@ import { Warning } from '@styled-icons/fluentui-system-filled/Warning';
 interface Props {
   showPropertyForm?: boolean;
   onSubmit?: any;
-  showPropertiesOrPages?: string
+  showPropertiesOrPages?: string;
 }
 const AdminContainer = styled.div`
   //position: relative;
@@ -15,49 +15,48 @@ const AdminContainer = styled.div`
   padding: 1rem;
   margin: 0;
   /* mobile viewport bug fix */
-  box-sizing:border-box;
+  box-sizing: border-box;
   display: grid;
   grid-gap: 1rem;
   grid-template-columns: repeat(auto-fit, minmax(22.5rem, 1fr));
   justify-content: center;
   min-height: -webkit-fill-available;
-
 `;
 
 const AdminMenu = styled.div`
   display: grid;
   text-align: center;
   padding: 0 2rem 0 2rem;
-  grid-template-areas: 
-"logo nav side";
+  grid-template-areas: 'logo nav side';
   grid-template-columns: auto 1fr auto;
-  align-items:center;
+  align-items: center;
   border-bottom: 3px solid ${colors.tan};
   background-color: ${colors.blue};
-  
+
   .logo {
     grid-area: logo;
     color: ${colors.tan};
   }
-  
- button{ 
-   grid-area: side;
-   background-color: transparent;
-   border: none;
-   font-size: 1.2rem;
-   color: ${colors.tan};
+
+  button {
+    grid-area: side;
+    background-color: transparent;
+    border: none;
+    font-size: 1.2rem;
+    color: ${colors.tan};
     transition: all 0.5s;
     &:hover {
       color: white;
       text-decoration: underline;
     }
   }
-  
 `;
+
 /* List in admin, an item component for each page of
  site */
 const PageItem = styled.div<Props>`
-  display: ${(props) => (props.showPropertiesOrPages === 'pages' ? 'flex' : 'none')};
+  display: ${(props) =>
+    props.showPropertiesOrPages === 'pages' ? 'flex' : 'none'};
   flex-direction: row;
   align-items: center;
   justify-content: center;
@@ -71,17 +70,22 @@ const PageItem = styled.div<Props>`
 `;
 /* List item in admin, for each property in the DB */
 const PropertyItem = styled.div<Props>`
-  display: ${(props) => (props.showPropertiesOrPages === 'properties' ? 'flex' : 'none')};
+  display: ${(props) =>
+    props.showPropertiesOrPages === 'properties' ? 'flex' : 'none'};
   border-radius: 15px;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   align-content: space-between;
   padding: 1rem;
-  width: .7fr;
+  width: 0.7fr;
   height: 13rem;
-  background-color: ${colors.blue};
-  border: 5px solid ${colors.tan}
+  background-color: ${colors.tan};
+  border: 5px solid ${colors.blue};
+  a{
+    color: ${colors.blue}
+  }
+  
 `;
 
 const EditButton = styled.button`
@@ -198,10 +202,31 @@ const PropertyFormList = styled.form<Props>`
     }
   }
 `;
+
+const Loader = styled.span`
+
+  border: 4px solid rgba(255, 255, 255, 0.2);
+  border-left: 4px solid;
+  animation: load 1s infinite linear;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+
+
+  @keyframes load {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+`;
 /* close popup icon */
 const XIcon = styled(Cross)`
   position: absolute;
-  top: .5rem;
+  top: 0.5rem;
   left: 1rem;
   margin-top: 1rem;
   color: ${colors.blue};
@@ -212,38 +237,89 @@ const XIcon = styled(Cross)`
   }
 `;
 
+const Button = styled.button`
+
+  text-transform: uppercase;
+  min-width: 200px;
+  padding: 1rem 2rem;
+  background: ${colors.white};
+  outline: 1px solid ${colors.blue};
+  color: ${colors.blue};
+  font-weight: 300;
+  font-family: sans-serif;
+  letter-spacing: 0.1em;
+  margin: 5px 0 0 0;
+  font-size: 16px;
+  border-radius: 6px;
+  transition: 0.5s;
+
+  > span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+  }
+    &:hover {
+      background: ${colors.blue};
+      color: ${colors.white};
+    }
+
+    &:disabled {
+      background-color: gray;
+      color: lightgrey;
+    }
+`;
+
+
 const WarningIcon = styled(Warning)`
   height: 1.5rem;
   margin-right: 0.5rem;
   color: ${colors.tan};
 `;
 
-const Button = styled.button`
-  text-transform: uppercase;
-  padding: 0 1rem 0 1rem ;
-  font-weight: 300;
-  color: ${colors.blue};
-  font-size: 1rem;
-  font-family: 'Lato', sans-serif;
-  letter-spacing: 0.1em;
-  border-radius: 6px;
-  width: auto;
-  height: 40px;
-  margin: 5px 0 0 0;
-  border: 1px solid #d0c6b7;
-  background: white;
 
-  transition: .5s;
-  &:hover {
-    background: ${colors.blue};
-    color: ${colors.white};
+/*
+const LoadingIcon = styled.div`
+  border: 4px solid rgba(255, 255, 255, 0.2);
+  border-left: 4px solid;
+  animation: load 1s infinite linear;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+
+  @keyframes load {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
   }
 
-  &:disabled {
-    background-color: gray;
-    color: lightgrey;
-  }
+
 `;
+*/
+
+/*
+const ButtonWithLoadingIcon = styled.button`
+  padding: 1rem 2rem;
+  font-size: 16px;
+  color: #ffffff;
+  font-weight: 600;
+  border-radius: 6px;
+  background-color: #2080df;
+
+  div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+  }
+
+`;
+*/
 export {
   AdminContainer,
   PageItem,
@@ -254,4 +330,7 @@ export {
   PropertyItem,
   WarningIcon,
   AdminMenu,
+  Loader
+ // LoadingIcon,
+ // ButtonWithLoadingIcon
 };

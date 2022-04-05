@@ -1,14 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;300&family=Oranienbaum&family=Oswald:wght@200;400;500&display=swap');
 * {
-    padding: 0;
+  padding: 0;
+
 }
 
 .body {
   overflow: scroll;
-    margin: 0 auto;
+  margin: 0 auto;
 }
 h1 {
-
   color: #62707e;
   font-family: 'Oranienbaum', serif;
   font-size: 1.6rem;
@@ -16,8 +16,8 @@ h1 {
 }
 
 p {
-    min-height: 1rem;
-    margin-top: 1rem;
+  min-height: 1rem;
+  margin-top: 1rem;
   font-weight: 300;
   color: #62707e;
   font-size: 1rem;
@@ -26,17 +26,17 @@ p {
 }
 
 ul {
-    min-height: 1rem;
-    margin-top: 1rem;
-    font-weight: 300;
-    color: #62707e;
-    font-size: 1.2rem;
-    font-family: 'Lato', sans-serif;
-    letter-spacing: 0.1em;
+  min-height: 1rem;
+  margin-top: 1rem;
+  font-weight: 300;
+  color: #62707e;
+  font-size: 1.2rem;
+  font-family: 'Lato', sans-serif;
+  letter-spacing: 0.1em;
 }
 
 .icon {
-    margin-right: 0.5rem;
+  margin-right: 0.5rem;
 }
 .subMenu {
   color: #1d425d !important;
@@ -132,7 +132,46 @@ ul {
   background: #d0c6b7;
   transition-duration: 0.4s;
 }
+/*************************Loading Button**********************/
+/*
+@keyframes load {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
 
+.loader {
+  border: 4px solid rgba(255, 255, 255, 0.2);
+  border-left: 4px solid;
+  animation: load 1s infinite linear;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+}
+
+.loading-button {
+  width: 200px;
+  padding: 1rem 2rem;
+  font-size: 16px;
+  color: #ffffff;
+  font-weight: 600;
+  border-radius: 6px;
+  background-color: #2080df;
+}
+
+.loading-button > span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+*/
+/*///////////////////*/
 @media screen and (min-width: 850px) {
   .main-page-content {
     margin-top: 10rem;
@@ -217,7 +256,6 @@ ul {
     width: 30%;
   }
   .home-component {
-
     background-color: #1d425d;
     grid-row: 1 / -1;
 

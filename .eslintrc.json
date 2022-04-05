@@ -70,6 +70,9 @@
         "tsx": "never"
       }
     ],
+
+    "react/jsx-props-no-spreading": "off",
+
     "react/no-unused-prop-types": "warn",
     "no-underscore-dangle": ["off", { "allow": ["_"] }],
     "no-unused-vars": [
