@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import colors from 'styles/colors';
 import { Cross } from '@styled-icons/entypo/';
 import { Warning } from '@styled-icons/fluentui-system-filled/Warning';
+import logo from '../images/admin_logo.png'
 
 interface Props {
   showPropertyForm?: boolean;
@@ -10,16 +11,16 @@ interface Props {
 }
 const AdminContainer = styled.div`
   //position: relative;
-  height: 100vh;
+  //  height: 100vh;
   width: 100vw;
   padding: 1rem;
   margin: 0;
-  /* mobile viewport bug fix */
   box-sizing: border-box;
   display: grid;
   grid-gap: 1rem;
   grid-template-columns: repeat(auto-fit, minmax(22.5rem, 1fr));
   justify-content: center;
+  /* mobile viewport bug fix */
   min-height: -webkit-fill-available;
 `;
 
@@ -67,25 +68,6 @@ const PageItem = styled.div<Props>`
   height: 50px;
   background-color: ${colors.blue};
   border: 5px solid ${colors.tan};
-`;
-/* List item in admin, for each property in the DB */
-const PropertyItem = styled.div<Props>`
-  display: ${(props) =>
-    props.showPropertiesOrPages === 'properties' ? 'flex' : 'none'};
-  border-radius: 15px;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  align-content: space-between;
-  padding: 1rem;
-  width: 0.7fr;
-  height: 13rem;
-  background-color: ${colors.tan};
-  border: 5px solid ${colors.blue};
-  a{
-    color: ${colors.blue}
-  }
-  
 `;
 
 const EditButton = styled.button`
@@ -204,14 +186,12 @@ const PropertyFormList = styled.form<Props>`
 `;
 
 const Loader = styled.span`
-
   border: 4px solid rgba(255, 255, 255, 0.2);
   border-left: 4px solid;
   animation: load 1s infinite linear;
   border-radius: 50%;
   width: 25px;
   height: 25px;
-
 
   @keyframes load {
     0% {
@@ -221,7 +201,6 @@ const Loader = styled.span`
       transform: rotate(360deg);
     }
   }
-
 `;
 /* close popup icon */
 const XIcon = styled(Cross)`
@@ -238,7 +217,6 @@ const XIcon = styled(Cross)`
 `;
 
 const Button = styled.button`
-
   text-transform: uppercase;
   min-width: 200px;
   padding: 1rem 2rem;
@@ -260,66 +238,73 @@ const Button = styled.button`
     width: 100%;
     height: 100%;
   }
-    &:hover {
-      background: ${colors.blue};
-      color: ${colors.white};
-    }
+  &:hover {
+    background: ${colors.blue};
+    color: ${colors.white};
+  }
 
-    &:disabled {
-      background-color: gray;
-      color: lightgrey;
-    }
+  &:disabled {
+    background-color: gray;
+    color: lightgrey;
+  }
 `;
-
 
 const WarningIcon = styled(Warning)`
   height: 1.5rem;
   margin-right: 0.5rem;
-  color: ${colors.tan};
+  color: indianred;
 `;
 
+/* List item in admin, for each property in the DB */
+const PropertyItem = styled.div<Props>`
+  display: ${(props) =>
+    props.showPropertiesOrPages === 'properties' ? 'flex' : 'none'};
+  border-radius: 15px;
+   
+  background: url(${logo}),linear-gradient(to top, ${colors.blue} 73%, ${colors.tan} 27%);
+  background-blend-mode: overlay;
+  background-position: 50% 50%;
+  background-size: 180%;
+  border: 2px solid ${colors.blue};
+  
+  flex-direction: column;
+  align-items: center;
+  padding: 0.5rem;
+  font-size: 1.3rem;
+  color: ${colors.blue};
 
-/*
-const LoadingIcon = styled.div`
-  border: 4px solid rgba(255, 255, 255, 0.2);
-  border-left: 4px solid;
-  animation: load 1s infinite linear;
-  border-radius: 50%;
-  width: 25px;
-  height: 25px;
-
-  @keyframes load {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
+  .edit-btn {
+    &:hover{
+      background-color: ${colors.tan};
     }
   }
 
-
-`;
-*/
-
-/*
-const ButtonWithLoadingIcon = styled.button`
-  padding: 1rem 2rem;
-  font-size: 16px;
-  color: #ffffff;
-  font-weight: 600;
-  border-radius: 6px;
-  background-color: #2080df;
-
-  div {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
+  .create-btn {
+    &:hover{
+      background-color: ${colors.tan};
+    }
   }
 
+  .delete-btn {
+    background-color: indianred;
+  }
+
+  h1 {
+    margin-top: 0;
+
+    color: #62707e;
+    font-family: 'Oranienbaum', serif;
+    font-size: 1.6rem;
+    line-height: 1.2rem;
+    margin: 0;
+  }
+
+  a {
+    font-size: 1.3rem;
+    color: ${colors.blue};
+  }
 `;
-*/
+
 export {
   AdminContainer,
   PageItem,
@@ -330,7 +315,7 @@ export {
   PropertyItem,
   WarningIcon,
   AdminMenu,
-  Loader
- // LoadingIcon,
- // ButtonWithLoadingIcon
+  Loader,
+  // LoadingIcon,
+  // ButtonWithLoadingIcon
 };

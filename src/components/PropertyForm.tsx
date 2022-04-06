@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import ButtonLoader from 'components/ButtonLoading'
+import ButtonLoader from 'components/ButtonLoading';
 import { Property } from '../interfaces';
-import { PropertyFormList, XIcon } from '../styles/Admin.Styles';
+import { Button, PropertyFormList, XIcon } from '../styles/Admin.Styles';
 
 interface Props {
   showPropertyForm: boolean;
@@ -12,6 +12,7 @@ interface Props {
   updateProperty: (_id: string, _form: Property, _images: string) => void;
   error: string;
   loading: boolean;
+  close: boolean;
 }
 
 // eslint-disable-next-line react/prop-types
@@ -24,6 +25,7 @@ function PropertyForm({
   updateProperty,
   error,
   loading,
+  close,
 }: Props) {
   const initialState: Property = {
     title: '',
@@ -204,11 +206,16 @@ function PropertyForm({
         />
       </div>
 
-      <p style={{display: `${!error && 'none'}`}}>{error}</p>
+      <p style={{ display: `${error ? 'block' : 'none'}` }}>{error}</p>
 
       {requestMethod === 'POST' ? (
         <div style={{ justifyContent: 'center' }}>
+          {!close ? (
+
             <ButtonLoader loading={loading}>Create</ButtonLoader>
+          ) : (
+            <Button onClick={handleFormClosed}>CLOSE</Button>
+          )}
         </div>
       ) : (
         <div
@@ -220,7 +227,7 @@ function PropertyForm({
             alignContent: 'center',
           }}
         >
-            <ButtonLoader loading={loading}>Save</ButtonLoader>
+          <ButtonLoader loading={loading}>Save</ButtonLoader>
 
           <input
             style={{

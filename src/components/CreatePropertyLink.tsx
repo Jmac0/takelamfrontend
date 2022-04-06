@@ -37,15 +37,16 @@ function CreatePropertyLink({ id }: Props) {
 
   console.log(clientLink);
   return (
-    <div>
+      // eslint-disable-next-line react/jsx-no-useless-fragment
+    <>
       {clientLink === '' ? (
-        <Button onClick={createLink}>Create Link</Button>
+        <Button className="create-btn" onClick={createLink}>Create Link</Button>
       ) : (
-        <Button onClick={() => copyToClipboard(clientLink)}>
-          {copied ? 'COPIED' : 'Click to Copy'}
+        <Button className="create-btn" onClick={() => copyToClipboard(clientLink)}>
+          {copied ? 'COPIED' : 'COPY LINK'}
         </Button>
       )}
-    </div>
+    </>
   );
 }
 

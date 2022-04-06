@@ -2,12 +2,15 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Property } from 'interfaces';
 import baseUrl from 'utils/urls';
-import ButtonLoading from '../components/ButtonLoading'
 import { AdminContainer, AdminMenu, Button } from '../styles/Admin.Styles';
 import PageListItem from '../components/PageListItem';
 import TextEditor from '../components/TextEditor';
 import PropertyForm from '../components/PropertyForm';
 import fetchProperties from '../hooks/fetchProperties';
+
+
+
+
 import PropertyListItem from '../components/PropertyListItem';
 
 interface Props {
@@ -51,7 +54,8 @@ function Admin({ pages, setIndex }: Props) {
   /* show different button in property form for
      post/patch methods */
   const [requestMethod, setRequestMethod] = useState('POST');
-
+  /* show close button in form after creating property  */
+  const [close, setClose] = useState(false);
   // called from pageListItem updates props in
   // TextEditor inside its useEffect()
   const editPage = (id: string, title: string, content: string) => {
@@ -90,6 +94,7 @@ function Admin({ pages, setIndex }: Props) {
   };
   const createProperty = async (data: Property) => {
       setLoading(true)
+
     // @ts-ignore
     // eslint-disable-next-line no-param-reassign
     delete data._id;
@@ -102,6 +107,10 @@ function Admin({ pages, setIndex }: Props) {
         if (response.status === 201) {
           setPropertyIndex((cur: number) => cur + 1);
           setLoading(false);
+          setTimeout(() => {
+
+          setClose(true);
+          }, 1000)
         }
       })
       .catch((err) => setErr(err.response.data.message));
@@ -148,6 +157,7 @@ function Admin({ pages, setIndex }: Props) {
          method */
     setRequestMethod(useMethod);
     setLoading(false);
+    setClose(false);
   };
   /* open form, set current property id & request
    method */
@@ -212,6 +222,7 @@ function Admin({ pages, setIndex }: Props) {
           updateProperty={updateProperty}
           error={error}
           loading={loading}
+          close={close}
         />
         {/* show list of pages */}
 

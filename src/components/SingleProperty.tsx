@@ -105,7 +105,7 @@ function SingleProperty() {
     navigationButtonProps: {
       shape: 'round',
       color: '#d0c6b7',
-      size: 40,
+      size: 30,
       iconColor: '#FFFFFF',
     },
     mediaAssets: [
@@ -126,7 +126,7 @@ function SingleProperty() {
         zIndex: '1',
       }}
     >
-      <h1>LOADINGs</h1>
+      <h1>LOADING</h1>
     </div>
   ) : (
     <div
