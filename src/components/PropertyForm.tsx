@@ -218,30 +218,22 @@ function PropertyForm({
           )}
         </div>
       ) : (
-        <div
-          style={{
-            marginLeft: '1%',
-            display: 'flex',
-            flexDirection: 'row',
-            flexWrap: 'wrap',
-            alignContent: 'center',
-          }}
-        >
-          <ButtonLoader loading={loading}>Save</ButtonLoader>
+        <div style={{ display: 'flex', width: '32%', flexWrap: 'wrap', alignSelf:'center', flexDirection: 'row', justifyContent: 'start'}}>
+          <div style={{width: 'fit-content', height:'56px'}}>
 
+          <ButtonLoader loading={loading}>Save</ButtonLoader>
+        </div>
+            <div style={{width: 'fit-content'}}>
           <input
-            style={{
-              paddingLeft: '0',
-              backgroundColor: '#d0c6b7',
-              borderStyle: 'none',
-            }}
+              style={{padding: '0', height: 'fit-content', width: '14rem'}}
+            className="custom-file-input"
             type="file"
             id="images"
             name="images"
-            data-buttontext="Your label here."
             onChange={handleImageInput}
             multiple
           />
+            </div>
         </div>
       )}
     </PropertyFormList>

@@ -54,8 +54,8 @@ function PropertyListItem({
 
 
       )}
-      <span style={{ display: 'flex', flexDirection: 'row' }}>
-        <p style={{ color: 'red', marginLeft: '0.5rem' }}>
+      <span style={{ display: '-webkit-flex', flexDirection: 'row', width: 'fit-content' }}>
+        <p style={{ color: 'red', marginLeft: '0.5rem', width: '13rem', display: 'inline-block' }}>
           <input
             type="checkbox"
             id="delete"

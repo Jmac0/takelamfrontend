@@ -63,139 +63,28 @@ const AdminMenu = styled.div`
   }
 `;
 
-/* List in admin, an item component for each page of
- site */
-const PropertyItem = styled.div<Props>`
-  display: ${(props) =>
-    props.showPropertiesOrPages === 'properties' ? 'flex' : 'none'};
-  border-radius: 15px;
-  background: url(${logo}),
-  linear-gradient(to top, ${colors.blue} 100%, white 0%);
-  background-blend-mode: overlay;
-  background-color: ${colors.blue};
-  background-position: 50% 50%;
-  background-size: 180%;
-  border: 3px solid ${colors.grey};
-  height: 15rem;
-  flex-direction: column;
-  align-items: center;
-  padding: 0.5rem;
-  font-size: 1.3rem;
-  color: ${colors.blue};
-
-  .edit-btn {
-    &:hover {
-      background-color: ${colors.tan};
-    }
-  }
-
-  .create-btn {
-    &:hover {
-      background-color: ${colors.tan};
-    }
-  }
-
-  .delete-btn {
-    background-color: indianred;
-    margin-top: 3rem;
-    &:hover{
-      background-color: red;
-    }
-  }
-
-  h1 {
-    margin-top: 0;
-
-    color: ${colors.tan};
-    font-family: 'Oranienbaum', serif;
-    font-size: 1.6rem;
-    line-height: 1.2rem;
-    margin: 0;
-  }
-
-  a {
-    font-size: 1.3rem;
-    color: ${colors.blue};
-  }
-
-  @media screen and (min-width: 850px) {
-    max-width: 400px;
-  }
-  @media screen and (min-width: 1400px) {
-    max-width: 600px;
-  }
-`;
-
-
-const PageItem = styled(PropertyItem)<Props>`
-  display: ${(props) =>
-    props.showPropertiesOrPages === 'pages' ? 'flex' : 'none'};
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  align-content: space-between;
-  padding: 0;
-  background-color: ${colors.blue};
-  border: 5px solid ${colors.tan};
- 
-  h1 {
-    margin-bottom: 2rem;
-  }
-  
-`;
-
-/*
-const EditButton = styled.button`
-  width: 30%;
-  margin: 1rem;
-  border: none;
-  border-radius: 10rem;
-  color: white;
-  text-align: center;
-  text-decoration: none;
-  height: 1rem;
-  background-color: ${colors.tan};
-
-  &:hover {
-    background-color: black;
-  }
-`;
-*/
-
-
-
-
-
-
-
-
-
 const PropertyFormList = styled.form<Props>`
   z-index: 10;
+  margin: 0 auto;
   display: ${(props) => (props.showPropertyForm ? 'flex' : 'none')};
   flex-direction: column;
   flex-wrap: wrap;
   justify-content: center;
-  height: auto;
+  align-items: center;
   width: 100vw;
   position: absolute;
+  padding: 0 10rem 5rem 1rem;
   top: 0;
   left: 0;
   align-self: center;
   justify-self: center;
-  padding: 1rem;
-//  background-color: ${colors.tan};
+  
+  background-color: ${colors.tan};
 
 
-  background: url(${logo}),
-  linear-gradient(to top, ${colors.blue} 100%, white 0%);
-  background-blend-mode: overlay;
-  background-color: ${colors.blue};
-  background-position: 50% 50%;
-  background-size: 10%;
-  
-  
-  
+
+
+
   h1 {
     color: ${colors.blue};
     align-self: center;
@@ -235,26 +124,65 @@ const PropertyFormList = styled.form<Props>`
       border-radius: 6px;
       background-color: #f3f3f1;
     }
-    /*Styles for image upload button*/
-    input[type='file']::file-selector-button {
-      width: 10rem;
-      text-transform: uppercase;
-      font-weight: 300;
-      color: ${colors.blue};
-      font-size: 1rem;
-      font-family: 'Lato', sans-serif;
-      letter-spacing: 0.1em;
-      border-radius: 6px;
-      height: 40px;
-      border: 1px solid #d0c6b7;
-      background: white;
-      transition: 0.5s;
+
+    // the actual file input element button
+    .custom-file-input::file-selector-button {
+      overflow: hidden;
+      display: none;
+      position: absolute;
+      z-index: -1;
     }
+
+
+    // custom element to hide ugly button 
+    .custom-file-input::before {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 52px;
+      width: 12rem;
+      content: 'Select Images';
+      visibility: visible;
+      border: 2px solid ${colors.blue};
+      text-transform: uppercase;
+      background: ${colors.white};
+      color: ${colors.blue};
+      font-weight: 300;
+      font-family: sans-serif;
+      letter-spacing: 0.1em;
+      margin: 5px 0 0 0;
+      font-size: 16px;
+      border-radius: 6px;
+      transition: 0.5s;
+
+    }
+    // selected images list 
+    > #images.custom-file-input{
+      color: ${colors.blue};
+    }
+    .custom-file-input:hover::before {
+      background-color: ${colors.blue};
+      color: ${colors.white};
+    }
+/*
+    .custom-file-input:active::before {
+      background: ${colors.grey}
+    }
+*/
 
     input[type='file']::file-selector-button:hover {
       background: ${colors.blue};
       color: ${colors.white};
     }
+
+    input[type="file"]
+    {
+      left: 50%;
+      outline: none;
+      border: none;
+      background-color: ${colors.tan};
+    }
+
 
     textarea {
       padding: 5px;
@@ -278,6 +206,112 @@ const PropertyFormList = styled.form<Props>`
     }
   }
 `;
+/* List in admin, an item component for each page of
+ site */
+
+
+const PropertyItem = styled.div<Props>`
+  display: ${(props) =>
+    props.showPropertiesOrPages === 'properties' ? 'flex' : 'none'};
+  border-radius: 15px;
+  background: url(${logo}),
+  linear-gradient(to top, ${colors.blue} 100%, white 0%);
+  background-blend-mode: overlay;
+  background-color: ${colors.blue};
+  background-position: 50% 50%;
+  background-size: 180%;
+  border: 3px solid ${colors.grey};
+  height: 15rem;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.5rem;
+  font-size: 1.3rem;
+  color: ${colors.blue};
+
+  .edit-btn {
+    &:hover {
+      background-color: ${colors.tan};
+    }
+  }
+
+  .create-btn {
+    &:hover {
+      background-color: ${colors.tan};
+    }
+  }
+
+  .delete-btn {
+    background-color: indianred;
+    margin-top: 3rem;
+    &:hover{
+      background-color: red;
+    }
+  }
+
+  h1 {
+
+    color: ${colors.tan};
+    font-family: 'Oranienbaum', serif;
+    font-size: 1.6rem;
+    line-height: 1.2rem;
+    margin: 0;
+  }
+
+  a {
+    font-size: 1.3rem;
+    color: ${colors.blue};
+  }
+
+  @media screen and (min-width: 850px) {
+    max-width: 400px;
+  }
+  @media screen and (min-width: 1400px) {
+    max-width: 600px;
+  }
+`;
+
+const PageItem = styled(PropertyItem)<Props>`
+  display: ${(props) =>
+    props.showPropertiesOrPages === 'pages' ? 'flex' : 'none'};
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  align-content: space-between;
+  padding: 0;
+  background-color: ${colors.blue};
+  border: 5px solid ${colors.tan};
+ 
+  h1 {
+    margin-bottom: 2rem;
+  }
+  
+`;
+
+
+
+
+
+
+
+
+
+/*
+const EditButton = styled.button`
+  width: 30%;
+  margin: 1rem;
+  border: none;
+  border-radius: 10rem;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  height: 1rem;
+  background-color: ${colors.tan};
+
+  &:hover {
+    background-color: black;
+  }
+`;
+*/
 
 const Loader = styled.span`
   border: 4px solid rgba(255, 255, 255, 0.2);
@@ -315,7 +349,6 @@ const Button = styled.button`
   min-width: 200px;
   padding: 1rem 2rem;
   background: ${colors.white};
-  outline: 1px solid ${colors.blue};
   color: ${colors.blue};
   font-weight: 300;
   font-family: sans-serif;
@@ -345,6 +378,7 @@ const Button = styled.button`
 
 const WarningIcon = styled(Warning)`
   height: 1.5rem;
+  width: auto;
   margin-right: 0.5rem;
   color: indianred;
 `;
