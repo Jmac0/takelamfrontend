@@ -1,5 +1,5 @@
 import React from 'react';
-import { PageItem, EditButton } from '../styles/Admin.Styles';
+import { PageItem, Button } from '../styles/Admin.Styles';
 
 interface Props {
   componentName: string;
@@ -23,10 +23,10 @@ function PageListItem({
 
   return (
     <PageItem showPropertiesOrPages={showPropertiesOrPages}>
-      <p>{componentName}</p>
-      <EditButton type="submit" onClick={handleEdit}>
+      <h1>{componentName}</h1>
+      <Button className="edit-btn" type="submit" onClick={handleEdit}>
         EDIT
-      </EditButton>
+      </Button>
     </PageItem>
   );
 }

@@ -174,7 +174,7 @@ function PropertyForm({
         />
       </div>
       <div>
-        <label htmlFor="location">coords</label>
+        <label htmlFor="location">Co-ords</label>
         <input
           required
           placeholder="Paste from Google maps only!"

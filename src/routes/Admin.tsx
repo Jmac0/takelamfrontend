@@ -141,6 +141,7 @@ function Admin({ pages, setIndex }: Props) {
       .catch((err) => setErr(err.response.data.message));
   };
   const deleteProperty = async (id: string) => {
+      // eslint-disable-next-line no-restricted-globals
     await axios.delete(`${baseUrl}/properties/${id}`).then((response) => {
       if (response.status === 204) {
         console.log(response);

@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import colors from 'styles/colors';
 import { Cross } from '@styled-icons/entypo/';
 import { Warning } from '@styled-icons/fluentui-system-filled/Warning';
-import logo from '../images/admin_logo.png'
+import logo from '../images/admin_logo.png';
 
 interface Props {
   showPropertyForm?: boolean;
@@ -18,58 +18,133 @@ const AdminContainer = styled.div`
   box-sizing: border-box;
   display: grid;
   grid-gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(22.5rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(90vw, max-content));
   justify-content: center;
   /* mobile viewport bug fix */
   min-height: -webkit-fill-available;
-`;
 
+  @media screen and (min-width: 850px) {
+
+    grid-template-columns: repeat(auto-fit, minmax(22rem, max-content));
+    justify-content: start;
+  }
+  @media screen and (min-width: 1400px) {
+    justify-content: start;
+    grid-template-columns: repeat(auto-fit, minmax(22rem, max-content));
+  }
+`;
+// todo align content for larger screen to left  for admin items
 const AdminMenu = styled.div`
   display: grid;
   text-align: center;
   padding: 0 2rem 0 2rem;
   grid-template-areas: 'logo nav side';
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: auto auto auto;
   align-items: center;
-  border-bottom: 3px solid ${colors.tan};
-  background-color: ${colors.blue};
+  border-bottom: 3px solid ${colors.grey};
 
+  background: url(${logo}),
+  linear-gradient(to top, ${colors.blue} 100%, white 0%);
+  background-blend-mode: overlay;
+  background-color: ${colors.blue};
+  background-position: 50% 50%;
+  background-size: 30%;
   .logo {
     grid-area: logo;
     color: ${colors.tan};
   }
 
   button {
-    grid-area: side;
-    background-color: transparent;
-    border: none;
-    font-size: 1.2rem;
-    color: ${colors.tan};
-    transition: all 0.5s;
-    &:hover {
-      color: white;
-      text-decoration: underline;
+  
+    margin-left: 2rem;
+    
     }
+  
   }
 `;
 
 /* List in admin, an item component for each page of
  site */
-const PageItem = styled.div<Props>`
+const PropertyItem = styled.div<Props>`
+  display: ${(props) =>
+    props.showPropertiesOrPages === 'properties' ? 'flex' : 'none'};
+  border-radius: 15px;
+  background: url(${logo}),
+  linear-gradient(to top, ${colors.blue} 100%, white 0%);
+  background-blend-mode: overlay;
+  background-color: ${colors.blue};
+  background-position: 50% 50%;
+  background-size: 180%;
+  border: 3px solid ${colors.grey};
+  height: 15rem;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.5rem;
+  font-size: 1.3rem;
+  color: ${colors.blue};
+
+  .edit-btn {
+    &:hover {
+      background-color: ${colors.tan};
+    }
+  }
+
+  .create-btn {
+    &:hover {
+      background-color: ${colors.tan};
+    }
+  }
+
+  .delete-btn {
+    background-color: indianred;
+    margin-top: 3rem;
+    &:hover{
+      background-color: red;
+    }
+  }
+
+  h1 {
+    margin-top: 0;
+
+    color: ${colors.tan};
+    font-family: 'Oranienbaum', serif;
+    font-size: 1.6rem;
+    line-height: 1.2rem;
+    margin: 0;
+  }
+
+  a {
+    font-size: 1.3rem;
+    color: ${colors.blue};
+  }
+
+  @media screen and (min-width: 850px) {
+    max-width: 400px;
+  }
+  @media screen and (min-width: 1400px) {
+    max-width: 600px;
+  }
+`;
+
+
+const PageItem = styled(PropertyItem)<Props>`
   display: ${(props) =>
     props.showPropertiesOrPages === 'pages' ? 'flex' : 'none'};
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   align-content: space-between;
-  margin: 3rem;
   padding: 0;
-  width: 200px;
-  height: 50px;
   background-color: ${colors.blue};
   border: 5px solid ${colors.tan};
+ 
+  h1 {
+    margin-bottom: 2rem;
+  }
+  
 `;
 
+/*
 const EditButton = styled.button`
   width: 30%;
   margin: 1rem;
@@ -85,6 +160,15 @@ const EditButton = styled.button`
     background-color: black;
   }
 `;
+*/
+
+
+
+
+
+
+
+
 
 const PropertyFormList = styled.form<Props>`
   z-index: 10;
@@ -100,8 +184,18 @@ const PropertyFormList = styled.form<Props>`
   align-self: center;
   justify-self: center;
   padding: 1rem;
-  background-color: ${colors.tan};
+//  background-color: ${colors.tan};
 
+
+  background: url(${logo}),
+  linear-gradient(to top, ${colors.blue} 100%, white 0%);
+  background-blend-mode: overlay;
+  background-color: ${colors.blue};
+  background-position: 50% 50%;
+  background-size: 10%;
+  
+  
+  
   h1 {
     color: ${colors.blue};
     align-self: center;
@@ -256,59 +350,10 @@ const WarningIcon = styled(Warning)`
 `;
 
 /* List item in admin, for each property in the DB */
-const PropertyItem = styled.div<Props>`
-  display: ${(props) =>
-    props.showPropertiesOrPages === 'properties' ? 'flex' : 'none'};
-  border-radius: 15px;
-   
-  background: url(${logo}),linear-gradient(to top, ${colors.blue} 73%, ${colors.tan} 27%);
-  background-blend-mode: overlay;
-  background-position: 50% 50%;
-  background-size: 180%;
-  border: 2px solid ${colors.blue};
-  
-  flex-direction: column;
-  align-items: center;
-  padding: 0.5rem;
-  font-size: 1.3rem;
-  color: ${colors.blue};
-
-  .edit-btn {
-    &:hover{
-      background-color: ${colors.tan};
-    }
-  }
-
-  .create-btn {
-    &:hover{
-      background-color: ${colors.tan};
-    }
-  }
-
-  .delete-btn {
-    background-color: indianred;
-  }
-
-  h1 {
-    margin-top: 0;
-
-    color: #62707e;
-    font-family: 'Oranienbaum', serif;
-    font-size: 1.6rem;
-    line-height: 1.2rem;
-    margin: 0;
-  }
-
-  a {
-    font-size: 1.3rem;
-    color: ${colors.blue};
-  }
-`;
 
 export {
   AdminContainer,
   PageItem,
-  EditButton,
   PropertyFormList,
   Button,
   XIcon,

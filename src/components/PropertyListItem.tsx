@@ -30,16 +30,7 @@ function PropertyListItem({
           </NavElement>
         </h1>
       </div>
-      {/* button to make new link */}
-      <CreatePropertyLink id={id} />
-      <Button
-        className="edit-btn"
-        type="button"
-        onClick={() => editProperty(id)}
-      >
-        Edit Property
-      </Button>
-      {isChecked && (
+      {isChecked ?
         <Button
           className="delete-btn"
           type="button"
@@ -47,7 +38,21 @@ function PropertyListItem({
           onClick={() => deleteProperty(id)}
         >
           DELETE PROPERTY
-        </Button>
+        </Button> :(
+
+<>
+           <CreatePropertyLink id={id} />
+          <Button
+          className="edit-btn"
+          type="button"
+          onClick={() => editProperty(id)}
+          >
+          Edit Property
+          </Button>
+</>
+
+
+
       )}
       <span style={{ display: 'flex', flexDirection: 'row' }}>
         <p style={{ color: 'red', marginLeft: '0.5rem' }}>

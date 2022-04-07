@@ -105,7 +105,7 @@ function SingleProperty() {
     navigationButtonProps: {
       shape: 'round',
       color: '#d0c6b7',
-      size: 30,
+      size: 40,
       iconColor: '#FFFFFF',
     },
     mediaAssets: [
@@ -137,7 +137,7 @@ function SingleProperty() {
         zIndex: '1',
       }}
     >
-      <div id="my-gallery" style={{ height: '400px', marginBottom: '15rem' }} />
+      <div id="my-gallery" />
 
       <PropertyList>
         <div>{currentProperty.location}</div>
