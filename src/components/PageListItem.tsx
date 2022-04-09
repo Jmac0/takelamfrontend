@@ -4,6 +4,7 @@ import { PageItem, Button } from '../styles/Admin.Styles';
 interface Props {
   componentName: string;
   id: string;
+  isEditing: boolean;
   pageTitle: string;
   pageContent: string;
   showPropertiesOrPages: string;
@@ -15,14 +16,14 @@ interface Props {
  with an edit button */
 function PageListItem({
   componentName, id, pageTitle, pageContent, editPage, showPropertiesOrPages
-}: Props) {
+ , isEditing}: Props) {
   const handleEdit = () => {
     // function to open TextEditor in Admin component
     editPage(id, pageTitle, pageContent);
   };
 
   return (
-    <PageItem showPropertiesOrPages={showPropertiesOrPages}>
+    <PageItem isEditing={isEditing} showPropertiesOrPages={showPropertiesOrPages}>
       <h1>{componentName}</h1>
       <Button className="edit-btn" type="submit" onClick={handleEdit}>
         EDIT

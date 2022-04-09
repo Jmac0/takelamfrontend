@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import baseUrl from 'utils/urls';
 import { Button } from '../styles/Admin.Styles';
@@ -20,6 +20,14 @@ function CreatePropertyLink({ id }: Props) {
         setClientLink(() => link);
       });
   };
+
+
+  useEffect(() => {
+    setClientLink('')
+  }, [])
+
+
+
   function copyToClipboard(newLink: string) {
     navigator.clipboard
       .writeText(newLink)
@@ -35,7 +43,6 @@ function CreatePropertyLink({ id }: Props) {
       });
   }
 
-  console.log(clientLink);
   return (
       // eslint-disable-next-line react/jsx-no-useless-fragment
     <>

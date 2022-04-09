@@ -1,17 +1,20 @@
 import styled from 'styled-components';
 import colors from 'styles/colors';
-import { Cross } from '@styled-icons/entypo/';
 import { Warning } from '@styled-icons/fluentui-system-filled/Warning';
+import { HouseDoorFill } from '@styled-icons/bootstrap/HouseDoorFill';
+import { Edit } from '@styled-icons/boxicons-regular/Edit';
 import logo from '../images/admin_logo.png';
 
 interface Props {
   showPropertyForm?: boolean;
   onSubmit?: any;
+  isEditing?: boolean;
+  onClick?: any;
   showPropertiesOrPages?: string;
 }
 const AdminContainer = styled.div`
   //position: relative;
-  //  height: 100vh;
+  height: 100%;
   width: 100vw;
   padding: 1rem;
   margin: 0;
@@ -24,7 +27,6 @@ const AdminContainer = styled.div`
   min-height: -webkit-fill-available;
 
   @media screen and (min-width: 850px) {
-
     grid-template-columns: repeat(auto-fit, minmax(22rem, max-content));
     justify-content: start;
   }
@@ -33,14 +35,11 @@ const AdminContainer = styled.div`
     grid-template-columns: repeat(auto-fit, minmax(22rem, max-content));
   }
 `;
-// todo align content for larger screen to left  for admin items
 const AdminMenu = styled.div`
-  display: grid;
+  display: flex;
+  flex-direction: row;
   text-align: center;
-  padding: 0 2rem 0 2rem;
-  grid-template-areas: 'logo nav side';
-  grid-template-columns: auto auto auto;
-  align-items: center;
+  padding: 0.75rem 0 0.75rem 0;
   border-bottom: 3px solid ${colors.grey};
 
   background: url(${logo}),
@@ -55,167 +54,50 @@ const AdminMenu = styled.div`
   }
 
   button {
-  
-    margin-left: 2rem;
+    
+color: ${colors.white};
+    font-weight: 400;
+    font-family: sans-serif;
+    letter-spacing: 0.1em;
+    font-size: 16px;
+    background-color: transparent;
+    outline: none;
+    border: none;
+    margin-left: 3rem;
+    
+    &:hover {
+      background-color: transparent;
+      text-decoration: underline;
+    }
     
     }
   
   }
 `;
 
-const PropertyFormList = styled.form<Props>`
-  z-index: 10;
-  margin: 0 auto;
-  display: ${(props) => (props.showPropertyForm ? 'flex' : 'none')};
-  flex-direction: column;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  width: 100vw;
-  position: absolute;
-  padding: 0 10rem 5rem 1rem;
-  top: 0;
-  left: 0;
-  align-self: center;
-  justify-self: center;
-  
-  background-color: ${colors.tan};
-
-
-
-
-
-  h1 {
-    color: ${colors.blue};
-    align-self: center;
-  }
-
-  div {
-    display: flex;
-    flex-wrap: wrap;
-    padding: 10px;
-    width: 80vw;
-
-    label {
-      font-weight: 300;
-      color: ${colors.blue};
-      font-size: 1.2rem;
-      font-family: 'Lato', sans-serif;
-      letter-spacing: 0.1em;
-      min-width: 120px;
-      justify-self: end;
-      padding-right: 30px;
-    }
-    input {
-      padding: 5px;
-      width: 25rem;
-      font-size: 1rem;
-      font-family: 'Lato', sans-serif;
-      letter-spacing: 0.1em;
-      height: 2.5rem;
-      max-width: 90%;
-      justify-self: center;
-    }
-
-    input:active,
-    input:focus {
-      outline: none;
-      border: 2px solid ${colors.blue};
-      border-radius: 6px;
-      background-color: #f3f3f1;
-    }
-
-    // the actual file input element button
-    .custom-file-input::file-selector-button {
-      overflow: hidden;
-      display: none;
-      position: absolute;
-      z-index: -1;
-    }
-
-
-    // custom element to hide ugly button 
-    .custom-file-input::before {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 52px;
-      width: 12rem;
-      content: 'Select Images';
-      visibility: visible;
-      border: 2px solid ${colors.blue};
-      text-transform: uppercase;
-      background: ${colors.white};
-      color: ${colors.blue};
-      font-weight: 300;
-      font-family: sans-serif;
-      letter-spacing: 0.1em;
-      margin: 5px 0 0 0;
-      font-size: 16px;
-      border-radius: 6px;
-      transition: 0.5s;
-
-    }
-    // selected images list 
-    > #images.custom-file-input{
-      color: ${colors.blue};
-    }
-    .custom-file-input:hover::before {
-      background-color: ${colors.blue};
-      color: ${colors.white};
-    }
-/*
-    .custom-file-input:active::before {
-      background: ${colors.grey}
-    }
-*/
-
-    input[type='file']::file-selector-button:hover {
-      background: ${colors.blue};
-      color: ${colors.white};
-    }
-
-    input[type="file"]
-    {
-      left: 50%;
-      outline: none;
-      border: none;
-      background-color: ${colors.tan};
-    }
-
-
-    textarea {
-      padding: 5px;
-      border-radius: 10px;
-      flex-grow: 1;
-      height: 12rem;
-      min-width: 20rem;
-      max-width: 90%;
-      justify-self: center;
-      resize: none;
-      font-size: 1rem;
-      font-family: 'Lato', sans-serif;
-      letter-spacing: 0.1em;
-    }
-
-    textarea:focus,
-    textarea:active {
-      outline: none;
-      background-color: #f3f3f1;
-      border: 2px solid ${colors.blue};
-    }
-  }
+const HouseIcon = styled(HouseDoorFill)`
+  color: ${colors.white};
+  width: 1.3rem;
+  margin-right: 0.3rem;
 `;
+
+const PagesIcon = styled(Edit)`
+  color: ${colors.white};
+  width: 1.3rem;
+  margin-right: 0.3rem;
+`;
+
 /* List in admin, an item component for each page of
  site */
 
-
 const PropertyItem = styled.div<Props>`
+
   display: ${(props) =>
     props.showPropertiesOrPages === 'properties' ? 'flex' : 'none'};
+
   border-radius: 15px;
   background: url(${logo}),
-  linear-gradient(to top, ${colors.blue} 100%, white 0%);
+    linear-gradient(to top, ${colors.blue} 100%, white 0%);
   background-blend-mode: overlay;
   background-color: ${colors.blue};
   background-position: 50% 50%;
@@ -243,13 +125,12 @@ const PropertyItem = styled.div<Props>`
   .delete-btn {
     background-color: indianred;
     margin-top: 3rem;
-    &:hover{
+    &:hover {
       background-color: red;
     }
   }
 
   h1 {
-
     color: ${colors.tan};
     font-family: 'Oranienbaum', serif;
     font-size: 1.6rem;
@@ -269,10 +150,10 @@ const PropertyItem = styled.div<Props>`
     max-width: 600px;
   }
 `;
-
+// TODO set display to none when editing
 const PageItem = styled(PropertyItem)<Props>`
   display: ${(props) =>
-    props.showPropertiesOrPages === 'pages' ? 'flex' : 'none'};
+   props.showPropertiesOrPages === 'pages' && !props.isEditing ? 'flex' : 'none'};
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -280,38 +161,11 @@ const PageItem = styled(PropertyItem)<Props>`
   padding: 0;
   background-color: ${colors.blue};
   border: 5px solid ${colors.tan};
- 
+
   h1 {
     margin-bottom: 2rem;
   }
-  
 `;
-
-
-
-
-
-
-
-
-
-/*
-const EditButton = styled.button`
-  width: 30%;
-  margin: 1rem;
-  border: none;
-  border-radius: 10rem;
-  color: white;
-  text-align: center;
-  text-decoration: none;
-  height: 1rem;
-  background-color: ${colors.tan};
-
-  &:hover {
-    background-color: black;
-  }
-`;
-*/
 
 const Loader = styled.span`
   border: 4px solid rgba(255, 255, 255, 0.2);
@@ -330,21 +184,8 @@ const Loader = styled.span`
     }
   }
 `;
-/* close popup icon */
-const XIcon = styled(Cross)`
-  position: absolute;
-  top: 0.5rem;
-  left: 1rem;
-  margin-top: 1rem;
-  color: ${colors.blue};
-  width: 60px;
 
-  &:hover {
-    color: red;
-  }
-`;
-
-const Button = styled.button`
+const Button = styled.button<Props>`
   text-transform: uppercase;
   min-width: 200px;
   padding: 1rem 2rem;
@@ -356,6 +197,7 @@ const Button = styled.button`
   margin: 5px 0 0 0;
   font-size: 16px;
   border-radius: 6px;
+  border: 2px solid ${colors.blue};
   transition: 0.5s;
 
   > span {
@@ -383,18 +225,14 @@ const WarningIcon = styled(Warning)`
   color: indianred;
 `;
 
-/* List item in admin, for each property in the DB */
-
 export {
   AdminContainer,
   PageItem,
-  PropertyFormList,
   Button,
-  XIcon,
   PropertyItem,
   WarningIcon,
   AdminMenu,
   Loader,
-  // LoadingIcon,
-  // ButtonWithLoadingIcon
+  HouseIcon,
+  PagesIcon,
 };

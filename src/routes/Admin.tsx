@@ -2,16 +2,22 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Property } from 'interfaces';
 import baseUrl from 'utils/urls';
-import { AdminContainer, AdminMenu, Button } from '../styles/Admin.Styles';
+import EditPageComponent from '../components/EditPageComponent';
+
+import {
+  AdminContainer,
+  AdminMenu,
+  Button,
+  HouseIcon,
+  PagesIcon,
+} from '../styles/Admin.Styles';
 import PageListItem from '../components/PageListItem';
 import TextEditor from '../components/TextEditor';
 import PropertyForm from '../components/PropertyForm';
 import fetchProperties from '../hooks/fetchProperties';
 
-
-
-
 import PropertyListItem from '../components/PropertyListItem';
+import ButtonLoader from '../components/ButtonLoading';
 
 interface Props {
   pages: [];
@@ -65,13 +71,13 @@ function Admin({ pages, setIndex }: Props) {
     setEditing(true);
   };
 
-  const savePage = async (id: any, heading: any, bodyText: any) => {
+  const savePage = async (id: any, bodyText: any) => {
+    setLoading(true);
     await axios
       .patch(
         `${baseUrl}/content/${id}`,
 
         {
-          heading,
           bodyText,
         },
 
@@ -87,14 +93,15 @@ function Admin({ pages, setIndex }: Props) {
           /* Updates the index dependency in
                      FetchContent to cause re-render and get
                      the updated data  */
+          setLoading(false);
           setIndex((index: number) => index + 1);
         }
       })
       .catch(() => setErr('Page not saved'));
   };
-  const createProperty = async (data: Property) => {
-      setLoading(true)
 
+  const createProperty = async (data: Property) => {
+    setLoading(true);
     // @ts-ignore
     // eslint-disable-next-line no-param-reassign
     delete data._id;
@@ -108,9 +115,8 @@ function Admin({ pages, setIndex }: Props) {
           setPropertyIndex((cur: number) => cur + 1);
           setLoading(false);
           setTimeout(() => {
-
-          setClose(true);
-          }, 1000)
+            setClose(true);
+          }, 1000);
         }
       })
       .catch((err) => setErr(err.response.data.message));
@@ -141,7 +147,7 @@ function Admin({ pages, setIndex }: Props) {
       .catch((err) => setErr(err.response.data.message));
   };
   const deleteProperty = async (id: string) => {
-      // eslint-disable-next-line no-restricted-globals
+    // eslint-disable-next-line no-restricted-globals
     await axios.delete(`${baseUrl}/properties/${id}`).then((response) => {
       if (response.status === 204) {
         console.log(response);
@@ -172,29 +178,34 @@ function Admin({ pages, setIndex }: Props) {
   };
   const handleFormClosed = () => {
     setRequestMethod('');
+    setEditing(false);
     setShowPropertyForm(false);
     setLoading(false);
   };
   // @ts-ignore
 
+  // @ts-ignore
   return (
-    <div style={{ overflowX: 'hidden' }}>
+    <div>
       <AdminMenu>
-        <h1 className="logo">ADMIN</h1>
-        <div style={{ gridArea: 'side' }}>
+        <div>
           {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */}
           <Button
             type="button"
             onClick={() => setShowPropertiesOrPages('properties')}
           >
             {' '}
-            Properties
+            <span>
+              <HouseIcon /> Properties
+            </span>
           </Button>
           <Button
             type="button"
             onClick={() => setShowPropertiesOrPages('pages')}
           >
-            Pages
+            <span>
+              <PagesIcon /> Pages
+            </span>
           </Button>
         </div>
       </AdminMenu>
@@ -210,11 +221,10 @@ function Admin({ pages, setIndex }: Props) {
         <Button type="button" onClick={() => handleOpenPropertyForm('POST')}>
           Create New Property
         </Button>
-
       </div>
 
-        <AdminContainer>
-            <PropertyForm
+      <AdminContainer>
+        <PropertyForm
           showPropertyForm={showPropertyForm}
           handleFormClosed={handleFormClosed}
           requestMethod={requestMethod}
@@ -235,6 +245,7 @@ function Admin({ pages, setIndex }: Props) {
             pageTitle={page.heading}
             componentName={page.componentName}
             pageContent={page.bodyText}
+            isEditing={editing}
             editPage={editPage}
           />
         ))}
@@ -249,19 +260,19 @@ function Admin({ pages, setIndex }: Props) {
             deleteProperty={deleteProperty}
           />
         ))}
-        {editing && (
-          <TextEditor
-            pageId={pageId}
-            pageTitle={pageTitle}
-            pageContent={pageContent}
-            savePage={savePage}
-            isEditing={setEditing}
-            setSuccess={setSuccess}
-            success={success}
-            error={error}
-          />
-        )}
       </AdminContainer>
+
+      {editing && (
+        <EditPageComponent
+          content={pageContent}
+          pageId={pageId}
+          savePage={savePage}
+          loading={loading}
+          error={error}
+          setEditing={setEditing}
+          setSuccess={setSuccess}
+        />
+      )}
     </div>
   );
 }
