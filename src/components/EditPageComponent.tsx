@@ -9,6 +9,7 @@ interface Props {
   content: string;
   savePage: (_arg1: string, _arg3: any) => void;
   setEditing: (_arg: boolean) => void;
+  pageTitle: string;
   setSuccess: (_arg: boolean) => void;
   loading: boolean;
   error: string;
@@ -16,23 +17,27 @@ interface Props {
 
 function EditPageComponent({
   pageId,
+  pageTitle,
   content,
   savePage,
   setEditing,
   loading,
   error,
 }: Props) {
-  const [body, setBody] = useState<string>('');
+	// holds the editor text content
+  const [richTextContent, setRichTextContent] = useState<string>('');
   const handleSave = (evt: any): void => {
     evt.preventDefault();
-    savePage(pageId, body);
+	// call to http request
+    savePage(pageId, richTextContent);
   };
 
   return (
     <PageEditor>
+      <h1>{pageTitle}</h1>
       <WYSIWYGForm onSubmit={handleSave}>
-        <WYSIWYG content={content} setBody={setBody} />
-		  {error}
+        <WYSIWYG content={content} setRichTextContent={setRichTextContent} />
+        {error}
         <div style={{ display: 'flex', flexDirection: 'row' }}>
           <Button onClick={() => setEditing(false)}>CLOSE</Button>
           <div style={{ width: 'fit-content', height: '56px' }}>
@@ -40,7 +45,7 @@ function EditPageComponent({
           </div>
         </div>
       </WYSIWYGForm>
-    </PageEditor>
+	</PageEditor>
   );
 }
 

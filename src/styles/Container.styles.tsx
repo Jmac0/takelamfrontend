@@ -79,7 +79,6 @@ const PageLogo = styled.div<Props>`
   }
   
 `;
-/* todo Rename for desk-top  */
 const NavBar = styled.nav<Props>`
   grid-area: main;
   z-index: 0;

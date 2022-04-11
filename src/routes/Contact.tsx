@@ -1,5 +1,6 @@
 import React from 'react';
 import 'styles/styles.css';
+import WYSIWYG from "../components/WYSIWYG";
 
 function Contact() {
   const email: any = '';

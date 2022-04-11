@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Property } from 'interfaces';
 import baseUrl from 'utils/urls';
+import { ifError } from 'assert';
 import EditPageComponent from '../components/EditPageComponent';
 
 import {
@@ -12,12 +13,10 @@ import {
   PagesIcon,
 } from '../styles/Admin.Styles';
 import PageListItem from '../components/PageListItem';
-import TextEditor from '../components/TextEditor';
 import PropertyForm from '../components/PropertyForm';
 import fetchProperties from '../hooks/fetchProperties';
 
 import PropertyListItem from '../components/PropertyListItem';
-import ButtonLoader from '../components/ButtonLoading';
 
 interface Props {
   pages: [];
@@ -33,14 +32,14 @@ interface Page {
 
 function Admin({ pages, setIndex }: Props) {
   /* get property data, setPropertyIndex is a
-   counter that can be used to re-call the get
-    request for properties */
+	 counter that can be used to re-call the get
+	 request for properties */
   const [properties, setPropertyIndex] = fetchProperties([]);
   /* current property id to edit */
   const [currentProperty, setCurrentProperty] = useState({});
   const [error, setErr] = useState<string>('');
   /* set & store id of page content document from
-     mongo */
+	 mongo */
   const [pageId, setPageId] = useState<string>('');
   const [pageTitle, setPageTitle] = useState<string>('');
   const [pageContent, setPageContent] = useState<string>('');
@@ -58,7 +57,7 @@ function Admin({ pages, setIndex }: Props) {
   /* show or hide property form */
   const [showPropertyForm, setShowPropertyForm] = useState<boolean>(false);
   /* show different button in property form for
-     post/patch methods */
+	 post/patch methods */
   const [requestMethod, setRequestMethod] = useState('POST');
   /* show close button in form after creating property  */
   const [close, setClose] = useState(false);
@@ -91,8 +90,8 @@ function Admin({ pages, setIndex }: Props) {
           //   show saved icon above editor
           setSuccess(true);
           /* Updates the index dependency in
-                     FetchContent to cause re-render and get
-                     the updated data  */
+					 FetchContent to cause re-render and get
+					 the updated data  */
           setLoading(false);
           setIndex((index: number) => index + 1);
         }
@@ -116,7 +115,7 @@ function Admin({ pages, setIndex }: Props) {
           setLoading(false);
           setTimeout(() => {
             setClose(true);
-          }, 1000);
+          }, 500);
         }
       })
       .catch((err) => setErr(err.response.data.message));
@@ -161,13 +160,14 @@ function Admin({ pages, setIndex }: Props) {
     /* show/hide property form */
     setShowPropertyForm(!showPropertyForm);
     /* show different button in form depending on
-         method */
+		 method */
+	setCurrentProperty({} )
     setRequestMethod(useMethod);
     setLoading(false);
     setClose(false);
   };
   /* open form, set current property id & request
-   method */
+	 method */
   const editProperty = (id: string) => {
     const curProperty = properties.filter(
       (el: { _id: string }) => el._id === id,
@@ -224,17 +224,19 @@ function Admin({ pages, setIndex }: Props) {
       </div>
 
       <AdminContainer>
-        <PropertyForm
-          showPropertyForm={showPropertyForm}
-          handleFormClosed={handleFormClosed}
-          requestMethod={requestMethod}
-          currentProperty={currentProperty as Property}
-          createProperty={createProperty}
-          updateProperty={updateProperty}
-          error={error}
-          loading={loading}
-          close={close}
-        />
+		  { showPropertyForm &&
+			  <PropertyForm
+				  showPropertyForm={showPropertyForm}
+				  handleFormClosed={handleFormClosed}
+				  requestMethod={requestMethod}
+				  currentProperty={currentProperty as Property}
+				  createProperty={createProperty}
+				  updateProperty={updateProperty}
+				  error={error}
+				  loading={loading}
+				  close={close}
+			  />
+		  }
         {/* show list of pages */}
 
         {pages.map((page: Page) => (
@@ -261,9 +263,9 @@ function Admin({ pages, setIndex }: Props) {
           />
         ))}
       </AdminContainer>
-
       {editing && (
         <EditPageComponent
+          pageTitle={pageTitle}
           content={pageContent}
           pageId={pageId}
           savePage={savePage}
@@ -276,4 +278,5 @@ function Admin({ pages, setIndex }: Props) {
     </div>
   );
 }
+
 export default Admin;

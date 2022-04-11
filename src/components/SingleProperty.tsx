@@ -171,7 +171,10 @@ function SingleProperty() {
           </div>
         )}
         <div>
-          <h4>Property Description:</h4> <p> {currentProperty.description}</p>
+          <h4>Property Description:</h4>
+
+			<p dangerouslySetInnerHTML={{ __html:  currentProperty.description }} />
+
         </div>
       </PropertyList>
       <Wrapper apiKey={API}>

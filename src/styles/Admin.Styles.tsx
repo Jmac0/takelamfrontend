@@ -150,7 +150,6 @@ const PropertyItem = styled.div<Props>`
     max-width: 600px;
   }
 `;
-// TODO set display to none when editing
 const PageItem = styled(PropertyItem)<Props>`
   display: ${(props) =>
    props.showPropertiesOrPages === 'pages' && !props.isEditing ? 'flex' : 'none'};
@@ -194,7 +193,7 @@ const Button = styled.button<Props>`
   font-weight: 300;
   font-family: sans-serif;
   letter-spacing: 0.1em;
-  margin: 5px 0 0 0;
+  margin: 5px 1rem 0 0;
   font-size: 16px;
   border-radius: 6px;
   border: 2px solid ${colors.blue};
