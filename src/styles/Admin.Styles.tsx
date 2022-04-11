@@ -24,7 +24,7 @@ const AdminContainer = styled.div`
   grid-template-columns: repeat(auto-fit, minmax(90vw, max-content));
   justify-content: center;
   /* mobile viewport bug fix */
-  min-height: -webkit-fill-available;
+//  min-height: -webkit-fill-available;
 
   @media screen and (min-width: 850px) {
     grid-template-columns: repeat(auto-fit, minmax(22rem, max-content));

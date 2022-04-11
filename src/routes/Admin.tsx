@@ -172,9 +172,9 @@ function Admin({ pages, setIndex }: Props) {
     const curProperty = properties.filter(
       (el: { _id: string }) => el._id === id,
     );
+    setShowPropertyForm(true);
     setCurrentProperty(() => curProperty[0]);
     setRequestMethod('PATCH');
-    setShowPropertyForm(true);
   };
   const handleFormClosed = () => {
     setRequestMethod('');

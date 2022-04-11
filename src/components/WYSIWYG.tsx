@@ -20,6 +20,7 @@ function WYSIWYG({ content = '', setRichTextContent }: Props) {
   /* will run only when edit button is clicked and
 	 mounts this component */
   useEffect(() => {
+	  let isMounted = true;
     setRichTextContent(content);
     /// ////////// Convert html string to draft js //
     const contentBlock = htmlToDraft(content);
@@ -28,6 +29,7 @@ function WYSIWYG({ content = '', setRichTextContent }: Props) {
     );
     const eDitorState = EditorState.createWithContent(contentState);
     setEditorState(eDitorState);
+	  return () => { isMounted = false }
   }, [content]);
 
   /* Options for text editor pasted from
@@ -51,18 +53,21 @@ function WYSIWYG({ content = '', setRichTextContent }: Props) {
           'history',
         ],
       }}
-      editorState={editorState}
+	  editorState={editorState}
       onEditorStateChange={(newState) => {
-        setEditorState(newState);
+       setEditorState(newState);
         setRichTextContent(
           draftToHtml(convertToRaw(newState.getCurrentContent())),
         );
       }}
       editorClassName="editor-class"
       toolbarClassName="toolbar-class"
-      wrapperStyle={{ backgroundColor: 'transparent'}}
+      wrapperStyle={{ backgroundColor: 'transparent' }}
       editorStyle={{
         padding: '.5rem',
+        fontSize: '1rem',
+        fontFamily: 'lato, sans-serif',
+        letterSpacing: '0.1em',
         minHeight: '300px',
         backgroundColor: 'white',
         borderRadius: '5px',

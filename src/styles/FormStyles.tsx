@@ -117,6 +117,7 @@ overflow-x: hidden;
     }
 
     textarea {
+	  width: 90%;
       padding: 5px;
       border-radius: 10px;
       flex-grow: 1;
@@ -127,6 +128,12 @@ overflow-x: hidden;
       font-size: 1rem;
       font-family: 'lato', sans-serif;
       letter-spacing: 0.1em;
+  @media screen and (min-width: 650px) {
+    width: 100%;
+  }
+      @media screen and (min-width: 1460px) {
+        max-width: 80%;
+      }
     }
 
 
@@ -148,7 +155,8 @@ const PageEditor = styled.div<Props>`
   justify-content: center;
   align-items: center;
   width: 100vw;
-  height: 100vh;
+  padding-bottom: 2rem;
+  min-height: 100%;
   position: absolute;
   top: 0;
   left: 0;
@@ -167,9 +175,10 @@ const PageEditor = styled.div<Props>`
 `;
 
 const WYSIWYGForm = styled.form`
-  
+
+  width: 95%;
   @media screen and (min-width: 650px) {
-    width: 90%;
+    width: 80%;
   }
   @media screen and (min-width: 850px) {
     width: 75%;
@@ -202,16 +211,13 @@ const FormButtonContainer = styled.div`
   flex-direction: row;
   justify-content: start;
 
-  margin-top: 6rem;
   @media screen and (min-width: 650px) {
 	align-self: flex-start;
     margin-left: 5rem;
-    margin-top: 3rem;
     justify-content: center;
   }
   @media screen and (min-width: 850px) {
     justify-content: center;
-	margin-top: 1rem;
   }
   @media screen and (min-width: 1400px) {
 

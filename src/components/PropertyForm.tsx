@@ -79,7 +79,9 @@ function PropertyForm({
   return (
     <PropertyFormList
       onSubmit={handleSubmit}
+/*
       showPropertyForm={showPropertyForm}
+*/
     >
       <XIcon onClick={handleFormClosed} />
       <h1>
@@ -203,7 +205,7 @@ function PropertyForm({
           onChange={handleUpdate}
         />
       </div>
-      <div style={{minHeight: '300px', marginBottom: '5rem'}} className="inputs">
+      <div style={{display: 'flex', flexDirection: 'column', minHeight: '300px'}} className="inputs">
       <label style={{ marginBottom: '.5rem' }} htmlFor="description">
         Description
       </label>
@@ -220,7 +222,7 @@ function PropertyForm({
           {!close ? (
             <ButtonLoader loading={loading}>Create</ButtonLoader>
           ) : (
-            <Button onClick={handleFormClosed}>CLOSE</Button>
+            <Button type="button" onClick={handleFormClosed}>CLOSE</Button>
           )}
         </FormButtonContainer>
       ) : (
