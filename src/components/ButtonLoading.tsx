@@ -1,18 +1,20 @@
 import React from 'react';
+
 import { useSpring, animated } from 'react-spring';
 import { Button, Loader } from '../styles/Admin.Styles';
 
 interface Props {
   loading: boolean;
-  // eslint-disable-next-line react/require-default-props
   children?: string;
-  // eslint-disable-next-line react/require-default-props
-  props?: any;
 }
-export default function ButtonLoader({ loading, children, ...props }: Props) {
+
+
+
+function ButtonLoader({ loading, children}: Props) {
   /* showLoader is used to stay in the "isLoading state" a bit longer to avoid loading flashes
      if the loading state is too short. */
   const [showLoader, setShowLoader] = React.useState(false);
+  const [saved, setSaved] = React.useState(false);
 
   // eslint-disable-next-line consistent-return
   React.useEffect(() => {
@@ -21,14 +23,23 @@ export default function ButtonLoader({ loading, children, ...props }: Props) {
     }
 
     // Show loader a bits longer to avoid loading flash
-    if (!loading && showLoader) {
-      const timeout = setTimeout(() => {
-        setShowLoader(false);
-      }, 1400);
+	  if (!loading && showLoader) {
 
-      return () => {
-        clearTimeout(timeout);
-      };
+		  const timeout = setTimeout(() => {
+		  setShowLoader(false)
+		  }, 2000)
+
+		  const savedTimer = setTimeout(() => {
+			  setSaved(true);
+		  }, 1000)
+
+		  setSaved(false);
+
+		  return () => {
+			  clearTimeout(savedTimer);
+			  clearTimeout(timeout);
+		  };
+
     }
   }, [loading, showLoader]);
 
@@ -55,7 +66,6 @@ export default function ButtonLoader({ loading, children, ...props }: Props) {
   return (
     <Button
       type="submit"
-      {...props}
       ref={ref}
       style={
         showLoader
@@ -68,11 +78,14 @@ export default function ButtonLoader({ loading, children, ...props }: Props) {
     >
       {showLoader ? (
         <animated.span style={fadeOutProps}>
-          <Loader />
+			{ saved ? `SAVED` : <Loader /> }
         </animated.span>
       ) : (
         <animated.span style={fadeInProps}>{children}</animated.span>
       )}
+
     </Button>
   );
 }
+ButtonLoader.defaultProps= {children: ''}
+export default ButtonLoader

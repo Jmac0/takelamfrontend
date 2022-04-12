@@ -61,6 +61,7 @@ function PropertyForm({
   };
 
   const handleSubmit = (evt: Event) => {
+	  // different http request for different methods
     evt.preventDefault();
     if (requestMethod === 'POST') {
       createProperty({... form, description});
@@ -79,9 +80,6 @@ function PropertyForm({
   return (
     <PropertyFormList
       onSubmit={handleSubmit}
-/*
-      showPropertyForm={showPropertyForm}
-*/
     >
       <XIcon onClick={handleFormClosed} />
       <h1>

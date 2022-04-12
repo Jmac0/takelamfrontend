@@ -39,11 +39,11 @@ function EditPageComponent({
         <WYSIWYG content={content} setRichTextContent={setRichTextContent} />
         {error}
         <div style={{ display: 'flex', flexDirection: 'row' }}>
-          <Button type="button" onClick={() => setEditing(false)}>CLOSE</Button>
           <div style={{ width: 'fit-content', height: '56px' }}>
-            <ButtonLoader loading={loading}>Save</ButtonLoader>
-          </div>
-        </div>
+			  <ButtonLoader loading={loading}>Save</ButtonLoader>
+		  </div>
+			<Button type="button" onClick={() => setEditing(false)}>CLOSE</Button>
+		</div>
       </WYSIWYGForm>
 	</PageEditor>
   );

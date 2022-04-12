@@ -21,8 +21,14 @@ const PropertyFormList = styled.form<Props>`
   top: 0;
   left: 0;
 overflow-x: hidden;
-  background-color: ${colors.tan};
+  
 
+  background-color: ${colors.tan};
+  background-blend-mode: screen;
+
+  background-position: 50% 50%;
+  background-size: 160%;
+  background-repeat: no-repeat;
   h1 {
     color: ${colors.blue};
     align-self: center;
