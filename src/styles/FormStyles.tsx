@@ -168,20 +168,19 @@ const PageEditor = styled.div<Props>`
   left: 0;
 
   background: url(${Logo}),
-  linear-gradient(to top, ${colors.blue} 100%, white 0%);
+    linear-gradient(to top, ${colors.blue} 100%, white 0%);
   background-blend-mode: overlay;
   background-color: ${colors.tan};
   background-position: 50% 50%;
   background-repeat: no-repeat;
   background-size: 160%;
-  
+
   h1 {
-	color: white;
+    color: white;
   }
 `;
 
 const WYSIWYGForm = styled.form`
-
   width: 95%;
   @media screen and (min-width: 650px) {
     width: 80%;
@@ -192,7 +191,6 @@ const WYSIWYGForm = styled.form`
   @media screen and (min-width: 1400px) {
     width: 60%;
   }
-  
 `;
 
 /* close popup icon */
@@ -218,7 +216,7 @@ const FormButtonContainer = styled.div`
   justify-content: start;
 
   @media screen and (min-width: 650px) {
-	align-self: flex-start;
+    align-self: flex-start;
     margin-left: 5rem;
     justify-content: center;
   }
@@ -226,8 +224,26 @@ const FormButtonContainer = styled.div`
     justify-content: center;
   }
   @media screen and (min-width: 1400px) {
-
     justify-content: center;
+  }
+`;
+
+const LoginForm = styled(PropertyFormList)`
+  position: relative;
+  border: 2px solid ${colors.blue};
+  border-radius: 6px;
+  flex-direction: column;
+  width: max-content;
+  flex-wrap: wrap;
+  padding: 3rem;
+  filter: drop-shadow(10px 10px 3px lightgray); 
+  > .inputs {
+    padding: 10px;
+    width: 80%;
+	
+	input {
+	  border-radius: 6px;
+	}
   }
 `;
 
@@ -237,4 +253,5 @@ export {
   PropertyFormList,
   XIcon,
   FormButtonContainer,
+  LoginForm,
 };

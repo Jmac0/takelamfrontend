@@ -10,6 +10,9 @@ import NotFound from './routes/NotFound';
 import fetchContent from './hooks/fetchContent';
 import Admin from './routes/Admin';
 import SingleProperty from './components/SingleProperty';
+import Login from './routes/Login';
+import { AuthProvider } from './components/auth/AuthProvider';
+import RequireAuth from './components/auth/RequireAuth';
 
 interface Component {
   index: string;
@@ -24,35 +27,49 @@ export default function App() {
   const location = useLocation();
   const path: string = location.pathname;
   const [pageContent, setIndex] = fetchContent([]);
-
+	// eslint-disable-next-line no-constant-condition
+  const timer = path === '/login' || '/location' ? 0 : 650
+	console.log(path)
   return (
-    <TransitionGroup component={null}>
-      <CSSTransition key={location.key} classNames="fade" timeout={650}>
-        <Routes location={location}>
-          <Route path="/" element={<Layout path={path} />}>
-            <Route index element={<LandingPage />} />
+    <AuthProvider>
+{/*
+      <TransitionGroup component={null}>
+        <CSSTransition key={location.key} classNames="fade" timeout={timer}>
+*/}
+          <Routes location={location}>
+            <Route path="/" element={<Layout path={path} />}>
+              <Route index element={<LandingPage />} />
 
-            {pageContent.map((el: Component) => (
-              <Route
-                key={el._id}
-                path={el.path}
-                element={<Page heading={el.heading} bodyText={el.bodyText} />}
-              />
-            ))}
-            <Route path="contact" element={<Contact />} />
-            <Route path="*" element={<NotFound />} />
+              {pageContent.map((el: Component) => (
+                <Route
+                  key={el._id}
+                  path={el.path}
+                  element={<Page heading={el.heading} bodyText={el.bodyText} />}
+                />
+              ))}
+              <Route path="contact" element={<Contact />} />
+              <Route path="*" element={<NotFound />} />
               {/* view property admin */}
-            <Route path="property/:id" element={<SingleProperty />} />
+              <Route path="property/:id" element={<SingleProperty />} />
               {/* view property client */}
-            <Route path="property/view/:id" element={<SingleProperty />} />
-          </Route>
-          <Route
-            path="admin"
-            element={<Admin pages={pageContent} setIndex={setIndex} />}
-          />
-        </Routes>
-      </CSSTransition>
-    </TransitionGroup>
+              <Route path="property/view/:id" element={<SingleProperty />} />
+            </Route>
 
+            <Route
+              path="admin"
+              element={
+                <RequireAuth>
+                  <Admin pages={pageContent} setIndex={setIndex} />
+                </RequireAuth>
+              }
+            />
+
+            <Route path="/login" element={<Login />} />
+          </Routes>
+{/*
+        </CSSTransition>
+      </TransitionGroup>
+*/}
+    </AuthProvider>
   );
 }

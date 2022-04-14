@@ -12,6 +12,18 @@ interface Props {
   onClick?: any;
   showPropertiesOrPages?: string;
 }
+
+const LoginContainer = styled.div`
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; 
+ min-height: -webkit-fill-available;
+`;
+
+
+
 const AdminContainer = styled.div`
   //position: relative;
   height: 100%;
@@ -234,4 +246,5 @@ export {
   Loader,
   HouseIcon,
   PagesIcon,
+LoginContainer,
 };

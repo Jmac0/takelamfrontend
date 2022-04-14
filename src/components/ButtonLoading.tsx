@@ -6,11 +6,12 @@ import { Button, Loader } from '../styles/Admin.Styles';
 interface Props {
   loading: boolean;
   children?: string;
+  completedActionText?: string;
 }
 
 
 
-function ButtonLoader({ loading, children}: Props) {
+function ButtonLoader({ loading, children, completedActionText }: Props) {
   /* showLoader is used to stay in the "isLoading state" a bit longer to avoid loading flashes
      if the loading state is too short. */
   const [showLoader, setShowLoader] = React.useState(false);
@@ -78,7 +79,7 @@ function ButtonLoader({ loading, children}: Props) {
     >
       {showLoader ? (
         <animated.span style={fadeOutProps}>
-			{ saved ? `SAVED` : <Loader /> }
+			{ saved ? completedActionText : <Loader /> }
         </animated.span>
       ) : (
         <animated.span style={fadeInProps}>{children}</animated.span>
@@ -87,5 +88,5 @@ function ButtonLoader({ loading, children}: Props) {
     </Button>
   );
 }
-ButtonLoader.defaultProps= {children: ''}
+ButtonLoader.defaultProps= {children: '', completedActionText:  'SAVED'}
 export default ButtonLoader
