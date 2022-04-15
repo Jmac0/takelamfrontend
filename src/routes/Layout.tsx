@@ -24,6 +24,7 @@ function Layout({ path }: Path) {
       <MobileNavMenu setOpen={setOpen} open={open} />
       <PageLogo path={home} />
       <Nav path={home} about={about} />
+
       <Outlet />
       <PageTear path={home} />
     </Container>
