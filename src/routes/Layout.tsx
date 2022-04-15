@@ -18,7 +18,7 @@ function Layout({ path }: Path) {
   const [open, setOpen] = ToggleOpen(false);
 
   return (
-  /* @ts-ignore */
+    /* @ts-ignore */
     <Container path={home}>
       <MobileNavBar path={home} open={open} setOpen={setOpen} />
       <MobileNavMenu setOpen={setOpen} open={open} />
