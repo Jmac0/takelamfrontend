@@ -18,7 +18,8 @@ const LoginContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh; 
+  height: 80vh; 
+  width: 100vw;
  min-height: -webkit-fill-available;
 `;
 
@@ -49,8 +50,9 @@ const AdminContainer = styled.div`
 `;
 const AdminMenu = styled.div`
   display: flex;
+  flex-wrap: wrap;
+  width: 100%;
   flex-direction: row;
-  text-align: center;
   padding: 0.75rem 0 0.75rem 0;
   border-bottom: 3px solid ${colors.grey};
 
@@ -75,7 +77,7 @@ color: ${colors.white};
     background-color: transparent;
     outline: none;
     border: none;
-    margin-left: 3rem;
+    margin-left: 1rem;
     
     &:hover {
       background-color: transparent;

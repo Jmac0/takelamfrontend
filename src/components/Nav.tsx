@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavBar, NavElement } from '../styles/Container.styles';
 import 'styles/styles.css';
+import useAuth from './auth/useAuth';
 
 type Props = {
   path: boolean;
@@ -8,6 +9,7 @@ type Props = {
 };
 
 export default function Nav({ path, about }: Props) {
+	const auth = useAuth();
   return (
     <NavBar path={path}>
       <div style={{ display: 'flex', flexDirection: 'column' }}>
@@ -19,7 +21,11 @@ export default function Nav({ path, about }: Props) {
 
         <NavElement to="properties">PROPERTIES</NavElement>
         <NavElement to="contact">CONTACT</NavElement>
-      </div>
+		  <NavElement  to="admin">
+			  { auth.user ? 'Admin' : 'Login'}
+		  </NavElement>
+
+	  </div>
       {about && (
         <div
           style={{
@@ -31,9 +37,14 @@ export default function Nav({ path, about }: Props) {
             left: '20px',
           }}
         >
-          <NavElement className="subMenu" to="about/our-vision">
-            OUR VISION
-          </NavElement>
+			<div style={{display: 'none'}}>
+			<NavElement className="subMenu" to="login">
+				Admin
+			</NavElement>
+			</div>
+			<NavElement className="subMenu" to="about/our-vision">
+				OUR VISION
+			</NavElement>
           <NavElement className="subMenu" to="about/interiors">
             INTERIOR DESIGN
           </NavElement>

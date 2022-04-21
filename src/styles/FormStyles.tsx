@@ -228,7 +228,7 @@ const FormButtonContainer = styled.div`
   }
 `;
 
-const LoginForm = styled(PropertyFormList)`
+const EmilandPasswordFormStyles = styled(PropertyFormList)`
   position: relative;
   border: 2px solid ${colors.blue};
   border-radius: 6px;
@@ -253,5 +253,5 @@ export {
   PropertyFormList,
   XIcon,
   FormButtonContainer,
-  LoginForm,
+  EmilandPasswordFormStyles,
 };

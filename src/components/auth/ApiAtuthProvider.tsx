@@ -1,6 +1,4 @@
-/**
- * This represents some generic auth provider API, like Firebase.
- */
+/*
 
 interface VoidFunction {
   (): void;
@@ -9,12 +7,22 @@ const ApiAuthProvider = {
   isAuthenticated: false,
   signIn(callback: VoidFunction) {
     ApiAuthProvider.isAuthenticated = true;
-    setTimeout(callback, 0); // fake async
+
+
+
+
+
+
+
+
+	setTimeout(callback, 1000); // fake async
   },
   signOut(callback: VoidFunction) {
     ApiAuthProvider.isAuthenticated = false;
-    setTimeout(callback, 0);
+    setTimeout(callback, 1000);
   },
 };
 
 export default ApiAuthProvider;
+*/
+export {}

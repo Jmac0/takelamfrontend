@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
+import {NavLink, Outlet, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Property } from 'interfaces';
 import baseUrl from 'utils/urls';
-import { ifError } from 'assert';
 import EditPageComponent from '../components/EditPageComponent';
+import useAuth from '../components/auth/useAuth';
 
 import {
   AdminContainer,
@@ -34,6 +35,8 @@ function Admin({ pages, setIndex }: Props) {
   /* get property data, setPropertyIndex is a
 	 counter that can be used to re-call the get
 	 request for properties */
+  const auth = useAuth();
+  const navigate = useNavigate()
   const [properties, setPropertyIndex] = fetchProperties([]);
   /* current property id to edit */
   const [currentProperty, setCurrentProperty] = useState({});
@@ -161,7 +164,7 @@ function Admin({ pages, setIndex }: Props) {
     setShowPropertyForm(!showPropertyForm);
     /* show different button in form depending on
 		 method */
-	setCurrentProperty({} )
+    setCurrentProperty({});
     setRequestMethod(useMethod);
     setLoading(false);
     setClose(false);
@@ -186,30 +189,30 @@ function Admin({ pages, setIndex }: Props) {
 
   // @ts-ignore
   return (
-    <div>
+    <div style={{position: 'absolute'}}>
       <AdminMenu>
-        <div>
-          {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */}
-          <Button
-            type="button"
-            onClick={() => setShowPropertiesOrPages('properties')}
-          >
-            {' '}
-            <span>
-              <HouseIcon /> Properties
-            </span>
-          </Button>
-          <Button
-            type="button"
-            onClick={() => setShowPropertiesOrPages('pages')}
-          >
-            <span>
-              <PagesIcon /> Pages
-            </span>
-          </Button>
-        </div>
+        <Button
+          type="button"
+          onClick={() => setShowPropertiesOrPages('properties')}
+        >
+          {' '}
+          <span>
+            <HouseIcon /> Properties
+          </span>
+        </Button>
+        <Button type="button" onClick={() => setShowPropertiesOrPages('pages')}>
+          <span>
+            <PagesIcon /> Pages
+          </span>
+        </Button>
+        <Button onClick={() => navigate('/users')} >
+          Users
+        </Button>
+        <Button type="button" onClick={auth.signOut}>
+          Logout
+        </Button>
       </AdminMenu>
-      {/* button to create new property */}
+
       <div
         style={{
           flexDirection: 'row',
@@ -224,20 +227,19 @@ function Admin({ pages, setIndex }: Props) {
       </div>
 
       <AdminContainer>
-		  { showPropertyForm &&
-			  <PropertyForm
-				  showPropertyForm={showPropertyForm}
-				  handleFormClosed={handleFormClosed}
-				  requestMethod={requestMethod}
-				  currentProperty={currentProperty as Property}
-				  createProperty={createProperty}
-				  updateProperty={updateProperty}
-				  error={error}
-				  loading={loading}
-				  close={close}
-			  />
-		  }
-        {/* show list of pages */}
+        {showPropertyForm && (
+          <PropertyForm
+            showPropertyForm={showPropertyForm}
+            handleFormClosed={handleFormClosed}
+            requestMethod={requestMethod}
+            currentProperty={currentProperty as Property}
+            createProperty={createProperty}
+            updateProperty={updateProperty}
+            error={error}
+            loading={loading}
+            close={close}
+          />
+        )}
 
         {pages.map((page: Page) => (
           <PageListItem
@@ -275,6 +277,7 @@ function Admin({ pages, setIndex }: Props) {
           setSuccess={setSuccess}
         />
       )}
+		<Outlet />
     </div>
   );
 }

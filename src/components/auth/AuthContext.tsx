@@ -4,9 +4,16 @@ interface VoidFunction {
 	(): void;
 }
 interface AuthContextType {
-	user: any;
-	signIn: (_user: string, _callback: VoidFunction) => void;
+	loading: boolean;
+	user: string;
+	password: string,
+	email: string;
+	signIn: (
+		_password: string, _email: string,
+		_callback: VoidFunction
+	) => void;
 	signOut: (_callback: VoidFunction) => void;
+	loginError: string
 }
 
 
