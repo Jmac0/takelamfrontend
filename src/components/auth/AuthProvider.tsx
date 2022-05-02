@@ -7,10 +7,6 @@ interface VoidFunction {
   (): void;
 }
 
-interface User {
-  email: string;
-  password: string;
-}
 
 const ApiAuthProvider = {
   isAuthenticated: false,
@@ -23,8 +19,6 @@ const ApiAuthProvider = {
     callback();
   },
 };
-
-export default ApiAuthProvider;
 
 function AuthProvider({ children }: { children: React.ReactNode }) {
   const [loginError, setLoginError] = useState('');
@@ -50,23 +44,29 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
         },
       )
       .then((res) => {
-		  console.log(res.data)
         ApiAuthProvider.signIn(() => {
           setLoading(false);
           setUser(email);
+		  setLoginError('')
           callback();
         });
+      })
+      .catch((err) => {
+        setLoading(false);
+		setTimeout(() =>{
+
+		  setLoginError(err.response.data.message);
+		}, 600)
       });
   };
 
   const signOut = () =>
     ApiAuthProvider.signOut(() => {
       setUser(null);
-      // callback();
     });
   const value = useMemo(
-    () => ({ loading, user, signIn, signOut, loginError }),
-    [user, loading],
+    () => ({ loading, user, signIn, signOut, loginError, setLoginError }),
+    [user, loading, loginError],
   );
 
   // @ts-ignore

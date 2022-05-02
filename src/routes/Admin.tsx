@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {NavLink, Outlet, useNavigate } from 'react-router-dom';
+import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Property } from 'interfaces';
 import baseUrl from 'utils/urls';
@@ -18,10 +18,13 @@ import PropertyForm from '../components/PropertyForm';
 import fetchProperties from '../hooks/fetchProperties';
 
 import PropertyListItem from '../components/PropertyListItem';
+import AdminNav from '../components/AdminNav';
 
 interface Props {
   pages: [];
   setIndex: (_arg: (_index: number) => number) => void;
+  setShowPropertiesOrPages: (_arg: string) => void;
+  showPropertiesOrPages: string;
 }
 
 interface Page {
@@ -31,12 +34,17 @@ interface Page {
   bodyText: string;
 }
 
-function Admin({ pages, setIndex }: Props) {
+function Admin({
+  pages,
+  setIndex,
+  setShowPropertiesOrPages,
+  showPropertiesOrPages,
+}: Props) {
   /* get property data, setPropertyIndex is a
 	 counter that can be used to re-call the get
 	 request for properties */
   const auth = useAuth();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [properties, setPropertyIndex] = fetchProperties([]);
   /* current property id to edit */
   const [currentProperty, setCurrentProperty] = useState({});
@@ -52,9 +60,10 @@ function Admin({ pages, setIndex }: Props) {
   const [success, setSuccess] = useState<boolean>(false);
 
   /* show property or pages items in admin */
-
+  /*
   const [showPropertiesOrPages, setShowPropertiesOrPages] =
     useState('properties');
+*/
   /* loading boolean */
   const [loading, setLoading] = useState<boolean>(false);
   /* show or hide property form */
@@ -84,6 +93,7 @@ function Admin({ pages, setIndex }: Props) {
         },
 
         {
+	  withCredentials: true,
           headers: { 'Content-type': 'application/json' },
         },
       )
@@ -109,7 +119,9 @@ function Admin({ pages, setIndex }: Props) {
     delete data._id;
     await axios
       .post(`${baseUrl}/properties`, data, {
-        headers: { 'Content-type': 'application/json' },
+        headers: { 'Content-type': 'application/json',
+	  withCredentials: true
+		},
       })
       .then((response) => {
         console.log(data);
@@ -137,6 +149,7 @@ function Admin({ pages, setIndex }: Props) {
         `${baseUrl}/properties/${id}`,
 
         data,
+		{withCredentials: true}
       )
       .then((response) => {
         if (response.status === 204) {
@@ -150,7 +163,7 @@ function Admin({ pages, setIndex }: Props) {
   };
   const deleteProperty = async (id: string) => {
     // eslint-disable-next-line no-restricted-globals
-    await axios.delete(`${baseUrl}/properties/${id}`).then((response) => {
+    await axios.delete(`${baseUrl}/properties/${id}`, {withCredentials: true}).then((response) => {
       if (response.status === 204) {
         console.log(response);
         setPropertyIndex((cur: number) => cur + 1);
@@ -186,10 +199,20 @@ function Admin({ pages, setIndex }: Props) {
     setLoading(false);
   };
   // @ts-ignore
-
+  const propertiesArray = properties.map((property: Property) => (
+    <PropertyListItem
+      showPropertiesOrPages={showPropertiesOrPages}
+      key={property._id}
+      id={property._id}
+      title={property.title}
+      editProperty={editProperty}
+      deleteProperty={deleteProperty}
+    />
+  ));
   // @ts-ignore
   return (
-    <div style={{position: 'absolute'}}>
+    <div style={{ position: 'absolute' }}>
+      {/*
       <AdminMenu>
         <Button
           type="button"
@@ -212,7 +235,8 @@ function Admin({ pages, setIndex }: Props) {
           Logout
         </Button>
       </AdminMenu>
-
+*/}
+      <AdminNav setShowPropertiesOrPages={setShowPropertiesOrPages} />
       <div
         style={{
           flexDirection: 'row',
@@ -253,17 +277,10 @@ function Admin({ pages, setIndex }: Props) {
             editPage={editPage}
           />
         ))}
+        { /* sort properties in alphabetical order */ }
 
-        {properties.map((property: Property) => (
-          <PropertyListItem
-            showPropertiesOrPages={showPropertiesOrPages}
-            key={property._id}
-            id={property._id}
-            title={property.title}
-            editProperty={editProperty}
-            deleteProperty={deleteProperty}
-          />
-        ))}
+        {propertiesArray.sort((a: Property, b: Property) => (a.title > b.title ? 1 : -1))}
+
       </AdminContainer>
       {editing && (
         <EditPageComponent
@@ -277,7 +294,7 @@ function Admin({ pages, setIndex }: Props) {
           setSuccess={setSuccess}
         />
       )}
-		<Outlet />
+      <Outlet />
     </div>
   );
 }

@@ -23,7 +23,7 @@ function ButtonLoader({ loading, children, completedActionText }: Props) {
       setShowLoader(true);
     }
 
-    // Show loader a bits longer to avoid loading flash
+    // Show loader a bit longer to avoid loading flash
 	  if (!loading && showLoader) {
 
 		  const timeout = setTimeout(() => {

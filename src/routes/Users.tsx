@@ -1,54 +1,49 @@
 import React from 'react';
-import {NavLink, useNavigate} from "react-router-dom";
-import EmailAndPasswordForm from "../components/EmailAndPasswordForm";
+import EmailAndPasswordForm from '../components/EmailAndPasswordForm';
 import {
-	AdminMenu,
-	Button,
-	HouseIcon,
-	LoginContainer,
-	PagesIcon
-} from "../styles/Admin.Styles";
+  LoginContainer,
+} from '../styles/Admin.Styles';
+import AdminNav from "../components/AdminNav";
 
-const handleSubmit = (evt:any): void =>  {
-	alert('hello');
-
+interface Props {
+  setShowPropertiesOrPages: (_arg: string) => void;
 }
 
-function Users() {
-	const navigate = useNavigate();
-	return (
-		<div style={{position: 'absolute', width:"100%"}}>
-
-			<AdminMenu>
-				<Button onClick={() => navigate('/admin')}
-					type="button"
-				>
-					{' '}
-					<span>
+function Users( {setShowPropertiesOrPages}: Props) {
+  const handleSubmit = (evt: any): void => {
+    alert('hello');
+  };
+  return (
+    <div style={{ width: '100%' }}>
+{/*
+      <AdminMenu>
+        <Button onClick={() => navigate('/admin')} type="button">
+          {' '}
+          <span>
             <HouseIcon /> Properties
           </span>
-				</Button>
-				<Button>
+        </Button>
+        <Button onClick={() => {navigate('/admin'); setShowPropertiesOrPages('pages')}}>
           <span>
             <PagesIcon /> Pages
           </span>
-				</Button>
-				<Button onClick={() => navigate('/users')} >
-					Users
-				</Button>
-				<Button>
-					Logout
-				</Button>
-			</AdminMenu>
-
-
-
-<LoginContainer>
-			<EmailAndPasswordForm heading="Update user"  buttonLabel='Update'  emailLabel="New email"  handleSubmit={handleSubmit}  passwordLabel="New password"/>
-</LoginContainer>
-
-		</div>
-	);
+        </Button>
+        <Button onClick={() => navigate('/users')}>Users</Button>
+        <Button onClick={auth.signOut}>Logout</Button>
+      </AdminMenu>
+*/}
+<AdminNav setShowPropertiesOrPages={setShowPropertiesOrPages}   />
+      <LoginContainer>
+        <EmailAndPasswordForm
+          heading="Update user"
+          buttonLabel="Update"
+          emailLabel="New email"
+          handleSubmit={handleSubmit}
+          passwordLabel="New password"
+        />
+      </LoginContainer>
+    </div>
+  );
 }
 
 export default Users;

@@ -1,9 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { EmilandPasswordFormStyles } from '../styles/FormStyles';
+import {
+	faHouse,
+} from '@fortawesome/free-solid-svg-icons';
+
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import { LoginContainer } from '../styles/Admin.Styles';
 import useAuth from '../components/auth/useAuth';
 import EmailAndPasswordForm from "../components/EmailAndPasswordForm";
+import {NavElement} from "../styles/Container.styles";
 
 function Login() {
   const navigate = useNavigate();
@@ -22,6 +27,7 @@ function Login() {
     const password = formData.get('password') as string;
 
     auth.signIn(email, password, () => {
+
       // Send them back to the page they tried to visit when they were
       // redirected to the login page. Use { replace: true } so we don't create
       // another entry in the history stack for the login page.  This means that
@@ -34,6 +40,10 @@ function Login() {
 
   return (
     <LoginContainer >
+		<div>
+
+			<FontAwesomeIcon style={{color: 'grey', marginBottom: '2px'}} icon={faHouse} className="icon" />
+			<NavElement to="/">HOME</NavElement></div>
 		<EmailAndPasswordForm heading="Login"  buttonLabel='Login'  emailLabel="Email"  handleSubmit={handleSubmit}  passwordLabel="Password"/>
 
 	</LoginContainer>

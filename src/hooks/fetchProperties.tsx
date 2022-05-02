@@ -10,7 +10,7 @@ export default function fetchProperties(initialState: []) {
   useEffect(() => {
     async function getProperties(): Promise<void> {
       await axios
-        .get(`${baseUrl}/properties`)
+        .get(`${baseUrl}/properties`, {withCredentials: true})
         .then((res) => {
           const {
             data: { properties },

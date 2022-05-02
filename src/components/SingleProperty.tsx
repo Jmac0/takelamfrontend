@@ -29,6 +29,7 @@ interface Property {
   buildSize: string;
   plotSize: string;
   description: string;
+  floorPlan: string[];
   ownership: string;
 }
 
@@ -60,7 +61,6 @@ function SingleProperty() {
       lng: 0,
     });
 
-
   useEffect(() => {
     // set path for admin property view
     let path = `${baseUrl}/properties`;
@@ -71,21 +71,23 @@ function SingleProperty() {
       path = `${baseUrl}/properties/client`;
     }
 
-    axios.get(`${path}/${urlPram}`).then((response) => {
-      const {
-        data: { property },
-      } = response;
+    axios
+      .get(`${path}/${urlPram}`, { withCredentials: true })
+      .then((response) => {
+        const {
+          data: { property },
+        } = response;
 
-      const {
-        data: {
-          property: { cords },
-        },
-      } = response;
-      setMapCenter({ lat: cords[0], lng: cords[1] });
-      setMapMarkerPosition({ lat: cords[0], lng: cords[1] });
-      setCurrentProperty(() => property);
-      setLoading(() => false);
-    });
+        const {
+          data: {
+            property: { cords },
+          },
+        } = response;
+        setMapCenter({ lat: cords[0], lng: cords[1] });
+        setMapMarkerPosition({ lat: cords[0], lng: cords[1] });
+        setCurrentProperty(() => property);
+        setLoading(() => false);
+      });
   }, [urlPram]);
 
   /*
@@ -115,20 +117,21 @@ function SingleProperty() {
   });
 
   if (currentProperty.title) gallery.render();
-
-  return loading ? (
-    <div
-      style={{
-        color: 'white',
-        position: 'absolute',
-        width: '100vw',
-        height: '100vh',
-        zIndex: '1',
-      }}
-    >
-      <h1>LOADING</h1>
-    </div>
-  ) : (
+  let floorPlans: JSX.Element[] = [];
+  // render floor plans
+  if (currentProperty.floorPlan) {
+    floorPlans = currentProperty.floorPlan.map((el, i) => (
+      <a href={currentProperty.floorPlan[i]} target="_blank" rel="noreferrer">
+        <img
+          alt="thumb"
+          width="150px"
+          height="100px"
+          src={currentProperty.floorPlan[i]}
+        />
+      </a>
+    ));
+  }
+  return (
     <div
       style={{
         width: '98%',
@@ -138,6 +141,17 @@ function SingleProperty() {
       }}
     >
       <div id="my-gallery" />
+
+      <div>
+        {/* conditionally render floor plans */}
+        {floorPlans.length > 0 ? (
+          <div>
+            <p>Floor Plans</p> {floorPlans}
+          </div>
+        ) : (
+          ''
+        )}
+      </div>
 
       <PropertyList>
         <div>{currentProperty.location}</div>
@@ -173,8 +187,9 @@ function SingleProperty() {
         <div>
           <h4>Property Description:</h4>
 
-			<p dangerouslySetInnerHTML={{ __html:  currentProperty.description }} />
-
+          <p
+            dangerouslySetInnerHTML={{ __html: currentProperty.description }}
+          />
         </div>
       </PropertyList>
       <Wrapper apiKey={API}>

@@ -65,9 +65,9 @@ function PropertyForm({
     evt.preventDefault();
     if (requestMethod === 'POST') {
       createProperty({... form, description});
-    }
+    }else if (requestMethod === 'PATCH') {
     updateProperty(currentProperty._id, {...form, description}, images);
-  };
+  }};
 
   useEffect(() => {
     /* set state to currently editing property or

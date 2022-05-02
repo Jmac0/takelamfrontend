@@ -162,7 +162,7 @@ const PageEditor = styled.div<Props>`
   align-items: center;
   width: 100vw;
   padding-bottom: 2rem;
-  min-height: 100%;
+  min-height: 100vh;
   position: absolute;
   top: 0;
   left: 0;

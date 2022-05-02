@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import 'styles/routeAnimation.css';
@@ -28,6 +28,11 @@ export default function App() {
   const location = useLocation();
   const path: string = location.pathname;
   const [pageContent, setIndex] = fetchContent([]);
+
+	/* show property or pages items in admin */
+// todo move to context so I can use in Users
+	const [showPropertiesOrPages, setShowPropertiesOrPages] =
+		useState('properties');
 	// eslint-disable-next-line no-constant-condition
   const transitionTime = path.includes('admin') || path.includes('users') ? 0 : 650;
 
@@ -35,7 +40,7 @@ export default function App() {
   return (
     // eslint-disable-next-line react/jsx-no-useless-fragment
     <>
-      {path.includes('login' || 'admin' || 'users') ? (
+      {path.includes('login') || path.includes('admin') || path.includes('users') ? (
         <AuthProvider>
           <Routes location={location}>
             {/*
@@ -59,12 +64,20 @@ export default function App() {
               path="admin"
               element={
                 <RequireAuth>
-                  <Admin pages={pageContent} setIndex={setIndex} />
+                  <Admin pages={pageContent} setIndex={setIndex} showPropertiesOrPages={showPropertiesOrPages} setShowPropertiesOrPages={setShowPropertiesOrPages} />
                 </RequireAuth>
               }
             />
 
-            <Route path="users" element={<Users />} />
+            <Route
+				path="users"
+				element={
+					<RequireAuth>
+						<Users
+							setShowPropertiesOrPages={setShowPropertiesOrPages}/>
+					</RequireAuth>
+				}
+				/>
           </Routes>
         </AuthProvider>
       ) : (
@@ -91,6 +104,7 @@ export default function App() {
                     element={<SingleProperty />}
                   />
                 </Route>
+{/*
                 <Route
                   path="/admin"
                   element={
@@ -102,6 +116,7 @@ export default function App() {
 
                 <Route path="login" element={<Login />} />
                 <Route path="users" element={<Users />} />
+*/}
               </Routes>
             </CSSTransition>
           </TransitionGroup>

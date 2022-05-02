@@ -12,10 +12,11 @@ function CreatePropertyLink({ id }: Props) {
   const [copied, setCopied] = useState(false);
   const createLink = async () => {
     await axios
-      .get(`${baseUrl}/link/${id}`)
+      .get(`${baseUrl}/link/${id}`,{withCredentials: true})
       .then((response) => {
         const {
           data: { link },
+
         } = response;
         setClientLink(() => link);
       });

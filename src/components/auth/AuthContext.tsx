@@ -14,6 +14,7 @@ interface AuthContextType {
 	) => void;
 	signOut: (_callback: VoidFunction) => void;
 	loginError: string
+	setLoginError: (_arg: string) => void;
 }
 
 

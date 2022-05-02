@@ -37,9 +37,10 @@ const auth = useAuth();
 					autoComplete="on"
 				/>
 			</div>
-			<ButtonLoading loading={auth.loading} completedActionText="OK">
+			<ButtonLoading loading={auth.loading} completedActionText="LOGIN">
 				{buttonLabel}
 			</ButtonLoading>
+			<p style={{color: 'indianred'}}>{auth.loginError}</p>
 		</EmilandPasswordFormStyles>
 
 	);
