@@ -11,9 +11,11 @@ import fetchContent from './hooks/fetchContent';
 import Admin from './routes/Admin';
 import SingleProperty from './components/SingleProperty';
 import Login from './routes/Login';
+import ForgotPassword from './routes/ForgotPassword'
 import { AuthProvider } from './components/auth/AuthProvider';
 import RequireAuth from './components/auth/RequireAuth';
 import Users from './routes/Users';
+import ResetPassword from "./routes/ResetPassword";
 
 interface Component {
   index: string;
@@ -60,7 +62,10 @@ export default function App() {
 					</Route>
 */}
             <Route path="login" element={<Login />} />
-            <Route
+			  <Route path="admin/reset" element={<ForgotPassword />} />
+			  <Route path="users/resetpassword/:token" element={<ResetPassword />} />
+
+			  <Route
               path="admin"
               element={
                 <RequireAuth>
@@ -78,6 +83,7 @@ export default function App() {
 					</RequireAuth>
 				}
 				/>
+
           </Routes>
         </AuthProvider>
       ) : (
@@ -104,19 +110,6 @@ export default function App() {
                     element={<SingleProperty />}
                   />
                 </Route>
-{/*
-                <Route
-                  path="/admin"
-                  element={
-                    <RequireAuth>
-                      <Admin pages={pageContent} setIndex={setIndex} />
-                    </RequireAuth>
-                  }
-                />
-
-                <Route path="login" element={<Login />} />
-                <Route path="users" element={<Users />} />
-*/}
               </Routes>
             </CSSTransition>
           </TransitionGroup>

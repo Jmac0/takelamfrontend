@@ -198,7 +198,7 @@ function Admin({
     setShowPropertyForm(false);
     setLoading(false);
   };
-  // @ts-ignore
+  // list of current properties in admin
   const propertiesArray = properties.map((property: Property) => (
     <PropertyListItem
       showPropertiesOrPages={showPropertiesOrPages}

@@ -2,6 +2,7 @@ import React from 'react';
 import {EmilandPasswordFormStyles} from "../styles/FormStyles";
 import ButtonLoading from "./ButtonLoading";
 import useAuth from "./auth/useAuth";
+import {NavElementDark} from "../styles/Container.styles";
 
 interface FormProps {
 	heading: string
@@ -41,6 +42,8 @@ const auth = useAuth();
 				{buttonLabel}
 			</ButtonLoading>
 			<p style={{color: 'indianred'}}>{auth.loginError}</p>
+
+			<NavElementDark to='/admin/reset'>Forgot password</NavElementDark>
 		</EmilandPasswordFormStyles>
 
 	);

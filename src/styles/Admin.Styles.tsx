@@ -4,6 +4,7 @@ import { Warning } from '@styled-icons/fluentui-system-filled/Warning';
 import { HouseDoorFill } from '@styled-icons/bootstrap/HouseDoorFill';
 import { Edit } from '@styled-icons/boxicons-regular/Edit';
 import logo from '../images/admin_logo.png';
+import tearTan from '../images/tear_tan.png';
 
 interface Props {
   showPropertyForm?: boolean;
@@ -14,13 +15,16 @@ interface Props {
 }
 
 const LoginContainer = styled.div`
+  background: url(${tearTan}) no-repeat;
+  background-position-x: 100%;
+  background-position-y: 100%;
   position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  height: 80vh; 
+  height: 100vh; 
   width: 100vw;
+  overflow: hidden;
  min-height: -webkit-fill-available;
 `;
 

@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import tearWhite from 'images/tear_white.png';
 import tearTan from 'images/tear_tan.png';
 import Logo from 'images/logo_blue.png';
+import colors from 'styles/colors'
 
 type Props = {
   path: boolean;
@@ -100,7 +101,7 @@ const NavBar = styled.nav<Props>`
 `;
 
 const NavElement = styled(NavLink)`
-  color: #ccbd91;
+  color: ${colors.tan};
   font-size: 1.2rem;
   font-family: 'Oswald', sans-serif;
   font-weight: 300;
@@ -110,6 +111,11 @@ const NavElement = styled(NavLink)`
   &:hover {
     text-decoration: underline;
   }
+`;
+
+const NavElementDark = styled(NavElement)`
+	color: ${colors.blue};
+  margin: 0;
 `;
 
 const PageTear = styled.div<Props>`
@@ -129,5 +135,5 @@ const PageTear = styled.div<Props>`
 
 `;
 export {
-  NavBar, NavElement, Container, PageTear, PageLogo,
+  NavBar, NavElement, NavElementDark, Container, PageTear, PageLogo,
 };

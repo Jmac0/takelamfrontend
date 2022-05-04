@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import {
 	faHouse,
@@ -14,6 +14,9 @@ function Login() {
   const navigate = useNavigate();
   const location = useLocation();
   const auth = useAuth();
+  useEffect(() => {
+	  auth.setLoginError('')
+  },[])
 
   console.log(auth)
   // @ts-ignore
@@ -40,7 +43,7 @@ function Login() {
 
   return (
     <LoginContainer >
-		<div>
+		<div style={{ marginTop: '3rem' }}>
 
 			<FontAwesomeIcon style={{color: 'grey', marginBottom: '2px'}} icon={faHouse} className="icon" />
 			<NavElement to="/">HOME</NavElement></div>

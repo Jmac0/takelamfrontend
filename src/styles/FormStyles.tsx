@@ -229,20 +229,23 @@ const FormButtonContainer = styled.div`
 `;
 
 const EmilandPasswordFormStyles = styled(PropertyFormList)`
+  
   position: relative;
-  border: 2px solid ${colors.blue};
+  max-width: 90%;
+  
+//  border: 2px solid ${colors.blue};
   border-radius: 6px;
   flex-direction: column;
   width: max-content;
   flex-wrap: wrap;
-  padding: 3rem;
-  filter: drop-shadow(10px 10px 3px lightgray); 
+  padding: 1rem;
   > .inputs {
     padding: 10px;
     width: 80%;
 	
 	input {
 	  border-radius: 6px;
+	  margin-bottom: 1rem;
 	}
   }
 `;
