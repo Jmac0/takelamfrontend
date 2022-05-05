@@ -235,6 +235,8 @@ const EmilandPasswordFormStyles = styled(PropertyFormList)`
   
 //  border: 2px solid ${colors.blue};
   border-radius: 6px;
+  align-content: center;
+  justify-items: center;
   flex-direction: column;
   width: max-content;
   flex-wrap: wrap;

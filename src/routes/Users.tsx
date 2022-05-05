@@ -4,6 +4,7 @@ import {
   LoginContainer,
 } from '../styles/Admin.Styles';
 import AdminNav from "../components/AdminNav";
+import UpdateAdminInfo from "../components/UpdateAdminInfo";
 
 interface Props {
   setShowPropertiesOrPages: (_arg: string) => void;
@@ -33,15 +34,7 @@ function Users( {setShowPropertiesOrPages}: Props) {
       </AdminMenu>
 */}
 <AdminNav setShowPropertiesOrPages={setShowPropertiesOrPages}   />
-      <LoginContainer>
-        <EmailAndPasswordForm
-          heading="Update user"
-          buttonLabel="Update"
-          emailLabel="New email"
-          handleSubmit={handleSubmit}
-          passwordLabel="New password"
-        />
-      </LoginContainer>
+		<UpdateAdminInfo />
     </div>
   );
 }

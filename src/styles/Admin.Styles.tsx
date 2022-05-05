@@ -15,9 +15,11 @@ interface Props {
 }
 
 const LoginContainer = styled.div`
+/*
   background: url(${tearTan}) no-repeat;
   background-position-x: 100%;
   background-position-y: 100%;
+*/
   position: relative;
   display: flex;
   flex-direction: column;

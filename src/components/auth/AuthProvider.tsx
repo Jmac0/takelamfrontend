@@ -7,7 +7,6 @@ interface VoidFunction {
   (): void;
 }
 
-
 const ApiAuthProvider = {
   isAuthenticated: false,
   signIn(callback: VoidFunction) {
@@ -47,16 +46,15 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
         ApiAuthProvider.signIn(() => {
           setLoading(false);
           setUser(email);
-		  setLoginError('')
+          setLoginError('');
           callback();
         });
       })
       .catch((err) => {
         setLoading(false);
-		setTimeout(() =>{
-
-		  setLoginError(err.response.data.message);
-		}, 600)
+        setTimeout(() => {
+          setLoginError(err.response.data.message);
+        }, 600);
       });
   };
 
