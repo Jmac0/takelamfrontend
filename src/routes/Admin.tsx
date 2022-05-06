@@ -1,17 +1,13 @@
 import React, { useState } from 'react';
-import { NavLink, Outlet, useNavigate } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import axios from 'axios';
 import { Property } from 'interfaces';
 import baseUrl from 'utils/urls';
 import EditPageComponent from '../components/EditPageComponent';
-import useAuth from '../components/auth/useAuth';
 
 import {
   AdminContainer,
-  AdminMenu,
   Button,
-  HouseIcon,
-  PagesIcon,
 } from '../styles/Admin.Styles';
 import PageListItem from '../components/PageListItem';
 import PropertyForm from '../components/PropertyForm';
@@ -43,8 +39,6 @@ function Admin({
   /* get property data, setPropertyIndex is a
 	 counter that can be used to re-call the get
 	 request for properties */
-  const auth = useAuth();
-  const navigate = useNavigate();
   const [properties, setPropertyIndex] = fetchProperties([]);
   /* current property id to edit */
   const [currentProperty, setCurrentProperty] = useState({});
@@ -99,7 +93,6 @@ function Admin({
       )
       .then((res) => {
         if (res.status === 200) {
-          console.log(res.status);
           //   show saved icon above editor
           setSuccess(true);
           /* Updates the index dependency in
@@ -119,12 +112,10 @@ function Admin({
     delete data._id;
     await axios
       .post(`${baseUrl}/properties`, data, {
-        headers: { 'Content-type': 'application/json',
 	  withCredentials: true
 		},
-      })
+      )
       .then((response) => {
-        console.log(data);
         if (response.status === 201) {
           setPropertyIndex((cur: number) => cur + 1);
           setLoading(false);
@@ -153,7 +144,6 @@ function Admin({
       )
       .then((response) => {
         if (response.status === 204) {
-          console.log(response);
           setPropertyIndex((cur: number) => cur + 1);
           setErr('');
           setLoading(false);
@@ -165,10 +155,8 @@ function Admin({
     // eslint-disable-next-line no-restricted-globals
     await axios.delete(`${baseUrl}/properties/${id}`, {withCredentials: true}).then((response) => {
       if (response.status === 204) {
-        console.log(response);
         setPropertyIndex((cur: number) => cur + 1);
       }
-      console.log(response);
     });
   };
   /* Open property form with POST method, will set empty form */
