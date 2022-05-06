@@ -1,5 +1,4 @@
 /* eslint-disable no-undef, @typescript-eslint/no-unused-vars, no-unused-vars */
-
 import React, { useState, useEffect } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import { Wrapper, Status } from '@googlemaps/react-wrapper';
@@ -13,6 +12,7 @@ import {
   faVectorSquare,
 } from '@fortawesome/free-solid-svg-icons';
 import { PropertyList } from 'styles/PropertyPageStyles';
+import {IconProp} from "@fortawesome/fontawesome-svg-core";
 import useToggleState from '../hooks/useToggleState';
 import 'styles/styles.css';
 
@@ -157,22 +157,22 @@ function SingleProperty() {
         <div>{currentProperty.location}</div>
         <div>Price ${currentProperty.price}</div>
         <div>
-          <FontAwesomeIcon icon={faBed} className="icon" />
+          <FontAwesomeIcon icon={faBed as IconProp} className="icon" />
           Bedrooms: {currentProperty.bedrooms}
         </div>
         <div>
-          <FontAwesomeIcon icon={faBathtub} className="icon" />
+          <FontAwesomeIcon icon={faBathtub as IconProp} className="icon" />
           Bathrooms: {currentProperty.bathrooms}
         </div>
 
         <div>
-          <FontAwesomeIcon icon={faHouse} className="icon" />
+          <FontAwesomeIcon icon={faHouse as IconProp} className="icon" />
           Build Size: {currentProperty.buildSize}
           ms
         </div>
 
         <div>
-          <FontAwesomeIcon icon={faVectorSquare} className="icon" />
+          <FontAwesomeIcon icon={faVectorSquare as IconProp} className="icon" />
           Plot Size: {currentProperty.plotSize}
         </div>
         {/*
