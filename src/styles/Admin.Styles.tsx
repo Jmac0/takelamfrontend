@@ -238,6 +238,33 @@ const Button = styled.button<Props>`
   }
 `;
 
+
+const ContactFormButton = styled.button`
+
+
+  text-transform: uppercase;
+  width: fit-content;
+  padding: 1rem 2rem;
+  background: ${colors.white};
+  color: ${colors.blue};
+  font-weight: 300;
+  font-family: sans-serif;
+  letter-spacing: 0.1em;
+  margin: 5px 1rem 0 0;
+  font-size: 16px;
+  border-radius: 6px;
+  border: 1px solid ${colors.tan};
+  transition: 0.5s;
+
+
+
+  &:hover {
+    background: ${colors.tan};
+    color: ${colors.white};
+  }
+
+`;
+
 const WarningIcon = styled(Warning)`
   height: 1.5rem;
   width: auto;
@@ -256,4 +283,5 @@ export {
   HouseIcon,
   PagesIcon,
 LoginContainer,
+  ContactFormButton
 };

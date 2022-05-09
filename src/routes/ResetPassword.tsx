@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {useLocation, useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faHouse} from "@fortawesome/free-solid-svg-icons";
 import { LoginContainer } from '../styles/Admin.Styles';

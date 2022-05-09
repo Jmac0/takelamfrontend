@@ -4,6 +4,7 @@ import { useLocation, useParams } from 'react-router-dom';
 import { Wrapper, Status } from '@googlemaps/react-wrapper';
 import axios from 'axios';
 import baseUrl from 'utils/urls';
+import '../styles/styles.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faBed,
@@ -11,10 +12,10 @@ import {
   faHouse,
   faVectorSquare,
 } from '@fortawesome/free-solid-svg-icons';
-import { PropertyList } from 'styles/PropertyPageStyles';
-import {IconProp} from "@fortawesome/fontawesome-svg-core";
+import { PropertyList, PrintIcon } from 'styles/PropertyPageStyles';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import logo from '../images/logo_blue.png';
 import useToggleState from '../hooks/useToggleState';
-import 'styles/styles.css';
 
 import { Map, Marker } from './Map';
 
@@ -33,10 +34,17 @@ interface Property {
   ownership: string;
 }
 
+interface Props {
+  // eslint-disable-next-line react/require-default-props
+  handlePrint?: () => void;
+}
+
 interface UrlParams {
   id?: string;
 }
-function SingleProperty() {
+// eslint-disable-next-line import/prefer-default-export
+export const SingleProperty = React.forwardRef((props: Props, ref: any) => {
+  const { handlePrint } = props;
   const API = process.env.REACT_APP_GOOGLE_API as string;
   // Get current property from url params
   const propertyUrlId = useParams();
@@ -97,6 +105,7 @@ function SingleProperty() {
   const gallery = cloudinary.galleryWidget({
     container: '#my-gallery',
     cloudName: 'takelam',
+    loaderStyle: 'circle',
     zoomProps: {
       type: 'popup',
       steps: 3,
@@ -104,6 +113,7 @@ function SingleProperty() {
       level: 1.3, // each step zooms in another 130%
     },
     carouselLocation: 'bottom',
+    aspectRatio: '16:9',
     navigationButtonProps: {
       shape: 'round',
       color: '#d0c6b7',
@@ -123,6 +133,7 @@ function SingleProperty() {
     floorPlans = currentProperty.floorPlan.map((el, i) => (
       <a href={currentProperty.floorPlan[i]} target="_blank" rel="noreferrer">
         <img
+          style={{ border: '1px solid black', marginRight: '5px' }}
           alt="thumb"
           width="150px"
           height="100px"
@@ -131,31 +142,35 @@ function SingleProperty() {
       </a>
     ));
   }
-  return (
-    <div
-      style={{
-        width: '98%',
-        margin: '0 auto',
-        gridArea: 'main',
-        zIndex: '1',
-      }}
-    >
-      <div id="my-gallery" />
 
-      <div>
+  return (
+    <div className="page" ref={ref}>
+      <div className="print-logo">
+        <img src={logo} width="100" height="86" alt="" />
+        <p>
+          Some contact info <br />
+          01223 1234-4567
+        </p>
+      </div>
+      <div className="print-page-btn hidden-on-print">
+        <PrintIcon onClick={handlePrint} type="button" />
+        <p >print page</p>
+
+      </div>
+      <div id="my-gallery" />
+      <div className="hidden-on-print">
         {/* conditionally render floor plans */}
         {floorPlans.length > 0 ? (
           <div>
-            <p>Floor Plans</p> {floorPlans}
+            <h4>Floor Plans</h4> {floorPlans}
           </div>
         ) : (
           ''
         )}
       </div>
-
       <PropertyList>
         <div>{currentProperty.location}</div>
-        <div>Price ${currentProperty.price}</div>
+        <div>${currentProperty.price}</div>
         <div>
           <FontAwesomeIcon icon={faBed as IconProp} className="icon" />
           Bedrooms: {currentProperty.bedrooms}
@@ -179,12 +194,12 @@ function SingleProperty() {
              conditionally render ownership
              */}
         {currentProperty.ownership && (
-          <div>
+          <div style={{marginTop: "10px"}}>
             <h4>Ownership:</h4>
             <p> {currentProperty.ownership}</p>
           </div>
         )}
-        <div>
+        <div className="print-page-break">
           <h4>Property Description:</h4>
 
           <p
@@ -192,14 +207,14 @@ function SingleProperty() {
           />
         </div>
       </PropertyList>
-      <Wrapper apiKey={API}>
-        <Map center={mapCenter} zoom={12}>
-          <Marker position={mapMarkerPosition} />
-        </Map>
-      </Wrapper>
+      <div className="hidden-on-print">
+        <Wrapper apiKey={API}>
+          <Map center={mapCenter} zoom={12}>
+            <Marker position={mapMarkerPosition} />
+          </Map>
+        </Wrapper>
+      </div>{' '}
     </div>
   );
   /// /////////////////// Map ///////////////////////
-}
-
-export default SingleProperty;
+});

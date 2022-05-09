@@ -52,7 +52,8 @@ function Admin({
   const [editing, setEditing] = useState<boolean>(false);
   /* status of page update */
   const [success, setSuccess] = useState<boolean>(false);
-
+// response message
+  const [message, setMessage] = useState<string>('');
   /* show property or pages items in admin */
   /*
   const [showPropertiesOrPages, setShowPropertiesOrPages] =
@@ -69,6 +70,8 @@ function Admin({
   const [close, setClose] = useState(false);
   // called from pageListItem updates props in
   // TextEditor inside its useEffect()
+
+
   const editPage = (id: string, title: string, content: string) => {
     setPageId(id);
     setPageTitle(title);
@@ -116,15 +119,16 @@ function Admin({
 		},
       )
       .then((response) => {
-        if (response.status === 201) {
+
           setPropertyIndex((cur: number) => cur + 1);
           setLoading(false);
           setTimeout(() => {
             setClose(true);
+            setMessage(response.data.message);
           }, 500);
-        }
+
       })
-      .catch((err) => setErr(err.response.data.message));
+      .catch((err) => setMessage(err.response.data.message));
   };
   const updateProperty = async (id: string, body: any, images: string) => {
     setLoading(true);
@@ -140,16 +144,17 @@ function Admin({
         `${baseUrl}/properties/${id}`,
 
         data,
-		{withCredentials: true}
+		{withCredentials: true,
+        },
       )
       .then((response) => {
-        if (response.status === 204) {
           setPropertyIndex((cur: number) => cur + 1);
           setErr('');
+          setMessage(response.data.message);
           setLoading(false);
-        }
+
       })
-      .catch((err) => setErr(err.response.data.message));
+      .catch((err) => setMessage(err.response.data.message));
   };
   const deleteProperty = async (id: string) => {
     // eslint-disable-next-line no-restricted-globals
@@ -185,6 +190,7 @@ function Admin({
     setEditing(false);
     setShowPropertyForm(false);
     setLoading(false);
+    setMessage('');
   };
   // list of current properties in admin
   const propertiesArray = properties.map((property: Property) => (
@@ -200,30 +206,6 @@ function Admin({
   // @ts-ignore
   return (
     <div style={{ position: 'absolute' }}>
-      {/*
-      <AdminMenu>
-        <Button
-          type="button"
-          onClick={() => setShowPropertiesOrPages('properties')}
-        >
-          {' '}
-          <span>
-            <HouseIcon /> Properties
-          </span>
-        </Button>
-        <Button type="button" onClick={() => setShowPropertiesOrPages('pages')}>
-          <span>
-            <PagesIcon /> Pages
-          </span>
-        </Button>
-        <Button onClick={() => navigate('/users')} >
-          Users
-        </Button>
-        <Button type="button" onClick={auth.signOut}>
-          Logout
-        </Button>
-      </AdminMenu>
-*/}
       <AdminNav setShowPropertiesOrPages={setShowPropertiesOrPages} />
       <div
         style={{
@@ -250,6 +232,7 @@ function Admin({
             error={error}
             loading={loading}
             close={close}
+            message={message}
           />
         )}
 

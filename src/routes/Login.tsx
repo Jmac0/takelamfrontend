@@ -18,7 +18,6 @@ function Login() {
 	  auth.setLoginError('')
   },[])
 
-  console.log(auth)
   // @ts-ignore
   const from = location.state?.from?.pathname || '/';
 

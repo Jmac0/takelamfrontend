@@ -19,6 +19,7 @@ interface Props {
   error: string;
   loading: boolean;
   close: boolean;
+  message: string
 }
 
 // eslint-disable-next-line react/prop-types
@@ -30,6 +31,7 @@ function PropertyForm({
   createProperty,
   updateProperty,
   error,
+  message,
   loading,
   close,
 }: Props) {
@@ -46,6 +48,7 @@ function PropertyForm({
     location: '',
     cords: '',
     _id: '',
+
   };
   const [form, setForm] = useState<Property>(initialState);
   const [images, setImages] = useState('');
@@ -75,7 +78,6 @@ function PropertyForm({
     requestMethod === 'PATCH' && setForm({ ...currentProperty });
     requestMethod === 'POST' && setForm({ ...initialState });
   }, [showPropertyForm]);
-
 
   return (
     <PropertyFormList
@@ -240,6 +242,7 @@ function PropertyForm({
 
         </FormButtonContainer>
       )}
+      <p>{message}</p>
     </PropertyFormList>
   );
 }

@@ -1,5 +1,20 @@
 import styled from 'styled-components';
+import { Print } from "@styled-icons/fluentui-system-regular/Print";
+
 import colors from './colors';
+// eslint-disable-next-line import/extensions
+
+
+const PrintIcon  = styled(Print)`
+color:${colors.grey};
+  width: 30px;
+  height: 30px;
+  margin-right: 5px;
+  
+  &:hover{
+    color: ${colors.blue};
+  }
+`;
 
 const PropertyList = styled.div`
   display: grid;
@@ -41,9 +56,13 @@ const PropertyList = styled.div`
     margin: 1.2rem 0 0 0;
     width: 100%;
     color: ${colors.grey};
+    
+    @media print {
+
+      page-break-after: always;
+    }
   }
 `;
 
-const something = styled.div``;
 
-export { PropertyList, something };
+export { PropertyList, PrintIcon };

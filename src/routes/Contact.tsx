@@ -1,48 +1,44 @@
 import React from 'react';
 import 'styles/styles.css';
+import { ContactFormButton } from '../styles/Admin.Styles';
 
 function Contact() {
-  const email: any = '';
 
   return (
     <div style={{ marginBottom: '-2rem' }} className="main-page-content">
       <h1>Tel: 12345 67891</h1>
       <p>
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus
-        cumque cupiditate, debitis delectus
-        {' '}
+        cumque cupiditate, debitis delectus{' '}
       </p>
-      <div
+      <form
+        name="takelam-contact"
+        method="POST"
+        data-netlify="true"
         style={{
           display: 'flex',
           flexDirection: 'column',
           alignContent: 'space-evenly',
         }}
       >
-        <div>
-          <label className="form-label" htmlFor="Fname">
+        <input type="hidden" name="form-name" value="takelam-contact" />
+        <div  className="inputs-divs">
+          <label className="form-label" htmlFor="name">
             First Name
-            <input
-              className="form-input"
-              id="Fname"
-              type="text"
-              value={email}
-              onChange={email}
-            />
           </label>
+            <input className="form-input" id="name" type="text" name="name" />
         </div>
 
-        <div>
-          <label className="form-label" htmlFor="Fname">
-            Last Name
+        <div className="inputs-divs">
+          <label className="form-label" htmlFor="email">
+            Email address
+          </label>
             <input
               className="form-input"
-              id="Fname"
-              type="text"
-              value={email}
-              onChange={email}
+              id="email"
+              type="email"
+              name="email"
             />
-          </label>
         </div>
         <div
           style={{
@@ -53,20 +49,17 @@ function Contact() {
         >
           <textarea
             className="text-area"
-            id="w3review"
-            name="w3review"
+            id="message"
+            name="message"
             rows={4}
             cols={30}
             placeholder="Message"
           />
-          <button
-            type="submit"
-            className="submit-button"
-          >
+          <ContactFormButton type="submit" className="submit-button">
             Submit
-          </button>
+          </ContactFormButton>
         </div>
-      </div>
+      </form>
     </div>
   );
 }
