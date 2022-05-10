@@ -4,11 +4,9 @@ import axios from 'axios';
 import { Property } from 'interfaces';
 import baseUrl from 'utils/urls';
 import EditPageComponent from '../components/EditPageComponent';
+import useAuth from '../components/auth/useAuth';
 
-import {
-  AdminContainer,
-  Button,
-} from '../styles/Admin.Styles';
+import { AdminContainer, Button } from '../styles/Admin.Styles';
 import PageListItem from '../components/PageListItem';
 import PropertyForm from '../components/PropertyForm';
 import fetchProperties from '../hooks/fetchProperties';
@@ -36,10 +34,14 @@ function Admin({
   setShowPropertiesOrPages,
   showPropertiesOrPages,
 }: Props) {
+  // get user JWT from auth context
+  const {
+    user: { token },
+  } = useAuth();
   /* get property data, setPropertyIndex is a
 	 counter that can be used to re-call the get
 	 request for properties */
-  const [properties, setPropertyIndex] = fetchProperties([]);
+  const [properties, setPropertyIndex] = fetchProperties([], token);
   /* current property id to edit */
   const [currentProperty, setCurrentProperty] = useState({});
   const [error, setErr] = useState<string>('');
@@ -52,7 +54,7 @@ function Admin({
   const [editing, setEditing] = useState<boolean>(false);
   /* status of page update */
   const [success, setSuccess] = useState<boolean>(false);
-// response message
+  // response message
   const [message, setMessage] = useState<string>('');
   /* show property or pages items in admin */
   /*
@@ -70,7 +72,6 @@ function Admin({
   const [close, setClose] = useState(false);
   // called from pageListItem updates props in
   // TextEditor inside its useEffect()
-
 
   const editPage = (id: string, title: string, content: string) => {
     setPageId(id);
@@ -90,8 +91,11 @@ function Admin({
         },
 
         {
-	  withCredentials: true,
-          headers: { 'Content-type': 'application/json' },
+          withCredentials: true,
+          headers: {
+            'Content-type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
         },
       )
       .then((res) => {
@@ -115,18 +119,19 @@ function Admin({
     delete data._id;
     await axios
       .post(`${baseUrl}/properties`, data, {
-	  withCredentials: true
-		},
-      )
+        withCredentials: true,
+        headers: {
+          'Content-type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((response) => {
-
-          setPropertyIndex((cur: number) => cur + 1);
-          setLoading(false);
-          setTimeout(() => {
-            setClose(true);
-            setMessage(response.data.message);
-          }, 500);
-
+        setPropertyIndex((cur: number) => cur + 1);
+        setLoading(false);
+        setTimeout(() => {
+          setClose(true);
+          setMessage(response.data.message);
+        }, 500);
       })
       .catch((err) => setMessage(err.response.data.message));
   };
@@ -144,25 +149,39 @@ function Admin({
         `${baseUrl}/properties/${id}`,
 
         data,
-		{withCredentials: true,
+        {
+          withCredentials: true,
+
+          headers: {
+            'Content-type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
         },
       )
       .then((response) => {
-          setPropertyIndex((cur: number) => cur + 1);
-          setErr('');
-          setMessage(response.data.message);
-          setLoading(false);
-
+        setPropertyIndex((cur: number) => cur + 1);
+        setErr('');
+        setMessage(response.data.message);
+        setLoading(false);
       })
       .catch((err) => setMessage(err.response.data.message));
   };
   const deleteProperty = async (id: string) => {
     // eslint-disable-next-line no-restricted-globals
-    await axios.delete(`${baseUrl}/properties/${id}`, {withCredentials: true}).then((response) => {
-      if (response.status === 204) {
-        setPropertyIndex((cur: number) => cur + 1);
-      }
-    });
+    await axios
+      .delete(`${baseUrl}/properties/${id}`, {
+        withCredentials: true,
+
+        headers: {
+          'Content-type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        if (response.status === 204) {
+          setPropertyIndex((cur: number) => cur + 1);
+        }
+      });
   };
   /* Open property form with POST method, will set empty form */
   const handleOpenPropertyForm = (useMethod: string) => {
@@ -248,10 +267,11 @@ function Admin({
             editPage={editPage}
           />
         ))}
-        { /* sort properties in alphabetical order */ }
+        {/* sort properties in alphabetical order */}
 
-        {propertiesArray.sort((a: Property, b: Property) => (a.title > b.title ? 1 : -1))}
-
+        {propertiesArray.sort((a: Property, b: Property) =>
+          a.title > b.title ? 1 : -1,
+        )}
       </AdminContainer>
       {editing && (
         <EditPageComponent

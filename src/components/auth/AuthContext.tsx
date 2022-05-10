@@ -5,7 +5,7 @@ interface VoidFunction {
 }
 interface AuthContextType {
 	loading: boolean;
-	user: string;
+	user: {email: string; password: string, token: string};
 	password: string,
 	email: string;
 	signIn: (

@@ -7,6 +7,18 @@ interface VoidFunction {
   (): void;
 }
 
+interface User {
+  email: string;
+  password:string;
+  token:string;
+}
+
+const initialUserState = {
+  email: '',
+  password: '',
+  token: '',
+}
+
 const ApiAuthProvider = {
   isAuthenticated: false,
   signIn(callback: VoidFunction) {
@@ -22,7 +34,7 @@ const ApiAuthProvider = {
 function AuthProvider({ children }: { children: React.ReactNode }) {
   const [loginError, setLoginError] = useState('');
   const [loading, setLoading] = useState(false);
-  const [user, setUser] = React.useState<any>(null);
+  const [user, setUser] = React.useState<User>(initialUserState);
 
   const signIn = async (
     email: string,
@@ -45,8 +57,9 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
       .then((res) => {
         ApiAuthProvider.signIn(() => {
           setLoading(false);
-          setUser(email);
+          setUser({email: res.data.email, password: res.data.password, token: res.data.token});
           setLoginError('');
+          // callback triggers the redirect from Login component
           callback();
         });
       })
@@ -60,7 +73,7 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const signOut = () =>
     ApiAuthProvider.signOut(() => {
-      setUser(null);
+      setUser(initialUserState);
     });
   const value = useMemo(
     () => ({ loading, user, signIn, signOut, loginError, setLoginError }),
