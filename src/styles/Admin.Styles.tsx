@@ -12,10 +12,12 @@ interface Props {
   isEditing?: boolean;
   onClick?: any;
   showPropertiesOrPages?: string;
+  showUserMessage?: boolean;
+  isErrorMessage?: boolean;
 }
 
 const LoginContainer = styled.div`
-/*
+  /*
   background: url(${tearTan}) no-repeat;
   background-position-x: 100%;
   background-position-y: 100%;
@@ -24,13 +26,11 @@ const LoginContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100vh; 
+  height: 100vh;
   width: 100vw;
   overflow: hidden;
- min-height: -webkit-fill-available;
+  min-height: -webkit-fill-available;
 `;
-
-
 
 const AdminContainer = styled.div`
   //position: relative;
@@ -44,7 +44,7 @@ const AdminContainer = styled.div`
   grid-template-columns: repeat(auto-fit, minmax(90vw, max-content));
   justify-content: center;
   /* mobile viewport bug fix */
-//  min-height: -webkit-fill-available;
+  //  min-height: -webkit-fill-available;
 
   @media screen and (min-width: 850px) {
     grid-template-columns: repeat(auto-fit, minmax(22rem, max-content));
@@ -58,9 +58,9 @@ const AdminContainer = styled.div`
 const AdminMenu = styled.div`
   display: flex;
   flex-wrap: wrap;
-  width: 100%;
+  width: 100vw;
   flex-direction: row;
-  padding: 0.75rem 0 0.75rem 0;
+ padding: 0.75rem 0 0.75rem 0;
   border-bottom: 3px solid ${colors.grey};
 
   background: url(${logo}),
@@ -75,16 +75,16 @@ const AdminMenu = styled.div`
   }
 
   button {
-    
+    max-width: fit-content !important;
 color: ${colors.white};
-    font-weight: 400;
+    font-weight: 100;
     font-family: sans-serif;
     letter-spacing: 0.1em;
     font-size: 16px;
     background-color: transparent;
     outline: none;
     border: none;
-    margin-left: 1rem;
+    margin: 0;
     
     &:hover {
       background-color: transparent;
@@ -112,7 +112,6 @@ const PagesIcon = styled(Edit)`
  site */
 
 const PropertyItem = styled.div<Props>`
-
   display: ${(props) =>
     props.showPropertiesOrPages === 'properties' ? 'flex' : 'none'};
 
@@ -173,7 +172,9 @@ const PropertyItem = styled.div<Props>`
 `;
 const PageItem = styled(PropertyItem)<Props>`
   display: ${(props) =>
-   props.showPropertiesOrPages === 'pages' && !props.isEditing ? 'flex' : 'none'};
+    props.showPropertiesOrPages === 'pages' && !props.isEditing
+      ? 'flex'
+      : 'none'};
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -228,7 +229,7 @@ const Button = styled.button<Props>`
     height: 100%;
   }
   &:hover {
-    background: ${colors.blue};
+    background: ${colors.grey};
     color: ${colors.white};
   }
 
@@ -238,10 +239,7 @@ const Button = styled.button<Props>`
   }
 `;
 
-
 const ContactFormButton = styled.button`
-
-
   text-transform: uppercase;
   width: fit-content;
   padding: 1rem 2rem;
@@ -256,13 +254,21 @@ const ContactFormButton = styled.button`
   border: 1px solid ${colors.tan};
   transition: 0.5s;
 
-
-
   &:hover {
     background: ${colors.tan};
     color: ${colors.white};
   }
+`;
 
+const UserMessageContainer = styled.div<Props>`
+  width: fit-content;
+  height: 1rem;
+  margin: 1rem;
+  padding: .7rem;
+  border-radius: 6px;
+  visibility: ${(props) => props.showUserMessage  ? 'visible' : 'hidden'};
+  color: ${(props) => props.isErrorMessage  ? 'white' : 'darkgreen'};
+  background-color:${(props) => props.isErrorMessage ?  'indianred' : '#91C072CA'}; 
 `;
 
 const WarningIcon = styled(Warning)`
@@ -282,6 +288,7 @@ export {
   Loader,
   HouseIcon,
   PagesIcon,
-LoginContainer,
-  ContactFormButton
+  LoginContainer,
+  ContactFormButton,
+  UserMessageContainer,
 };

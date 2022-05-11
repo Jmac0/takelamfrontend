@@ -6,6 +6,8 @@ import ButtonLoading from '../components/ButtonLoading';
 import { LoginContainer } from '../styles/Admin.Styles';
 import useHttp from '../hooks/useHttp';
 import {NavElement} from "../styles/Container.styles";
+import UserMessage from '../components/UserMessage';
+
 
 function ForgotPassword() {
   // callback that receives data in useHttp hook
@@ -46,7 +48,7 @@ function ForgotPassword() {
         <ButtonLoading loading={loading} completedActionText="SENT">
           Send
         </ButtonLoading>
-        <p style={{ color: 'indianred' }}>{message}</p>
+        <UserMessage showUserMessage={message.showUserMessage} isErrorMessage={message.isErrorMessage} message={message.message} />
       </EmilandPasswordFormStyles>
     </LoginContainer>
   );

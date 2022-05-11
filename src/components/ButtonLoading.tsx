@@ -7,6 +7,7 @@ interface Props {
   loading: boolean;
   children?: string;
   completedActionText?: string;
+  action?: 'submit' | 'button'
 }
 
 
@@ -88,5 +89,6 @@ function ButtonLoader({ loading, children, completedActionText }: Props) {
     </Button>
   );
 }
-ButtonLoader.defaultProps= {children: '', completedActionText:  'SAVED'}
+ButtonLoader.defaultProps= {children: '', completedActionText:  'SAVED', action: 'submit'}
+
 export default ButtonLoader

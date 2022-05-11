@@ -3,6 +3,7 @@ import axios from 'axios';
 import baseUrl from 'utils/urls';
 import { Button } from '../styles/Admin.Styles';
 import useAuth from "./auth/useAuth";
+import ButtonLoading from "./ButtonLoading";
 
 interface Props {
   id: string;
@@ -14,7 +15,10 @@ function CreatePropertyLink({ id }: Props) {
   } = useAuth();
   const [clientLink, setClientLink] = useState('');
   const [copied, setCopied] = useState(false);
-  const createLink = async () => {
+  const [loading, setLoading] = useState(false);
+  const createLink = async (evt: any) => {
+    evt.preventDefault();
+    setLoading(true);
     await axios
       .get(`${baseUrl}/link/${id}`, {
         withCredentials: true,
@@ -28,7 +32,11 @@ function CreatePropertyLink({ id }: Props) {
         const {
           data: { link },
         } = response;
+        setTimeout(() =>{
+        setLoading(false);
+
         setClientLink(() => link);
+        }, 1000)
       });
   };
 
@@ -55,9 +63,16 @@ function CreatePropertyLink({ id }: Props) {
     // eslint-disable-next-line react/jsx-no-useless-fragment
     <>
       {clientLink === '' ? (
+        <form onSubmit={createLink}>
+          <ButtonLoading  loading={loading}>
+            Create Link
+          </ButtonLoading>
+        </form>
+/*
         <Button className="create-btn" onClick={createLink}>
           Create Link
         </Button>
+*/
       ) : (
         <Button
           className="create-btn"
