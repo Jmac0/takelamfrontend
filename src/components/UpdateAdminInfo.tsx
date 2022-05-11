@@ -1,20 +1,17 @@
 import React, { useState } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHouse } from '@fortawesome/free-solid-svg-icons';
 import { LoginContainer } from '../styles/Admin.Styles';
 import { EmilandPasswordFormStyles } from '../styles/FormStyles';
 import ButtonLoading from './ButtonLoading';
 import useHttp from '../hooks/useHttp';
-import { NavElement } from '../styles/Container.styles';
+import useAuth from "./auth/useAuth";
 
 function UpdateAdminInfo() {
-  // Property id from url param object
-  // const {token} = urlToken.token as UrlToken
+const {user:{token}} = useAuth();
   const { loading, setLoading, message, setMessage, sendRequest } = useHttp({
     url: `users/update`,
     method: 'PATCH',
     withCredentials: true,
+    token
   });
 const emptyForm = {
 	passwordCurrent: '',
@@ -34,6 +31,7 @@ const emptyForm = {
     evt.preventDefault();
     setLoading(true);
     if (form.password !== form.passwordConfirm) {
+      // alert for user if changing passwords and new passwords don't match
       setPasswordsMatch('Passwords do not match');
       setLoading(false);
     } else if (form.password === form.passwordConfirm) {

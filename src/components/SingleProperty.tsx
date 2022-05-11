@@ -18,6 +18,7 @@ import logo from '../images/logo_blue.png';
 import useToggleState from '../hooks/useToggleState';
 
 import { Map, Marker } from './Map';
+import useAuth from "./auth/useAuth";
 
 declare const cloudinary: any;
 interface Property {
@@ -37,6 +38,9 @@ interface Property {
 interface Props {
   // eslint-disable-next-line react/require-default-props
   handlePrint?: () => void;
+  auth: {
+    user: any;
+  }
 }
 
 interface UrlParams {
@@ -44,12 +48,11 @@ interface UrlParams {
 }
 // eslint-disable-next-line import/prefer-default-export
 export const SingleProperty = React.forwardRef((props: Props, ref: any) => {
-  const { handlePrint } = props;
+  const { handlePrint, auth } = props;
   const API = process.env.REACT_APP_GOOGLE_API as string;
   // Get current property from url params
   const propertyUrlId = useParams();
   const location = useLocation();
-
   // Property id from url param object
   let [urlPram] = useState(propertyUrlId.id);
   const [loading, setLoading] = useToggleState(true);
@@ -62,6 +65,8 @@ export const SingleProperty = React.forwardRef((props: Props, ref: any) => {
     lat: 51.32156694051315,
     lng: -0.20484525142481128,
   });
+
+
   // Marker position on map
   const [mapMarkerPosition, setMapMarkerPosition] =
     React.useState<google.maps.LatLngLiteral>({
@@ -70,6 +75,8 @@ export const SingleProperty = React.forwardRef((props: Props, ref: any) => {
     });
 
   useEffect(() => {
+    const token = JSON.parse(localStorage.getItem('_Tuser') as string);
+    console.log(token)
     // set path for admin property view
     let path = `${baseUrl}/properties`;
     // set path for client property view
@@ -80,7 +87,14 @@ export const SingleProperty = React.forwardRef((props: Props, ref: any) => {
     }
 
     axios
-      .get(`${path}/${urlPram}`, { withCredentials: true })
+      .get(`${path}/${urlPram}`, { withCredentials: true,
+        headers: {
+          'Content-type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+
+
+      })
       .then((response) => {
         const {
           data: { property },

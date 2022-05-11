@@ -7,6 +7,7 @@ interface RequestConfig {
   url: string;
   method: 'POST' | 'GET' | "PATCH";
   withCredentials: boolean;
+  token?: string
 }
 
 
@@ -22,6 +23,8 @@ function useHttp( requestConfig: RequestConfig
       url: `${baseUrl}/${requestConfig.url}`,
       data: body,
       headers: {
+
+        Authorization: `Bearer ${requestConfig.token || ''} `,
         Accept: 'application/json',
         'Content-Type': 'application/json;charset=UTF-8',
       },
@@ -29,12 +32,10 @@ function useHttp( requestConfig: RequestConfig
     })
       .then((response) => {
         setMessage(response.data.message);
-        console.log(response.data);
         setLoading(false);
       })
 
       .catch((err) => {
-		  console.log(err.response.data.message);
         setMessage(err.response.data.message);
         setLoading(false);
       });

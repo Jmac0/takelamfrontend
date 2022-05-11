@@ -5,6 +5,7 @@ import draftToHtml from 'draftjs-to-html';
 import { Editor } from 'react-draft-wysiwyg';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import colors from '../styles/colors';
+import '../styles/styles.css'
 
 interface Props {
   content: string;
@@ -52,6 +53,15 @@ function WYSIWYG({ content = '', setRichTextContent }: Props) {
           'remove',
           'history',
         ],
+        blockType: {
+          inDropdown: true,
+          options: ['Normal', 'H2', 'H3', 'H4', 'H5', 'H6', 'Blockquote', 'Code'],
+          className: undefined,
+          component: undefined,
+          dropdownClassName: undefined,
+        },
+
+
       }}
 	  editorState={editorState}
       onEditorStateChange={(newState) => {
@@ -66,7 +76,6 @@ function WYSIWYG({ content = '', setRichTextContent }: Props) {
       editorStyle={{
         padding: '.5rem',
         fontSize: '1rem',
-        fontFamily: 'lato, sans-serif',
         letterSpacing: '0.1em',
         minHeight: '300px',
         backgroundColor: 'white',

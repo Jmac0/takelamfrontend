@@ -15,7 +15,7 @@ interface Props {
 
 }
 
-
+// Todo fix mobile layout  
 function AdminNav({setShowPropertiesOrPages }: Props) {
 const navigate = useNavigate();
 	const auth = useAuth();

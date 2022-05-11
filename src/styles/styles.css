@@ -60,7 +60,10 @@
     object-fit: fill
 }
 }
+.headings{
+    color: #62707e;
 
+}
 h1 {
   color: #62707e;
   font-family: 'Oranienbaum', serif;
@@ -71,7 +74,7 @@ h1 {
 h2 {
     color: #62707e;
     font-family: 'Oranienbaum', serif;
-    font-size: 1.3rem;
+    font-size: 1.4rem;
     line-height: 2.0rem;
 }
 

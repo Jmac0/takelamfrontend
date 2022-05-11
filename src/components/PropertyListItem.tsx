@@ -25,7 +25,7 @@ function PropertyListItem({
     <PropertyItem showPropertiesOrPages={showPropertiesOrPages}>
       <div>
         <h1>
-          <NavElement target="_blank" to={`/property/${id}`}>
+          <NavElement target="blank" to={`/property/${id}`}>
            <h1> {title}</h1>
           </NavElement>
         </h1>

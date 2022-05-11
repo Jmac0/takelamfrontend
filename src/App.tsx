@@ -30,6 +30,7 @@ export default function App() {
   const location = useLocation();
   const path: string = location.pathname;
   const [pageContent, setIndex] = fetchContent([]);
+  const [token, setToken] = useState('')
 
 	/* show property or pages items in admin */
 	const [showPropertiesOrPages, setShowPropertiesOrPages] =
@@ -55,6 +56,7 @@ export default function App() {
                 </RequireAuth>
               }
             />
+
 
             <Route
 				path="users"

@@ -58,6 +58,8 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
         ApiAuthProvider.signIn(() => {
           setLoading(false);
           setUser({email: res.data.email, password: res.data.password, token: res.data.token});
+          localStorage.setItem('_Tuser', JSON.stringify(res.data.token));
+
           setLoginError('');
           // callback triggers the redirect from Login component
           callback();
