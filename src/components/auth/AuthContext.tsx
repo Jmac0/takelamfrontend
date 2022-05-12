@@ -11,7 +11,7 @@ interface AuthContextType {
   email: string;
   signIn: (_password: string, _email: string, _callback: VoidFunction) => void;
   signOut: (_callback: VoidFunction) => void;
-  setUser: ({_email, _password, _token}: User) => void;
+  setUser: ({email, password, token}: User) => void;
   loginError: {
     showUserMessage: boolean;
     isErrorMessage: boolean;
