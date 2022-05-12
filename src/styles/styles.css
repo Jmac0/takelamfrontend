@@ -155,7 +155,6 @@ ul {
 }
 .inputs-divs {
     margin-top:10px;
-    width: 80%;
     display:flex;
     align-items: center;
     flex-wrap:wrap;
@@ -174,7 +173,7 @@ ul {
 
 .form-input {
     width: 15rem;
-  margin: 10px 0 1rem 3rem;
+  margin: 0;
   border: 1px solid #d0c6b7;
     height: 1.5rem;
   border-radius: 6px;

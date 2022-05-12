@@ -21,7 +21,7 @@ headers : {
           setPropertyData(properties);
         })
         .catch((err) => {
-          console.log(`${err} The connection has been refused 😭`);
+          console.log(`${err} The connection has been refused`);
         });
     }
 

@@ -2,31 +2,30 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import baseUrl from '../utils/urls';
-import {initialUserMessageState} from '../utils/initialStates'
-import {UserMessageInterface} from '../utils/interfaces'
-
+import { initialUserMessageState } from '../utils/initialStates';
+import { UserMessageInterface } from '../utils/interfaces';
 
 interface RequestConfig {
   url: string;
-  method: 'POST' | 'GET' | "PATCH";
+  method: 'POST' | 'GET' | 'PATCH';
   withCredentials: boolean;
-  token?: string
+  token?: string;
 }
 
-
-
-function useHttp( requestConfig: RequestConfig
-
-) {
+function useHttp(requestConfig: RequestConfig) {
+  // loading state for button
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState<UserMessageInterface>(initialUserMessageState);
-  const sendRequest = async (body: {}) => {
+  // state for user message component
+  const [message, setMessage] = useState<UserMessageInterface>(
+    initialUserMessageState,
+  );
+  // function returned from this hook
+  const sendRequest = async (body: {}, callback: any = null) => {
     await axios({
       method: requestConfig.method ? requestConfig.method : 'GET',
       url: `${baseUrl}/${requestConfig.url}`,
       data: body,
       headers: {
-
         Authorization: `Bearer ${requestConfig.token || ''} `,
         Accept: 'application/json',
         'Content-Type': 'application/json;charset=UTF-8',
@@ -34,12 +33,23 @@ function useHttp( requestConfig: RequestConfig
       withCredentials: requestConfig.withCredentials,
     })
       .then((response) => {
-        setMessage({ isErrorMessage: false, showUserMessage: true, message: response.data.message});
+        // set message info
+        setMessage({
+          isErrorMessage: false,
+          showUserMessage: true,
+          message: response.data.message,
+        });
         setLoading(false);
+        // callback from hook call
+        if (callback) callback(response.data);
       })
 
       .catch((err) => {
-        setMessage({ isErrorMessage: true, showUserMessage: true, message: err.response.data.message});
+        setMessage({
+          isErrorMessage: true,
+          showUserMessage: true,
+          message: err.response.data.message,
+        });
         setLoading(false);
       });
   };

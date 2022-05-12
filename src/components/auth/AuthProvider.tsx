@@ -68,9 +68,10 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
   const signOut = () =>
     ApiAuthProvider.signOut(() => {
       setUser(initialUserState);
+      localStorage.clear();
     });
   const value = useMemo(
-    () => ({ loading, user, signIn, signOut, loginError, setLoginError }),
+    () => ({ loading, user, signIn, signOut, loginError, setLoginError, setUser }),
     [user, loading, loginError.message],
   );
 
