@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import baseUrl from '../utils/urls';
 import {initialUserMessageState} from '../utils/initialStates'
-import {UserMessage} from '../utils/interfaces'
+import {UserMessageInterface} from '../utils/interfaces'
 
 
 interface RequestConfig {
@@ -19,7 +19,7 @@ function useHttp( requestConfig: RequestConfig
 
 ) {
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState<UserMessage>(initialUserMessageState);
+  const [message, setMessage] = useState<UserMessageInterface>(initialUserMessageState);
   const sendRequest = async (body: {}) => {
     await axios({
       method: requestConfig.method ? requestConfig.method : 'GET',

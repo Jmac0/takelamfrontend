@@ -10,6 +10,8 @@ import { AdminContainer, Button } from '../styles/Admin.Styles';
 import PageListItem from '../components/PageListItem';
 import PropertyForm from '../components/PropertyForm';
 import fetchProperties from '../hooks/fetchProperties';
+import { UserMessageInterface, Page } from '../utils/interfaces';
+import { initialUserMessageState } from '../utils/initialStates';
 
 import PropertyListItem from '../components/PropertyListItem';
 import AdminNav from '../components/AdminNav';
@@ -19,13 +21,6 @@ interface Props {
   setIndex: (_arg: (_index: number) => number) => void;
   setShowPropertiesOrPages: (_arg: string) => void;
   showPropertiesOrPages: string;
-}
-
-interface Page {
-  componentName: string;
-  _id: string;
-  heading: string;
-  bodyText: string;
 }
 
 function Admin({
@@ -55,7 +50,9 @@ function Admin({
   /* status of page update */
   const [success, setSuccess] = useState<boolean>(false);
   // response message
-  const [message, setMessage] = useState<string>('');
+  const [message, setMessage] = useState<UserMessageInterface>(
+    initialUserMessageState,
+  );
   /* show property or pages items in admin */
   /*
   const [showPropertiesOrPages, setShowPropertiesOrPages] =
@@ -98,18 +95,30 @@ function Admin({
           },
         },
       )
-      .then((res) => {
-        if (res.status === 200) {
+      .then((response) => {
+
           //   show saved icon above editor
           setSuccess(true);
-          /* Updates the index dependency in
+
+          setMessage({
+            isErrorMessage: false,
+            showUserMessage: true,
+            message: response.data.message,
+          })
+        console.log(response.data)
+            /* Updates the index dependency in
 					 FetchContent to cause re-render and get
 					 the updated data  */
-          setLoading(false);
+            setLoading(false);
           setIndex((index: number) => index + 1);
         }
-      })
-      .catch(() => setErr('Page not saved'));
+      )    .catch((err) => {
+        setMessage({
+          isErrorMessage: true,
+          showUserMessage: true,
+          message: err.response.data.message,
+        });
+      });
   };
 
   const createProperty = async (data: Property) => {
@@ -130,10 +139,20 @@ function Admin({
         setLoading(false);
         setTimeout(() => {
           setClose(true);
-          setMessage(response.data.message);
+          setMessage({
+            isErrorMessage: false,
+            showUserMessage: true,
+            message: response.data.message,
+          });
         }, 500);
       })
-      .catch((err) => setMessage(err.response.data.message));
+      .catch((err) =>
+        setMessage({
+          isErrorMessage: true,
+          showUserMessage: true,
+          message: err.response.data.message,
+        }),
+      );
   };
   const updateProperty = async (id: string, body: any, images: string) => {
     setLoading(true);
@@ -161,10 +180,20 @@ function Admin({
       .then((response) => {
         setPropertyIndex((cur: number) => cur + 1);
         setErr('');
-        setMessage(response.data.message);
+        setMessage({
+          isErrorMessage: false,
+          showUserMessage: true,
+          message: response.data.message,
+        });
         setLoading(false);
       })
-      .catch((err) => setMessage(err.response.data.message));
+      .catch((err) =>
+        setMessage({
+          isErrorMessage: true,
+          showUserMessage: true,
+          message: err.response.data.message,
+        }),
+      );
   };
   const deleteProperty = async (id: string) => {
     // eslint-disable-next-line no-restricted-globals
@@ -209,7 +238,7 @@ function Admin({
     setEditing(false);
     setShowPropertyForm(false);
     setLoading(false);
-    setMessage('');
+    setMessage(initialUserMessageState);
   };
   // list of current properties in admin
   const propertiesArray = properties.map((property: Property) => (
@@ -280,9 +309,9 @@ function Admin({
           pageId={pageId}
           savePage={savePage}
           loading={loading}
-          error={error}
+          setMessage={setMessage}
           setEditing={setEditing}
-          setSuccess={setSuccess}
+          message={message}
         />
       )}
       <Outlet />

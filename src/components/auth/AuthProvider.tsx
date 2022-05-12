@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import axios from 'axios';
 import baseUrl from 'utils/urls';
-import {User, UserMessage, VoidFunction} from 'utils/interfaces';
+import {User, UserMessageInterface, VoidFunction} from 'utils/interfaces';
 import AuthContext from './AuthContext';
 import { initialUserMessageState, initialUserState } from "../../utils/initialStates";
 
@@ -20,7 +20,7 @@ const ApiAuthProvider = {
 };
 
 function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [loginError, setLoginError] = useState<UserMessage>(initialUserMessageState);
+  const [loginError, setLoginError] = useState<UserMessageInterface>(initialUserMessageState);
   const [loading, setLoading] = useState(false);
   const [user, setUser] = React.useState<User>(initialUserState);
 

@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import ButtonLoader from 'components/ButtonLoading';
 import { Property } from '../interfaces';
 import { Button } from '../styles/Admin.Styles';
+import UserMessage from "./UserMessage"
+import {UserMessageInterface} from '../utils/interfaces';
+
 import {
   FormButtonContainer,
   PropertyFormList,
@@ -19,7 +22,7 @@ interface Props {
   error: string;
   loading: boolean;
   close: boolean;
-  message: string
+  message: UserMessageInterface;
 }
 
 // eslint-disable-next-line react/prop-types
@@ -242,7 +245,7 @@ function PropertyForm({
 
         </FormButtonContainer>
       )}
-      <p>{message}</p>
+      <UserMessage showUserMessage={message.showUserMessage} isErrorMessage={message.isErrorMessage} message={message.message}/>
     </PropertyFormList>
   );
 }

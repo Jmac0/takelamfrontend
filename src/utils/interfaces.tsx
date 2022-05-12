@@ -1,4 +1,4 @@
-interface UserMessage {
+interface UserMessageInterface {
   showUserMessage: boolean;
   isErrorMessage: boolean;
   message: string;
@@ -11,7 +11,16 @@ interface User {
 }
 
 
+interface Page {
+  componentName: string;
+  _id: string;
+  heading: string;
+  bodyText: string;
+}
+
+
+
 interface VoidFunction {
   (): void;
 }
-export type {UserMessage, User, VoidFunction}
+export type {UserMessageInterface, Page, User, VoidFunction}
