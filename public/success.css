@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;300&family=Oranienbaum&family=Oswald:wght@200;400;500&display=swap');
+.container{
+
+    justify-content: center;
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    min-height: -webkit-fill-available;
+    background-image: url('img/tear_tan.png');
+    background-repeat: no-repeat;
+    background-position: bottom right;
+}
+.logo {
+    position: absolute;
+    top: 3%;
+    left: 3%;
+    width: 210px;
+    height: 180px;
+
+}
+.main-page-content {
+
+    margin-top: 15rem;
+    background-color: transparent;
+}
+
+.link {
+    font-size: 1.2rem;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 300;
+    letter-spacing: 0.15em;
+    text-decoration: none;
+    margin: 0.3rem;
+   color: #d0c6b7
+
+
+}
+.link:hover {
+     text-decoration: underline;
+ }
+a:visited{
+
+    text-decoration: none;
+    margin: 0.3rem;
+    color: #d0c6b7
+}
+
+
+h1 {
+    color: #62707e;
+    font-family: 'Oranienbaum', serif;
+    font-size: 1.6rem;
+    line-height: 2.5rem;
+}
+
+h2 {
+    color: #62707e;
+    font-family: 'Oranienbaum', serif;
+    font-size: 1.4rem;
+    line-height: 2.0rem;
+}
+
+
+h3 {
+    color: #62707e;
+    font-family: 'Oranienbaum', serif;
+    font-size: 1.2rem;
+    line-height: 1.5rem;
+}
+
+
+h4 {
+    color: #62707e;
+    font-family: 'Oranienbaum', serif;
+    font-size: 1.2rem;
+    line-height: 1.0rem;
+}
+p {
+    min-height: 1rem;
+    margin-top: 1rem;
+    font-weight: 300;
+    color: #62707e;
+    font-size: 1rem;
+    font-family: 'Lato', sans-serif;
+    letter-spacing: 0.1em;
+}

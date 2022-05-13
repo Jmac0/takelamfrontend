@@ -21,7 +21,6 @@ export default function Nav({ path, about }: Props) {
 
         <NavElement to="properties">PROPERTIES</NavElement>
 
-        <div style={{ display: 'none'}}><NavElement to="thanks">thanks</NavElement></div>
         <NavElement to="contact">CONTACT</NavElement>
 		  <NavElement  to="admin">
 			  { auth.user ? 'Admin' : 'Login'}
