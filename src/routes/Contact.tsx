@@ -25,7 +25,7 @@ function Contact() {
         <input type="hidden" name="form-name" value="takelam-contact" />
         <div  className="inputs-divs">
           <label className="form-label" htmlFor="name">
-            First Name
+            Name
           </label>
             <input className="form-input" id="name" type="text" name="name" />
         </div>
