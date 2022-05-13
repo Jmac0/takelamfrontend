@@ -48,7 +48,8 @@ export default function App() {
 			  <Route path="admin/reset" element={<ForgotPassword />} />
 			  <Route path="users/resetpassword/:token" element={<ResetPassword />} />
 
-			  <Route
+            <Route path="/thanks" element={<ContactConfirm />} />
+            <Route
               path="admin"
               element={
                 <RequireAuth>
@@ -78,7 +79,7 @@ export default function App() {
               <Routes location={location}>
                 <Route path="/" element={<Layout path={path} />}>
                   <Route index element={<LandingPage />} />
-                  <Route path="submission" element={<ContactConfirm />} />
+                  <Route path="/thanks" element={<ContactConfirm />} />
                   {pageContent.map((el: Component) => (
                     <Route
                       key={el._id}
