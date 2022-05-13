@@ -15,7 +15,7 @@ function Contact() {
         name="takelam-contact"
         method="POST"
         data-netlify="true"
-        action="contact-confirm"
+        action="/confirm"
         style={{
           display: 'flex',
           flexDirection: 'column',
