@@ -18,7 +18,6 @@ import logo from '../images/logo_blue.png';
 import useToggleState from '../hooks/useToggleState';
 
 import { Map, Marker } from './Map';
-import useAuth from "./auth/useAuth";
 
 declare const cloudinary: any;
 interface Property {
@@ -76,7 +75,6 @@ export const SingleProperty = React.forwardRef((props: Props, ref: any) => {
 
   useEffect(() => {
     const token = JSON.parse(localStorage.getItem('_Tuser') as string);
-    console.log(token)
     // set path for admin property view
     let path = `${baseUrl}/properties`;
     // set path for client property view
@@ -184,7 +182,7 @@ export const SingleProperty = React.forwardRef((props: Props, ref: any) => {
       </div>
       <PropertyList>
         <div>{currentProperty.location}</div>
-        <div>${currentProperty.price}</div>
+        <div>€{currentProperty.price}</div>
         <div>
           <FontAwesomeIcon icon={faBed as IconProp} className="icon" />
           Bedrooms: {currentProperty.bedrooms}
