@@ -16,7 +16,6 @@ import RequireAuth from './components/auth/RequireAuth';
 import Users from './routes/Users';
 import ResetPassword from "./routes/ResetPassword";
 import PrintSingleProperty from "./routes/PrintSingleProperty";
-import ContactConfirm from "./components/ContactConfirm";
 
 interface Component {
   index: string;
