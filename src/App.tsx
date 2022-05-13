@@ -31,7 +31,6 @@ export default function App() {
   const location = useLocation();
   const path: string = location.pathname;
   const [pageContent, setIndex] = fetchContent([]);
-  const [token, setToken] = useState('')
 
 	/* show property or pages items in admin */
 	const [showPropertiesOrPages, setShowPropertiesOrPages] =
@@ -79,6 +78,7 @@ export default function App() {
               <Routes location={location}>
                 <Route path="/" element={<Layout path={path} />}>
                   <Route index element={<LandingPage />} />
+                  <Route path="submission" element={<ContactConfirm />} />
                   {pageContent.map((el: Component) => (
                     <Route
                       key={el._id}
@@ -88,7 +88,6 @@ export default function App() {
                       }
                     />
                   ))}
-                  <Route path="confirm" element={<ContactConfirm />} />
                   <Route path="contact" element={<Contact />} />
                   <Route path="property/:id" element={<PrintSingleProperty />} />
                   <Route
