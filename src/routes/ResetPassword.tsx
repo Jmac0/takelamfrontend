@@ -4,6 +4,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faHouse} from "@fortawesome/free-solid-svg-icons";
 import { LoginContainer } from '../styles/Admin.Styles';
 import { EmilandPasswordFormStyles } from '../styles/FormStyles';
+import UserMessage from '../components/UserMessage';
 import ButtonLoading from '../components/ButtonLoading';
 import useHttp from '../hooks/useHttp';
 import {NavElement} from "../styles/Container.styles";
@@ -78,11 +79,12 @@ function ResetPassword() {
             autoComplete="on"
           />
         </div>
-		  <p style={{height: "1rem"}}>{passwordsMatch}</p>
+
+        <p style={{height: "1rem"}}>{passwordsMatch}</p>
         <ButtonLoading loading={loading} completedActionText="SENT">
           Send
         </ButtonLoading>
-        <p style={{ color: 'indianred', height: "1rem" }}>{message}</p>
+        <UserMessage  isErrorMessage={message.isErrorMessage} message={message.message} showUserMessage={message.showUserMessage}/>
       </EmilandPasswordFormStyles>
     </LoginContainer>
   );

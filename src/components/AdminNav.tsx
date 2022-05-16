@@ -36,7 +36,7 @@ const navigate = useNavigate();
             <PagesIcon /> Pages
           </span>
 			</Button>
-			<Button onClick={() => navigate('/users')} >
+			<Button onClick={() => navigate('/users/update-me')} >
 				Users
 			</Button>
 			<Button type="button" onClick={auth.signOut}>

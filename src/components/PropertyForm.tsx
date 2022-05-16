@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from "react";
 import ButtonLoader from 'components/ButtonLoading';
 import { Property } from '../interfaces';
 import { Button } from '../styles/Admin.Styles';
@@ -49,6 +49,7 @@ function PropertyForm({
     bathrooms: 0,
     price: 0,
     location: '',
+    floorPlan: [],
     cords: '',
     _id: '',
 
@@ -56,6 +57,7 @@ function PropertyForm({
   const [form, setForm] = useState<Property>(initialState);
   const [images, setImages] = useState('');
   const [description, setDescription] = useState('');
+  const imageInput = useRef(null)
   const handleUpdate = (evt: React.ChangeEvent) => {
     // set values from form to state
     // @ts-ignore
@@ -73,11 +75,15 @@ function PropertyForm({
       createProperty({... form, description});
     }else if (requestMethod === 'PATCH') {
     updateProperty(currentProperty._id, {...form, description}, images);
+    // @ts-ignore
+      imageInput.current.value = ''
   }};
 
   useEffect(() => {
     /* set state to currently editing property or
        empty object */
+    // eslint-disable-next-line no-param-reassign
+    currentProperty.floorPlan = []
     requestMethod === 'PATCH' && setForm({ ...currentProperty });
     requestMethod === 'POST' && setForm({ ...initialState });
   }, [showPropertyForm]);
@@ -93,6 +99,7 @@ function PropertyForm({
       <div className="inputs">
         <label htmlFor="title">Title</label>
         <input
+          ref={imageInput}
           required
           placeholder="Property title, internal use only"
           id="title"
@@ -234,6 +241,7 @@ function PropertyForm({
             <ButtonLoader loading={loading}>Save</ButtonLoader>
           </div>
             <input
+              ref={imageInput}
               style={{ padding: '0', height: 'fit-content', width: '14rem' }}
               className="custom-file-input"
               type="file"

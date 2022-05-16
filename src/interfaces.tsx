@@ -7,6 +7,7 @@ export interface Property {
   bedrooms: number;
   bathrooms: number;
   buildSize: string;
+  floorPlan: string [];
   plotSize: string;
   description: string;
   ownership: string;

@@ -6,7 +6,6 @@ import InteriorsImage
 
 interface Props {
 
-    heading: string
     bodyText: string
 
 }
@@ -15,16 +14,13 @@ function Page(props: Props) {
   // eslint-disable-next-line no-console
   const location = useLocation();
   const threePage = location.pathname.includes('interiors');
-  const { heading, bodyText } = props;
+  const { bodyText } = props;
 
   // Different layout for three column pages
   if (threePage) {
     return (
       <div className="three-column-page">
         <div className="three-column-page-text">
-          <h1>
-            {heading}
-          </h1>
           <p dangerouslySetInnerHTML={{ __html: bodyText }} />
 
         </div>
@@ -42,7 +38,6 @@ function Page(props: Props) {
   // stangard page layout
     <div className="main-page-content">
       {/* eslint-disable-next-line react/no-danger */}
-      <h1>{heading}</h1>
       <p dangerouslySetInnerHTML={{ __html: bodyText }} />
     </div>
   );
