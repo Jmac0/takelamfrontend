@@ -18,6 +18,7 @@ import logo from '../images/logo_blue.png';
 import useToggleState from '../hooks/useToggleState';
 
 import { Map, Marker } from './Map';
+import { PrintPageBtn } from "../styles/Admin.Styles";
 
 declare const cloudinary: any;
 interface Property {
@@ -37,9 +38,10 @@ interface Property {
 interface Props {
   // eslint-disable-next-line react/require-default-props
   handlePrint?: () => void;
+  // eslint-disable-next-line react/no-unused-prop-types
   auth: {
     user: any;
-  }
+  };
 }
 
 interface UrlParams {
@@ -47,7 +49,7 @@ interface UrlParams {
 }
 // eslint-disable-next-line import/prefer-default-export
 export const SingleProperty = React.forwardRef((props: Props, ref: any) => {
-  const { handlePrint, auth } = props;
+  const { handlePrint } = props;
   const API = process.env.REACT_APP_GOOGLE_API as string;
   // Get current property from url params
   const propertyUrlId = useParams();
@@ -64,7 +66,6 @@ export const SingleProperty = React.forwardRef((props: Props, ref: any) => {
     lat: 51.32156694051315,
     lng: -0.20484525142481128,
   });
-
 
   // Marker position on map
   const [mapMarkerPosition, setMapMarkerPosition] =
@@ -85,13 +86,12 @@ export const SingleProperty = React.forwardRef((props: Props, ref: any) => {
     }
 
     axios
-      .get(`${path}/${urlPram}`, { withCredentials: true,
+      .get(`${path}/${urlPram}`, {
+        withCredentials: true,
         headers: {
           'Content-type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
-
-
       })
       .then((response) => {
         const {
@@ -165,9 +165,18 @@ export const SingleProperty = React.forwardRef((props: Props, ref: any) => {
         </p>
       </div>
       <div className="print-page-btn hidden-on-print">
-        <PrintIcon onClick={handlePrint} type="button" />
-        <p >print page</p>
-
+        <PrintPageBtn
+          onClick={handlePrint}
+          type="button"
+          style={{
+            backgroundColor: 'transparent',
+            border: 'none',
+            outline: 'none',
+          }}
+        >
+          <PrintIcon type="button" />
+          Print
+        </PrintPageBtn>
       </div>
       <div id="my-gallery" />
       <div className="hidden-on-print">
@@ -206,7 +215,7 @@ export const SingleProperty = React.forwardRef((props: Props, ref: any) => {
              conditionally render ownership
              */}
         {currentProperty.ownership && (
-          <div style={{marginTop: "10px"}}>
+          <div style={{ marginTop: '10px' }}>
             <h4>Ownership:</h4>
             <p> {currentProperty.ownership}</p>
           </div>

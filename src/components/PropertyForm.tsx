@@ -112,6 +112,7 @@ function PropertyForm({
       <div className="inputs">
         <label htmlFor="title">Tag</label>
         <input
+          disabled={requestMethod === 'PATCH'}
           required
           placeholder="Please enter a tag name to link images to site"
           id="tag"

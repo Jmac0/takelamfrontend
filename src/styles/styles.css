@@ -18,6 +18,8 @@
     margin: 0 auto;
     grid-area: main;
 }
+
+
 .print-page-btn{
 
     display: flex;
@@ -206,6 +208,11 @@ ul {
 }
 /*///////////////////*/
 @media screen and (min-width: 850px) {
+
+    .page {
+        margin-top: 4rem;
+    }
+
   .main-page-content {
     margin-top: 10rem;
     grid-area: main;

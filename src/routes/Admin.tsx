@@ -48,8 +48,6 @@ function Admin({
   /* close or open edit page form */
   const [editing, setEditing] = useState<boolean>(false);
   /* status of page update */
-  const [success, setSuccess] = useState<boolean>(false);
-  // response message
   const [message, setMessage] = useState<UserMessageInterface>(
     initialUserMessageState,
   );
@@ -97,15 +95,12 @@ function Admin({
       )
       .then((response) => {
 
-          //   show saved icon above editor
-          setSuccess(true);
 
           setMessage({
             isErrorMessage: false,
             showUserMessage: true,
             message: response.data.message,
           })
-        console.log(response.data)
             /* Updates the index dependency in
 					 FetchContent to cause re-render and get
 					 the updated data  */
@@ -187,12 +182,14 @@ function Admin({
         });
         setLoading(false);
       })
-      .catch((err) =>
+      .catch((err) => {
+        setLoading(false);
         setMessage({
           isErrorMessage: true,
           showUserMessage: true,
           message: err.response.data.message,
-        }),
+        })
+      }
       );
   };
   const deleteProperty = async (id: string) => {

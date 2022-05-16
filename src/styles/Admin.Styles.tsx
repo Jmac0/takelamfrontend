@@ -29,6 +29,7 @@ const LoginContainer = styled.div`
   height: 100vh;
   width: 100vw;
   overflow: hidden;
+  /* mobile viewport bug fix */
   min-height: -webkit-fill-available;
 `;
 
@@ -43,7 +44,6 @@ const AdminContainer = styled.div`
   grid-gap: 1rem;
   grid-template-columns: repeat(auto-fit, minmax(90vw, max-content));
   justify-content: center;
-  /* mobile viewport bug fix */
   //  min-height: -webkit-fill-available;
 
   @media screen and (min-width: 850px) {
@@ -260,6 +260,23 @@ const ContactFormButton = styled.button`
   }
 `;
 
+
+
+
+const PrintPageBtn = styled(Button)`
+  margin: 5px 0 0 0;
+min-width: 0;
+  background: transparent;
+  border: none;
+  padding: 0;
+
+  &:hover {
+    background: ${colors.grey};
+    color: ${colors.blue};
+    text-decoration: underline;
+  }
+`
+
 const UserMessageContainer = styled.div<Props>`
   width: fit-content;
   height: 1rem;
@@ -282,6 +299,7 @@ export {
   AdminContainer,
   PageItem,
   Button,
+  PrintPageBtn,
   PropertyItem,
   WarningIcon,
   AdminMenu,

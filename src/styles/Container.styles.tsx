@@ -98,6 +98,7 @@ const NavBar = styled.nav<Props>`
   }
 `;
 
+
 const NavElement = styled(NavLink)`
   color: ${colors.tan};
   font-size: 1.2rem;
