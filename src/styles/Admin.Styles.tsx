@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 import colors from 'styles/colors';
 import { Warning } from '@styled-icons/fluentui-system-filled/Warning';
-import { HouseDoorFill } from '@styled-icons/bootstrap/HouseDoorFill';
 import { Edit } from '@styled-icons/boxicons-regular/Edit';
+import { Key, Person, HouseDoor } from "@styled-icons/bootstrap";
 import logo from '../images/admin_logo.png';
 import tearTan from '../images/tear_tan.png';
 
@@ -96,12 +96,17 @@ color: ${colors.white};
   }
 `;
 
-const HouseIcon = styled(HouseDoorFill)`
+const HouseIcon = styled(HouseDoor)`
   color: ${colors.white};
   width: 1.3rem;
   margin-right: 0.3rem;
 `;
 
+const PersonIcon = styled(Person)`
+  color: ${colors.white};
+  width: 1.3rem;
+  margin-right: 0.3rem;
+`;
 const PagesIcon = styled(Edit)`
   color: ${colors.white};
   width: 1.3rem;
@@ -295,6 +300,12 @@ const WarningIcon = styled(Warning)`
   color: indianred;
 `;
 
+const KeyIcon = styled(Key)`
+  height: 1.5rem;
+  width: auto;
+  margin-right: 0.5rem;
+  color: white;
+`;
 export {
   AdminContainer,
   PageItem,
@@ -306,6 +317,8 @@ export {
   Loader,
   HouseIcon,
   PagesIcon,
+  PersonIcon,
+  KeyIcon,
   LoginContainer,
   ContactFormButton,
   UserMessageContainer,
