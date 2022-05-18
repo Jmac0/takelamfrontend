@@ -108,6 +108,7 @@ function Admin({
           setIndex((index: number) => index + 1);
         }
       )    .catch((err) => {
+        setLoading(false);
         setMessage({
           isErrorMessage: true,
           showUserMessage: true,
@@ -141,13 +142,16 @@ function Admin({
           });
         }, 500);
       })
-      .catch((err) =>
+      .catch((err) =>{
+        setLoading(false);
         setMessage({
           isErrorMessage: true,
           showUserMessage: true,
           message: err.response.data.message,
-        }),
+        }) }
+
       );
+
   };
   const updateProperty = async (id: string, body: any, images: string) => {
     setLoading(true);

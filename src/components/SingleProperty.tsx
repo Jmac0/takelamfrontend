@@ -14,11 +14,13 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { PropertyList, PrintIcon } from 'styles/PropertyPageStyles';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import { useSpring, animated } from 'react-spring';
+import Loading from './Loader';
 import logo from '../images/logo_blue.png';
 import useToggleState from '../hooks/useToggleState';
 
 import { Map, Marker } from './Map';
-import { PrintPageBtn } from "../styles/Admin.Styles";
+import { PrintPageBtn } from '../styles/Admin.Styles';
 
 declare const cloudinary: any;
 interface Property {
@@ -61,6 +63,12 @@ export const SingleProperty = React.forwardRef((props: Props, ref: any) => {
   // @ts-ignore
   const [currentProperty, setCurrentProperty] = useState<Property>({});
 
+  const fadeIn = useSpring({
+    cancel: loading,
+    to: { opacity: 1 },
+    from: { opacity: 0 },
+    delay: 250,
+  });
   // Initial center of google map
   const [mapCenter, setMapCenter] = React.useState<google.maps.LatLngLiteral>({
     lat: 51.32156694051315,
@@ -103,10 +111,10 @@ export const SingleProperty = React.forwardRef((props: Props, ref: any) => {
             property: { cords },
           },
         } = response;
+        setTimeout(() => setLoading(!loading), 650);
         setMapCenter({ lat: cords[0], lng: cords[1] });
         setMapMarkerPosition({ lat: cords[0], lng: cords[1] });
         setCurrentProperty(() => property);
-        setLoading(() => false);
       });
   }, [urlPram]);
 
@@ -117,7 +125,9 @@ export const SingleProperty = React.forwardRef((props: Props, ref: any) => {
   const gallery = cloudinary.galleryWidget({
     container: '#my-gallery',
     cloudName: 'takelam',
-    loaderStyle: 'circle',
+    loaderProps: {
+      style: 'circle',
+    },
     zoomProps: {
       type: 'popup',
       steps: 3,
@@ -156,86 +166,99 @@ export const SingleProperty = React.forwardRef((props: Props, ref: any) => {
   }
 
   return (
-    <div className="page" ref={ref}>
-      <div className="print-logo">
-        <img src={logo} width="100" height="86" alt="" />
-        <p>
-          Some contact info <br />
-          01223 1234-4567
-        </p>
-      </div>
-      <div className="print-page-btn hidden-on-print">
-        <PrintPageBtn
-          onClick={handlePrint}
-          type="button"
-          style={{
-            backgroundColor: 'transparent',
-            border: 'none',
-            outline: 'none',
-          }}
-        >
-          <PrintIcon type="button" />
-          Print
-        </PrintPageBtn>
-      </div>
-      <div id="my-gallery" />
-      <div className="hidden-on-print">
-        {/* conditionally render floor plans */}
-        {floorPlans.length > 0 ? (
-          <div>
-            <h4>Floor Plans</h4> {floorPlans}
+    // eslint-disable-next-line react/jsx-no-useless-fragment
+    <>
+      {loading ? (
+
+        <div style={{display: 'flex', justifyContent: 'center', marginTop: '10rem'}} className="page"><Loading loading={loading} /></div>
+      ) : (
+        <animated.div style={fadeIn} className="page" ref={ref}>
+          <div className="print-logo">
+            <img src={logo} width="100" height="86" alt="" />
+            <p>
+              Some contact info <br />
+              01223 1234-4567
+            </p>
           </div>
-        ) : (
-          ''
-        )}
-      </div>
-      <PropertyList>
-        <div>{currentProperty.location}</div>
-        <div>€{currentProperty.price}</div>
-        <div>
-          <FontAwesomeIcon icon={faBed as IconProp} className="icon" />
-          Bedrooms: {currentProperty.bedrooms}
-        </div>
-        <div>
-          <FontAwesomeIcon icon={faBathtub as IconProp} className="icon" />
-          Bathrooms: {currentProperty.bathrooms}
-        </div>
+          <div className="print-page-btn hidden-on-print">
+            <PrintPageBtn
+              onClick={handlePrint}
+              type="button"
+              style={{
+                backgroundColor: 'transparent',
+                border: 'none',
+                outline: 'none',
+              }}
+            >
+              <PrintIcon type="button" />
+              Print
+            </PrintPageBtn>
+          </div>
+          <div id="my-gallery" />
+          <div className="hidden-on-print">
+            {/* conditionally render floor plans */}
+            {floorPlans.length > 0 ? (
+              <div>
+                <h4>Floor Plans</h4> {floorPlans}
+              </div>
+            ) : (
+              ''
+            )}
+          </div>
+          <PropertyList>
+            <div>{currentProperty.location}</div>
+            <div>€{currentProperty.price}</div>
+            <div>
+              <FontAwesomeIcon icon={faBed as IconProp} className="icon" />
+              Bedrooms: {currentProperty.bedrooms}
+            </div>
+            <div>
+              <FontAwesomeIcon icon={faBathtub as IconProp} className="icon" />
+              Bathrooms: {currentProperty.bathrooms}
+            </div>
 
-        <div>
-          <FontAwesomeIcon icon={faHouse as IconProp} className="icon" />
-          Build Size: {currentProperty.buildSize}
-          ms
-        </div>
+            <div>
+              <FontAwesomeIcon icon={faHouse as IconProp} className="icon" />
+              Build Size: {currentProperty.buildSize}
+              ms
+            </div>
 
-        <div>
-          <FontAwesomeIcon icon={faVectorSquare as IconProp} className="icon" />
-          Plot Size: {currentProperty.plotSize}
-        </div>
-        {/*
+            <div>
+              <FontAwesomeIcon
+                icon={faVectorSquare as IconProp}
+                className="icon"
+              />
+              Plot Size: {currentProperty.plotSize}
+            </div>
+            {/*
              conditionally render ownership
              */}
-        {currentProperty.ownership && (
-          <div style={{ marginTop: '10px' }}>
-            <h4>Ownership:</h4>
-            <p> {currentProperty.ownership}</p>
-          </div>
-        )}
-        <div className="print-page-break">
-          <h4>Property Description:</h4>
+            {currentProperty.ownership && (
+              <div style={{ marginTop: '10px' }}>
+                <h4>Ownership:</h4>
+                <p> {currentProperty.ownership}</p>
+              </div>
+            )}
+            <div className="print-page-break">
+              <h4>Property Description:</h4>
 
-          <p
-            dangerouslySetInnerHTML={{ __html: currentProperty.description }}
-          />
-        </div>
-      </PropertyList>
-      <div className="hidden-on-print">
-        <Wrapper apiKey={API}>
-          <Map center={mapCenter} zoom={12}>
-            <Marker position={mapMarkerPosition} />
-          </Map>
-        </Wrapper>
-      </div>{' '}
-    </div>
+              <p
+                dangerouslySetInnerHTML={{
+                  __html: currentProperty.description,
+                }}
+              />
+            </div>
+          </PropertyList>
+          <div className="hidden-on-print">
+            <Wrapper apiKey={API}>
+              <Map center={mapCenter} zoom={12}>
+                <Marker position={mapMarkerPosition} />
+              </Map>
+            </Wrapper>
+          </div>
+        </animated.div>
+      )}
+    </>
   );
   /// /////////////////// Map ///////////////////////
 });

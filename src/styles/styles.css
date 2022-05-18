@@ -1,19 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;300&family=Oranienbaum&family=Oswald:wght@200;400;500&display=swap');
-/*
-* {
-
-  padding: 0;
-}
-
-.body {
-  overflow: scroll;
-  margin: 0 auto;
-  height: 100%;
-}
-*/
 /*Print styles for single property page*/
 .page {
-
     width: 98%;
     margin: 0 auto;
     grid-area: main;
