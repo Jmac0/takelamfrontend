@@ -1,28 +1,53 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import axios from 'axios';
 import baseUrl from 'utils/urls';
-import {User, UserMessageInterface, VoidFunction} from 'utils/interfaces';
+import { User, UserMessageInterface, VoidFunction } from 'utils/interfaces';
+import useHttp from '../../hooks/useHttp';
 import AuthContext from './AuthContext';
-import { initialUserMessageState, initialUserState } from "../../utils/initialStates";
-
-
+import {
+  initialUserMessageState,
+  initialUserState,
+} from '../../utils/initialStates';
 
 const ApiAuthProvider = {
   isAuthenticated: false,
   signIn(callback: VoidFunction) {
-    ApiAuthProvider.isAuthenticated = true;
     setTimeout(callback, 500);
   },
   signOut(callback: VoidFunction) {
-    ApiAuthProvider.isAuthenticated = false;
     callback();
   },
 };
-
 function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [loginError, setLoginError] = useState<UserMessageInterface>(initialUserMessageState);
-  const [loading, setLoading] = useState(false);
+  const [loginError, setLoginError] = useState<UserMessageInterface>(
+    initialUserMessageState,
+  );
+ // const [loading, setLoading] = useState(false);
   const [user, setUser] = React.useState<User>(initialUserState);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const token = JSON.parse(localStorage.getItem('_Tuser') as string);
+
+  const { loading, setLoading, message, setMessage, sendRequest } = useHttp({
+    url: `auth/isAuth`,
+    method: 'GET',
+    withCredentials: false,
+    token
+  });
+
+  // todo make api call to protect route and log user in
+  useEffect(() => {
+    if (token) {
+      sendRequest('', () =>{
+      setIsAuthenticated(true);
+      setUser({
+        email: '',
+        password: '',
+        token,
+      });
+      })
+    }
+
+  }, [isAuthenticated]);
 
   const signIn = async (
     email: string,
@@ -45,6 +70,7 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
       .then((res) => {
         ApiAuthProvider.signIn(() => {
           setLoading(false);
+          setIsAuthenticated(true);
           setUser({
             email: res.data.email,
             password: res.data.password,
@@ -60,7 +86,11 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
       .catch((err) => {
         setLoading(false);
         setTimeout(() => {
-          setLoginError({message: err.response.data.message, isErrorMessage: true, showUserMessage:true});
+          setLoginError({
+            message: err.response.data.message,
+            isErrorMessage: true,
+            showUserMessage: true,
+          });
         }, 600);
       });
   };
@@ -68,11 +98,21 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
   const signOut = () =>
     ApiAuthProvider.signOut(() => {
       setUser(initialUserState);
+      setIsAuthenticated(false);
       localStorage.clear();
     });
   const value = useMemo(
-    () => ({ loading, user, signIn, signOut, loginError, setLoginError, setUser }),
-    [user, loading, loginError.message],
+    () => ({
+      loading,
+      user,
+      signIn,
+      signOut,
+      isAuthenticated,
+      loginError,
+      setLoginError,
+      setUser,
+    }),
+    [user, loading, loginError.message, isAuthenticated],
   );
 
   // @ts-ignore

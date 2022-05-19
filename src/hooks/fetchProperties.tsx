@@ -3,6 +3,7 @@ import axios from 'axios';
 import baseUrl from 'utils/urls';
 
 export default function fetchProperties(initialState: [], token = '') {
+
   const [propertyData, setPropertyData] = useState<any>(initialState);
   const [propertyIndex, setPropertyIndex] = useState<number>(0);
 

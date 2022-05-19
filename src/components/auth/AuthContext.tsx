@@ -6,6 +6,7 @@ interface VoidFunction {
 }
 interface AuthContextType {
   loading: boolean;
+  isAuthenticated: boolean;
   user: { email: string; password: string; token: string };
   password: string;
   email: string;

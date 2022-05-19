@@ -23,7 +23,7 @@ export default function Nav({ path, about }: Props) {
 
         <NavElement to="contact">CONTACT</NavElement>
 		  <NavElement  to="admin">
-			  { auth.user ? 'Admin' : 'Login'}
+			  { auth.isAuthenticated ? 'Admin' : 'Login'}
 		  </NavElement>
 
 	  </div>

@@ -20,7 +20,7 @@ function useHttp(requestConfig: RequestConfig) {
     initialUserMessageState,
   );
   // function returned from this hook
-  const sendRequest = async (body: {}, callback: any = null) => {
+  const sendRequest = async (body:any = null, callback: any = null) => {
     await axios({
       method: requestConfig.method ? requestConfig.method : 'GET',
       url: `${baseUrl}/${requestConfig.url}`,

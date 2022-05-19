@@ -30,7 +30,7 @@ function MobileNavMenu(props: Props) {
       <NavElement onClick={setOpen} to="contact">CONTACT</NavElement>
 
 		<NavElement onClick={setOpen}  to="admin">
-			{ auth.user ? 'Admin' : 'Login'}
+			{ auth.isAuthenticated ? 'Admin' : 'Login'}
 		</NavElement>
 	</SlideOutMenu>
   );

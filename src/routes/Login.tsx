@@ -1,22 +1,30 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { faHouse } from '@fortawesome/free-solid-svg-icons';
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { LoginContainer } from '../styles/Admin.Styles';
 import useAuth from '../components/auth/useAuth';
 import EmailAndPasswordForm from '../components/EmailAndPasswordForm';
 import { NavElement } from '../styles/Container.styles';
 import { initialUserMessageState } from '../utils/initialStates';
+import Loading from '../components/Loader';
 
 function Login() {
   const navigate = useNavigate();
   const location = useLocation();
+  const [loading, setLoading] = useState(false);
   const auth = useAuth();
   useEffect(() => {
     auth.setLoginError(initialUserMessageState);
-  }, []);
-
+    // redirect to admin if authenticated from local storage token
+    if (auth.isAuthenticated) {
+      setLoading(true);
+      setTimeout(() => {
+        navigate('/admin');
+        setLoading(false);
+      }, 500);
+    }
+  }, [auth.isAuthenticated]);
   // @ts-ignore
   const from = location.state?.from?.pathname || '/';
 
@@ -41,21 +49,36 @@ function Login() {
 
   return (
     <LoginContainer>
-      <div style={{ marginTop: '3rem' }}>
-        <FontAwesomeIcon
-          style={{ color: 'grey', marginBottom: '2px' }}
-          icon={faHouse}
-          className="icon"
-        />
-        <NavElement to="/">HOME</NavElement>
-      </div>
-      <EmailAndPasswordForm
-        heading="Login"
-        buttonLabel="Login"
-        emailLabel="Email"
-        handleSubmit={handleSubmit}
-        passwordLabel="Password"
-      />
+      {loading ? (
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            marginTop: '10rem',
+          }}
+          className="page"
+        >
+          <Loading loading={loading} />
+        </div>
+      ) : (
+        <>
+          <div style={{ marginTop: '3rem' }}>
+            <FontAwesomeIcon
+              style={{ color: 'grey', marginBottom: '2px' }}
+              icon={faHouse}
+              className="icon"
+            />
+            <NavElement to="/">HOME</NavElement>
+          </div>
+          <EmailAndPasswordForm
+            heading="Login"
+            buttonLabel="Login"
+            emailLabel="Email"
+            handleSubmit={handleSubmit}
+            passwordLabel="Password"
+          />
+        </>
+      )}
     </LoginContainer>
   );
 }
