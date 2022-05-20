@@ -1,7 +1,7 @@
 /* eslint-disable no-undef, @typescript-eslint/no-unused-vars, no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
-// import { Wrapper, Status } from '@googlemaps/react-wrapper';
+import { Wrapper, Status } from '@googlemaps/react-wrapper';
 import axios from 'axios';
 import baseUrl from 'utils/urls';
 import '../styles/styles.css';
@@ -262,13 +262,11 @@ function SingleProperty(props: Props) {
             </div>
           </PropertyList>
           <div className="hidden-on-print">
-{/*
             <Wrapper apiKey={API}>
               <Map center={mapCenter} zoom={12}>
                 <Marker position={mapMarkerPosition} />
               </Map>
             </Wrapper>
-*/}
           </div>
         </animated.div>
       )}
