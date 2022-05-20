@@ -1,7 +1,7 @@
 /* eslint-disable no-undef, @typescript-eslint/no-unused-vars, no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
-import { Wrapper, Status } from '@googlemaps/react-wrapper';
+// import { Wrapper, Status } from '@googlemaps/react-wrapper';
 import axios from 'axios';
 import baseUrl from 'utils/urls';
 import '../styles/styles.css';
@@ -71,7 +71,6 @@ function SingleProperty(props: Props) {
     cancel: loading,
     to: { opacity: 1 },
     from: { opacity: 0 },
-    delay: 250,
   });
   // Initial center of google map
   const [mapCenter, setMapCenter] = React.useState<google.maps.LatLngLiteral>({
@@ -86,8 +85,8 @@ function SingleProperty(props: Props) {
       lng: 0,
     });
 
-  useEffect(() => {
     const token = JSON.parse(localStorage.getItem('_Tuser') as string);
+  useEffect(() => {
     // set path for admin property view
     let path = `${baseUrl}/properties`;
     // set path for client property view
@@ -115,11 +114,11 @@ function SingleProperty(props: Props) {
             property: { cords },
           },
         } = response;
-        setTimeout(() => setLoading(!loading), 650);
+        setLoading(false);
         setMapCenter({ lat: cords[0], lng: cords[1] });
         setMapMarkerPosition({ lat: cords[0], lng: cords[1] });
         setCurrentProperty(() => property);
-      });
+      }).catch(err => console.log(err));
   }, [urlPram]);
 
   /*
@@ -158,7 +157,7 @@ function SingleProperty(props: Props) {
   if (currentProperty.floorPlan) {
     floorPlans = currentProperty.floorPlan.map((el, i) => (
       // eslint-disable-next-line react/no-array-index-key
-      <a key={i} href={currentProperty.floorPlan[i]} target="_blank" rel="noreferrer">
+      <a key={i} href={currentProperty.floorPlan[i]} target="blank">
         <img
           style={{ border: '1px solid black', marginRight: '5px' }}
           alt="thumb"
@@ -173,12 +172,10 @@ function SingleProperty(props: Props) {
   return (
     // eslint-disable-next-line react/jsx-no-useless-fragment
     <>
-{/*
       {loading ? (
 
         <div style={{display: 'flex', justifyContent: 'center', marginTop: '10rem'}} className="page"><Loading loading={loading} /></div>
       ) : (
-*/}
         <animated.div style={fadeIn} className="page" >
           <div className="print-logo">
             <img src={logo} width="100" height="86" alt="" />
@@ -187,10 +184,10 @@ function SingleProperty(props: Props) {
               01223 1234-4567
             </p>
           </div>
-{/*
+
           <div className="print-page-btn hidden-on-print">
             <PrintPageBtn
-              onClick={handlePrint}
+            //  onClick={handlePrint}
               type="button"
               style={{
                 backgroundColor: 'transparent',
@@ -202,10 +199,13 @@ function SingleProperty(props: Props) {
               Print
             </PrintPageBtn>
           </div>
-*/}
+
+
           <div id="my-gallery" />
+
+
           <div className="hidden-on-print">
-            {/* conditionally render floor plans */}
+             conditionally render floor plans
             {floorPlans.length > 0 ? (
               <div>
                 <h4>Floor Plans</h4> {floorPlans}
@@ -214,6 +214,7 @@ function SingleProperty(props: Props) {
               ''
             )}
           </div>
+
           <PropertyList>
             <div>{currentProperty.location}</div>
             <div>€{currentProperty.price}</div>
@@ -239,9 +240,9 @@ function SingleProperty(props: Props) {
               />
               Plot Size: {currentProperty.plotSize}
             </div>
-            {/*
+
              conditionally render ownership
-             */}
+
             {currentProperty.ownership && (
               <div style={{ marginTop: '10px' }}>
                 <h4>Ownership:</h4>
@@ -259,16 +260,16 @@ function SingleProperty(props: Props) {
             </div>
           </PropertyList>
           <div className="hidden-on-print">
+{/*
             <Wrapper apiKey={API}>
               <Map center={mapCenter} zoom={12}>
                 <Marker position={mapMarkerPosition} />
               </Map>
             </Wrapper>
+*/}
           </div>
         </animated.div>
-{/*
       )}
-*/}
     </>
   );
   /// /////////////////// Map ///////////////////////
