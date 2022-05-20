@@ -11,7 +11,10 @@ function PrintSingleProperty() {
     content: () => printRef.current,
   });
   return (
+    <div />
+/*
       <SingleProperty ref={printRef} handlePrint={handlePrint} auth={auth} />
+*/
   );
 }
 

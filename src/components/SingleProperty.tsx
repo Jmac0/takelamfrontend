@@ -39,19 +39,23 @@ interface Property {
 
 interface Props {
   // eslint-disable-next-line react/require-default-props
+/*
   handlePrint?: () => void;
+*/
   // eslint-disable-next-line react/no-unused-prop-types
+/*
   auth: {
-    user: any;
+    user?: any;
   };
+*/
 }
 
 interface UrlParams {
   id?: string;
 }
 // eslint-disable-next-line import/prefer-default-export
-export const SingleProperty = React.forwardRef((props: Props, ref: any) => {
-  const { handlePrint } = props;
+function SingleProperty(props: Props) {
+ // const { handlePrint } = props;
   const API = process.env.REACT_APP_GOOGLE_API as string;
   // Get current property from url params
   const propertyUrlId = useParams();
@@ -153,7 +157,8 @@ export const SingleProperty = React.forwardRef((props: Props, ref: any) => {
   // render floor plans
   if (currentProperty.floorPlan) {
     floorPlans = currentProperty.floorPlan.map((el, i) => (
-      <a href={currentProperty.floorPlan[i]} target="_blank" rel="noreferrer">
+      // eslint-disable-next-line react/no-array-index-key
+      <a key={i} href={currentProperty.floorPlan[i]} target="_blank" rel="noreferrer">
         <img
           style={{ border: '1px solid black', marginRight: '5px' }}
           alt="thumb"
@@ -168,11 +173,13 @@ export const SingleProperty = React.forwardRef((props: Props, ref: any) => {
   return (
     // eslint-disable-next-line react/jsx-no-useless-fragment
     <>
+{/*
       {loading ? (
 
         <div style={{display: 'flex', justifyContent: 'center', marginTop: '10rem'}} className="page"><Loading loading={loading} /></div>
       ) : (
-        <animated.div style={fadeIn} className="page" ref={ref}>
+*/}
+        <animated.div style={fadeIn} className="page" >
           <div className="print-logo">
             <img src={logo} width="100" height="86" alt="" />
             <p>
@@ -180,6 +187,7 @@ export const SingleProperty = React.forwardRef((props: Props, ref: any) => {
               01223 1234-4567
             </p>
           </div>
+{/*
           <div className="print-page-btn hidden-on-print">
             <PrintPageBtn
               onClick={handlePrint}
@@ -194,6 +202,7 @@ export const SingleProperty = React.forwardRef((props: Props, ref: any) => {
               Print
             </PrintPageBtn>
           </div>
+*/}
           <div id="my-gallery" />
           <div className="hidden-on-print">
             {/* conditionally render floor plans */}
@@ -257,8 +266,13 @@ export const SingleProperty = React.forwardRef((props: Props, ref: any) => {
             </Wrapper>
           </div>
         </animated.div>
+{/*
       )}
+*/}
     </>
   );
   /// /////////////////// Map ///////////////////////
-});
+}
+
+// eslint-disable-next-line import/prefer-default-export
+export  {SingleProperty}
