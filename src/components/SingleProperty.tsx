@@ -151,7 +151,7 @@ function SingleProperty(props: Props) {
     ],
   });
 
-  if (currentProperty.title) gallery.render();
+  // if (currentProperty.title) gallery.render();
   let floorPlans: JSX.Element[] = [];
   // render floor plans
   if (currentProperty.floorPlan) {
@@ -201,7 +201,9 @@ function SingleProperty(props: Props) {
           </div>
 
 
+{/*
           <div id="my-gallery" />
+*/}
 
 
           <div className="hidden-on-print">
