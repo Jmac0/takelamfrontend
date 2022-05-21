@@ -39,11 +39,11 @@ interface Property {
 
 interface Props {
   // eslint-disable-next-line react/require-default-props
-/*
+  /*
   handlePrint?: () => void;
 */
   // eslint-disable-next-line react/no-unused-prop-types
-/*
+  /*
   auth: {
     user?: any;
   };
@@ -55,7 +55,7 @@ interface UrlParams {
 }
 // eslint-disable-next-line import/prefer-default-export
 function SingleProperty(props: Props) {
- // const { handlePrint } = props;
+  // const { handlePrint } = props;
   const API = process.env.REACT_APP_GOOGLE_API as string;
   // Get current property from url params
   const propertyUrlId = useParams();
@@ -66,6 +66,7 @@ function SingleProperty(props: Props) {
   // State to hold current property data
   // @ts-ignore
   const [currentProperty, setCurrentProperty] = useState<Property>({});
+  const [renderAssets, setRenderAssets] = useState(false);
 
   const fadeIn = useSpring({
     cancel: loading,
@@ -84,8 +85,33 @@ function SingleProperty(props: Props) {
       lat: 0,
       lng: 0,
     });
+  const gallery = cloudinary.galleryWidget({
+    container: '#my-gallery',
+    cloudName: 'takelam',
+    loaderProps: {
+      style: 'circle',
+    },
+    zoomProps: {
+      type: 'popup',
+      steps: 3,
+      stepLimit: true,
+      level: 1.3, // each step zooms in another 130%
+    },
+    carouselLocation: 'bottom',
+    aspectRatio: '16:9',
+    navigationButtonProps: {
+      shape: 'round',
+      color: '#d0c6b7',
+      size: 40,
+      iconColor: '#FFFFFF',
+    },
+    mediaAssets: [
+      // @ts-ignore
+      { tag: `${currentProperty.tag}` },
+    ],
+  });
 
-    const token = JSON.parse(localStorage.getItem('_Tuser') as string);
+  const token = JSON.parse(localStorage.getItem('_Tuser') as string);
   useEffect(() => {
     // set path for admin property view
     let path = `${baseUrl}/properties`;
@@ -115,43 +141,25 @@ function SingleProperty(props: Props) {
           },
         } = response;
         setLoading(false);
+        setRenderAssets(true);
         setMapCenter({ lat: cords[0], lng: cords[1] });
         setMapMarkerPosition({ lat: cords[0], lng: cords[1] });
         setCurrentProperty(() => property);
-      }).catch(err => console.log(err));
+      })
+      .catch((err) => console.log(err));
+
+    return () => {
+      setRenderAssets(false);
+    }
   }, [urlPram]);
 
   /*
       setCenter({lat: currentProperty.cords[0], lng: currentProperty.cords[1] })
       setPosition({lat: currentProperty.cords[0], lng: currentProperty.cords[1] })
 */
-  const gallery = cloudinary.galleryWidget({
-    container: '#my-gallery',
-    cloudName: 'takelam',
-    loaderProps: {
-      style: 'circle',
-    },
-    zoomProps: {
-      type: 'popup',
-      steps: 3,
-      stepLimit: true,
-      level: 1.3, // each step zooms in another 130%
-    },
-    carouselLocation: 'bottom',
-    aspectRatio: '16:9',
-    navigationButtonProps: {
-      shape: 'round',
-      color: '#d0c6b7',
-      size: 40,
-      iconColor: '#FFFFFF',
-    },
-    mediaAssets: [
-      // @ts-ignore
-      { tag: `${currentProperty.tag}` },
-    ],
-  });
 
-  // if (currentProperty.title) gallery.render();
+ if(renderAssets){ gallery.render()}
+
   let floorPlans: JSX.Element[] = [];
   // render floor plans
   if (currentProperty.floorPlan) {
@@ -173,10 +181,18 @@ function SingleProperty(props: Props) {
     // eslint-disable-next-line react/jsx-no-useless-fragment
     <>
       {loading ? (
-
-        <div style={{display: 'flex', justifyContent: 'center', marginTop: '10rem'}} className="page"><Loading loading={loading} /></div>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            marginTop: '10rem',
+          }}
+          className="page"
+        >
+          <Loading loading={loading} />
+        </div>
       ) : (
-        <animated.div style={fadeIn} className="page" >
+        <animated.div style={fadeIn} className="page">
           <div className="print-logo">
             <img src={logo} width="100" height="86" alt="" />
             <p>
@@ -187,7 +203,7 @@ function SingleProperty(props: Props) {
 
           <div className="print-page-btn hidden-on-print">
             <PrintPageBtn
-            //  onClick={handlePrint}
+              //  onClick={handlePrint}
               type="button"
               style={{
                 backgroundColor: 'transparent',
@@ -200,14 +216,9 @@ function SingleProperty(props: Props) {
             </PrintPageBtn>
           </div>
 
-
-{/*
           <div id="my-gallery" />
-*/}
-
 
           <div className="hidden-on-print">
-             conditionally render floor plans
             {floorPlans.length > 0 ? (
               <div>
                 <h4>Floor Plans</h4> {floorPlans}
@@ -228,13 +239,11 @@ function SingleProperty(props: Props) {
               <FontAwesomeIcon icon={faBathtub as IconProp} className="icon" />
               Bathrooms: {currentProperty.bathrooms}
             </div>
-
             <div>
               <FontAwesomeIcon icon={faHouse as IconProp} className="icon" />
               Build Size: {currentProperty.buildSize}
               ms
             </div>
-
             <div>
               <FontAwesomeIcon
                 icon={faVectorSquare as IconProp}
@@ -242,9 +251,7 @@ function SingleProperty(props: Props) {
               />
               Plot Size: {currentProperty.plotSize}
             </div>
-
-             conditionally render ownership
-
+            conditionally render ownership
             {currentProperty.ownership && (
               <div style={{ marginTop: '10px' }}>
                 <h4>Ownership:</h4>
@@ -276,4 +283,4 @@ function SingleProperty(props: Props) {
 }
 
 // eslint-disable-next-line import/prefer-default-export
-export  {SingleProperty}
+export { SingleProperty };
