@@ -29,6 +29,7 @@ function MobileNavMenu(props: Props) {
       <NavElement onClick={setOpen} to="properties">PROPERTIES</NavElement>
       <NavElement onClick={setOpen} to="contact">CONTACT</NavElement>
 
+      <NavElement onClick={setOpen} to="property">property</NavElement>
 		<NavElement onClick={setOpen}  to="admin">
 			{ auth.isAuthenticated ? 'Admin' : 'Login'}
 		</NavElement>

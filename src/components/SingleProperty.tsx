@@ -40,14 +40,14 @@ interface Property {
 interface Props {
   // eslint-disable-next-line react/require-default-props
   /*
-  handlePrint?: () => void;
-*/
+   handlePrint?: () => void;
+   */
   // eslint-disable-next-line react/no-unused-prop-types
   /*
-  auth: {
-    user?: any;
-  };
-*/
+   auth: {
+   user?: any;
+   };
+   */
 }
 
 interface UrlParams {
@@ -61,69 +61,43 @@ function SingleProperty(props: Props) {
   const propertyUrlId = useParams();
   const location = useLocation();
   // Property id from url param object
-  let [urlPram] = useState(propertyUrlId.id);
+  const [urlParam, setUrlParam] = useState(propertyUrlId.id);
   const [loading, setLoading] = useToggleState(true);
   // State to hold current property data
   // @ts-ignore
   const [currentProperty, setCurrentProperty] = useState<Property>({});
-  const [renderAssets, setRenderAssets] = useState(false);
+  const [renderWidgets, setRenderedWidgets] = useState(true);
 
   const fadeIn = useSpring({
     cancel: loading,
     to: { opacity: 1 },
     from: { opacity: 0 },
-  });
-  // Initial center of google map
+    delay: 50,
+  }); // Initial center of google map
   const [mapCenter, setMapCenter] = React.useState<google.maps.LatLngLiteral>({
     lat: 51.32156694051315,
     lng: -0.20484525142481128,
   });
-
+let gallery: { destroy: () => void; render: () => any; };
   // Marker position on map
   const [mapMarkerPosition, setMapMarkerPosition] =
     React.useState<google.maps.LatLngLiteral>({
       lat: 0,
       lng: 0,
     });
-  const gallery = cloudinary.galleryWidget({
-    container: '#my-gallery',
-    cloudName: 'takelam',
-    loaderProps: {
-      style: 'circle',
-    },
-    zoomProps: {
-      type: 'popup',
-      steps: 3,
-      stepLimit: true,
-      level: 1.3, // each step zooms in another 130%
-    },
-    carouselLocation: 'bottom',
-    aspectRatio: '16:9',
-    navigationButtonProps: {
-      shape: 'round',
-      color: '#d0c6b7',
-      size: 40,
-      iconColor: '#FFFFFF',
-    },
-    mediaAssets: [
-      // @ts-ignore
-      { tag: `${currentProperty.tag}` },
-    ],
-  });
-
-  const token = JSON.parse(localStorage.getItem('_Tuser') as string);
   useEffect(() => {
+    const token = JSON.parse(localStorage.getItem('_Tuser') as string);
     // set path for admin property view
     let path = `${baseUrl}/properties`;
     // set path for client property view
     if (location.pathname.includes('view')) {
       // re-encode url param as browser ads slashes back in
-      urlPram = encodeURIComponent(urlPram as string);
+      setUrlParam(encodeURIComponent(urlParam as string));
       path = `${baseUrl}/properties/client`;
     }
 
     axios
-      .get(`${path}/${urlPram}`, {
+      .get(`${path}/${urlParam}`, {
         withCredentials: true,
         headers: {
           'Content-type': 'application/json',
@@ -140,32 +114,68 @@ function SingleProperty(props: Props) {
             property: { cords },
           },
         } = response;
-        setLoading(false);
-        setRenderAssets(true);
         setMapCenter({ lat: cords[0], lng: cords[1] });
         setMapMarkerPosition({ lat: cords[0], lng: cords[1] });
         setCurrentProperty(() => property);
+        setLoading(false);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err.message));
 
-    return () => {
-      setRenderAssets(false);
+    return() => {
+      setRenderedWidgets(false)
+      console.log('fuck it')
+      gallery.destroy()
+      currentProperty.title = '';
+
     }
-  }, [urlPram]);
+  }, [urlParam]);
 
   /*
-      setCenter({lat: currentProperty.cords[0], lng: currentProperty.cords[1] })
-      setPosition({lat: currentProperty.cords[0], lng: currentProperty.cords[1] })
-*/
+   setCenter({lat: currentProperty.cords[0], lng: currentProperty.cords[1] })
+   setPosition({lat: currentProperty.cords[0], lng: currentProperty.cords[1] })
+   */
 
- if(renderAssets){ gallery.render()}
+   gallery = cloudinary.galleryWidget({
+      container: '#my-gallery',
+      cloudName: 'takelam',
+      loaderProps: {
+        style: 'circle',
+      },
+      zoomProps: {
+        type: 'popup',
+        steps: 3,
+        stepLimit: true,
+        level: 1.3, // each step zooms in another 130%
+      },
+      carouselLocation: 'bottom',
+      aspectRatio: '16:9',
+      navigationButtonProps: {
+        shape: 'round',
+        color: '#d0c6b7',
+        size: 40,
+        iconColor: '#FFFFFF',
+      },
+      mediaAssets: [
+        // @ts-ignore
+        { tag: `${currentProperty.tag}` },
+      ],
+    });
+
+
+ currentProperty.title && gallery.render();
+ !renderWidgets && gallery.destroy();
 
   let floorPlans: JSX.Element[] = [];
   // render floor plans
   if (currentProperty.floorPlan) {
     floorPlans = currentProperty.floorPlan.map((el, i) => (
-      // eslint-disable-next-line react/no-array-index-key
-      <a key={i} href={currentProperty.floorPlan[i]} target="blank">
+      <a
+        // eslint-disable-next-line react/no-array-index-key
+        key={i}
+        href={currentProperty.floorPlan[i]}
+        target="_blank"
+        rel="noreferrer"
+      >
         <img
           style={{ border: '1px solid black', marginRight: '5px' }}
           alt="thumb"
@@ -203,7 +213,7 @@ function SingleProperty(props: Props) {
 
           <div className="print-page-btn hidden-on-print">
             <PrintPageBtn
-              //  onClick={handlePrint}
+              //   onClick={handlePrint}
               type="button"
               style={{
                 backgroundColor: 'transparent',
@@ -216,9 +226,10 @@ function SingleProperty(props: Props) {
             </PrintPageBtn>
           </div>
 
-          <div id="my-gallery" />
+          {  renderWidgets ? <div id="my-gallery" /> : <div /> }
 
           <div className="hidden-on-print">
+            {/* conditionally render floor plans */}
             {floorPlans.length > 0 ? (
               <div>
                 <h4>Floor Plans</h4> {floorPlans}
@@ -227,7 +238,6 @@ function SingleProperty(props: Props) {
               ''
             )}
           </div>
-
           <PropertyList>
             <div>{currentProperty.location}</div>
             <div>€{currentProperty.price}</div>
@@ -239,11 +249,13 @@ function SingleProperty(props: Props) {
               <FontAwesomeIcon icon={faBathtub as IconProp} className="icon" />
               Bathrooms: {currentProperty.bathrooms}
             </div>
+
             <div>
               <FontAwesomeIcon icon={faHouse as IconProp} className="icon" />
               Build Size: {currentProperty.buildSize}
               ms
             </div>
+
             <div>
               <FontAwesomeIcon
                 icon={faVectorSquare as IconProp}
@@ -251,7 +263,9 @@ function SingleProperty(props: Props) {
               />
               Plot Size: {currentProperty.plotSize}
             </div>
-            conditionally render ownership
+            {/*
+           conditionally render ownership
+           */}
             {currentProperty.ownership && (
               <div style={{ marginTop: '10px' }}>
                 <h4>Ownership:</h4>
@@ -269,11 +283,13 @@ function SingleProperty(props: Props) {
             </div>
           </PropertyList>
           <div className="hidden-on-print">
-            <Wrapper apiKey={API}>
-              <Map center={mapCenter} zoom={12}>
-                <Marker position={mapMarkerPosition} />
-              </Map>
-            </Wrapper>
+
+              <Wrapper apiKey={API}>
+                <Map center={mapCenter} zoom={12}>
+                  <Marker position={mapMarkerPosition} />
+                </Map>
+              </Wrapper>
+            {' '}
           </div>
         </animated.div>
       )}
