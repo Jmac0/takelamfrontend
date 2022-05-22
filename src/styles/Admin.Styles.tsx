@@ -245,6 +245,7 @@ const Button = styled.button<Props>`
 `;
 
 const ContactFormButton = styled.button`
+  z-index: 100;
   text-transform: uppercase;
   width: fit-content;
   padding: 1rem 2rem;

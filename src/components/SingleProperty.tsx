@@ -80,7 +80,7 @@ function SingleProperty({path}: Props) {
     cancel: loading,
     to: { opacity: 1 },
     from: { opacity: 0 },
-    delay: 50,
+    delay: 500,
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',

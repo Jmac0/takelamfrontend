@@ -113,8 +113,8 @@ export default function App() {
                     path="property/view/:id"
                     element={<SingleProperty path={path} />}
                   />
-                </Route>
                 <Route path="*" element={<NotFound />} />
+                </Route>
               </Routes>
             </CSSTransition>
           </TransitionGroup>

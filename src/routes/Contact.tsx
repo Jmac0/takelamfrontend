@@ -62,10 +62,10 @@ function Contact({path}: Props) {
             cols={30}
             placeholder="Message"
           />
+        </div>
           <ContactFormButton type="submit" className="submit-button">
             Submit
           </ContactFormButton>
-        </div>
       </form>
     </div>
   );
