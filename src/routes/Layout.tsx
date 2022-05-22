@@ -13,6 +13,7 @@ interface Path {
 function Layout({ path }: Path) {
   // show hides mobile menu on home page
   const home: boolean = path === '/';
+  const propertyPage = path.includes('/property')
   // show sub-menu on about pages
   const about: boolean = path.includes('/about');
   const [open, setOpen] = ToggleOpen(false);
@@ -20,10 +21,10 @@ function Layout({ path }: Path) {
   return (
     /* @ts-ignore */
     <Container path={home}>
-      <MobileNavBar path={home} open={open} setOpen={setOpen} />
-      <MobileNavMenu setOpen={setOpen} open={open} />
+      <MobileNavBar path={home} open={open} setOpen={setOpen}  propertyPage={propertyPage}/>
+      <MobileNavMenu setOpen={setOpen} open={open} propertyPage={propertyPage} />
       <PageLogo path={home} />
-      <Nav path={home} about={about} />
+      <Nav path={home} about={about} propertyPage={propertyPage} />
 
       <Outlet />
       <PageTear path={home} />

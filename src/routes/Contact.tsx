@@ -2,10 +2,16 @@ import React from 'react';
 import 'styles/styles.css';
 import { ContactFormButton } from '../styles/Admin.Styles';
 
-function Contact() {
+
+interface Props {
+  path: string;
+}
+
+function Contact({path}: Props) {
 
   return (
-    <div style={{ marginBottom: '-2rem' }} className="main-page-content">
+    <div style={{ marginBottom:`${path.includes('contact') ? '-2rem' : ''}`}}
+         className={ `${path.includes('contact') ? "main-page-content" : ""}`}>
       <h1>Tel: 12345 67891</h1>
       <p>
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus

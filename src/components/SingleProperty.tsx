@@ -1,6 +1,6 @@
 /* eslint-disable no-undef, @typescript-eslint/no-unused-vars, no-unused-vars */
 import React, { useState, useEffect } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation, useParams, } from 'react-router-dom';
 import { Wrapper, Status } from '@googlemaps/react-wrapper';
 import axios from 'axios';
 import baseUrl from 'utils/urls';
@@ -15,12 +15,19 @@ import {
 import { PropertyList, PrintIcon } from 'styles/PropertyPageStyles';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { useSpring, animated } from 'react-spring';
+import {Atag,
+  Container,
+  NavElement,
+  PageLogo,
+  PageTear
+} from '../styles/Container.styles'
 import Loading from './Loader';
 import logo from '../images/logo_blue.png';
 import useToggleState from '../hooks/useToggleState';
 
 import { Map, Marker } from './Map';
 import { PrintPageBtn } from '../styles/Admin.Styles';
+import Contact from "../routes/Contact";
 
 declare const cloudinary: any;
 interface Property {
@@ -38,6 +45,7 @@ interface Property {
 }
 
 interface Props {
+  path: string
   // eslint-disable-next-line react/require-default-props
   /*
    handlePrint?: () => void;
@@ -54,7 +62,7 @@ interface UrlParams {
   id?: string;
 }
 // eslint-disable-next-line import/prefer-default-export
-function SingleProperty(props: Props) {
+function SingleProperty({path}: Props) {
   // const { handlePrint } = props;
   const API = process.env.REACT_APP_GOOGLE_API as string;
   // Get current property from url params
@@ -73,6 +81,9 @@ function SingleProperty(props: Props) {
     to: { opacity: 1 },
     from: { opacity: 0 },
     delay: 50,
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
   }); // Initial center of google map
   const [mapCenter, setMapCenter] = React.useState<google.maps.LatLngLiteral>({
     lat: 51.32156694051315,
@@ -88,16 +99,16 @@ let gallery: { destroy: () => void; render: () => any; };
   useEffect(() => {
     const token = JSON.parse(localStorage.getItem('_Tuser') as string);
     // set path for admin property view
-    let path = `${baseUrl}/properties`;
+    let urlPath = `${baseUrl}/properties`;
     // set path for client property view
     if (location.pathname.includes('view')) {
       // re-encode url param as browser ads slashes back in
       setUrlParam(encodeURIComponent(urlParam as string));
-      path = `${baseUrl}/properties/client`;
+      urlPath = `${baseUrl}/properties/client`;
     }
 
     axios
-      .get(`${path}/${urlParam}`, {
+      .get(`${urlPath}/${urlParam}`, {
         withCredentials: true,
         headers: {
           'Content-type': 'application/json',
@@ -188,8 +199,11 @@ let gallery: { destroy: () => void; render: () => any; };
   }
 
   return (
-    // eslint-disable-next-line react/jsx-no-useless-fragment
-    <>
+<>   {/*
+    <Container path={false}>
+
+      <PageLogo path={false} />
+*/}
       {loading ? (
         <div
           style={{
@@ -291,9 +305,25 @@ let gallery: { destroy: () => void; render: () => any; };
               </Wrapper>
             {' '}
           </div>
+      <Contact path={path}/>
+
+          <div>
+            <Atag style={{ alignSelf: "center" }}
+                   href="http://localhost:3000">
+            Takelam.com
+          </Atag>
+        </div>
         </animated.div>
       )}
-    </>
+
+{/*
+      <PageTear path={false} />
+*/}
+
+     {/*
+    </Container>
+*/}
+  </>
   );
   /// /////////////////// Map ///////////////////////
 }

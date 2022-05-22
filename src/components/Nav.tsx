@@ -1,17 +1,30 @@
 import React from 'react';
-import { NavBar, NavElement } from '../styles/Container.styles';
+import { Atag, NavBar, NavElement } from "../styles/Container.styles";
 import 'styles/styles.css';
 import useAuth from './auth/useAuth';
 
 type Props = {
   path: boolean;
   about: boolean;
+  propertyPage: boolean
 };
 
-export default function Nav({ path, about }: Props) {
+export default function Nav({ path, about, propertyPage }: Props) {
 	const auth = useAuth();
   return (
-    <NavBar path={path}>
+
+    propertyPage ?
+
+
+      <Atag href="http://localhost:3000/about">
+        About
+      </Atag>
+
+      :
+
+
+
+      <NavBar path={path}>
       <div style={{ display: 'flex', flexDirection: 'column' }}>
         <NavElement to="/">HOME</NavElement>
         <NavElement to="about">

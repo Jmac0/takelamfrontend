@@ -93,7 +93,7 @@ export default function App() {
               timeout={transitionTime}
             >
               <Routes location={location}>
-                <Route path="/" element={<Layout path={path} />}>
+                <Route path="/" element={<Layout path={path}  />}>
                   <Route index element={<LandingPage />} />
                   {pageContent.map((el: Component) => (
                     <Route
@@ -104,14 +104,14 @@ export default function App() {
                       }
                     />
                   ))}
-                  <Route path="contact" element={<Contact />} />
+                  <Route path="contact" element={<Contact path={path} />} />
                   <Route
                     path="property/:id"
-                    element={<SingleProperty />}
+                    element={<SingleProperty path={path} />}
                   />
                   <Route
                     path="property/view/:id"
-                    element={<SingleProperty />}
+                    element={<SingleProperty path={path} />}
                   />
                 </Route>
                 <Route path="*" element={<NotFound />} />

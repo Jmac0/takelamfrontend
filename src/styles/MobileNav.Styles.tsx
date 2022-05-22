@@ -77,6 +77,11 @@ const SlideOutMenu = styled.div<Props>`
   ${NavElement} {
     margin: 0.3rem 0 1rem 3rem;
   }
+  
+  a{
+
+    margin: 0.3rem 0 1rem 3rem;
+  }
 
   transform: ${({ open }) => (open ? 'translateX(0)' : 'translateX(-100%)')};
   opacity: ${({ open }) => open && '1'};

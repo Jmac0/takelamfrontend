@@ -29,7 +29,7 @@ const Container = styled.div<Props>`
 @media screen and (min-width: 850px){
 
   grid-template-rows: 18rem min-content 1fr;
-  grid-template-columns: 0.7fr 1fr 0.2fr;
+  grid-template-columns: 0.7fr 1fr 0fr;
   grid-template-areas:
       'logo main side'
       'nav  main side'
@@ -51,7 +51,7 @@ const Container = styled.div<Props>`
     width: 100%;
     height: 100%;
     grid-template-rows: 18rem min-content 1fr;
-    grid-template-columns: 1fr 1.5fr .5fr;
+    grid-template-columns: 1fr 1.3fr .5fr;
     grid-template-areas:
       'logo main side'
       'nav  main side'
@@ -74,6 +74,7 @@ const PageLogo = styled.div<Props>`
   
   @media screen and (min-width: 850px) {
     background-position: 30%;
+    margin-top: 1rem;
     height: 12rem;
   }
   
@@ -112,6 +113,20 @@ const NavElement = styled(NavLink)`
   }
 `;
 
+const Atag = styled.a`
+
+  color: ${colors.tan};
+  font-size: 1.2rem;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 300;
+  letter-spacing: 0.15em;
+  text-decoration: none;
+  margin: .3rem;
+  &:hover {
+    text-decoration: underline;
+  }
+`
+
 const NavElementDark = styled(NavElement)`
 	color: ${colors.blue};
   margin: 0;
@@ -134,5 +149,5 @@ const PageTear = styled.div<Props>`
 
 `;
 export {
-  NavBar, NavElement, NavElementDark, Container, PageTear, PageLogo,
+Atag,  NavBar, NavElement, NavElementDark, Container, PageTear, PageLogo,
 };
