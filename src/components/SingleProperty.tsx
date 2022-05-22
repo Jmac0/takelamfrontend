@@ -134,7 +134,6 @@ let gallery: { destroy: () => void; render: () => any; };
 
     return() => {
       setRenderedWidgets(false)
-      console.log('fuck it')
       gallery.destroy()
       currentProperty.title = '';
 

@@ -9,21 +9,9 @@ type Props = {
   propertyPage: boolean
 };
 
-export default function Nav({ path, about, propertyPage }: Props) {
+export default function Nav({ path, about }: Props) {
 	const auth = useAuth();
   return (
-
-    propertyPage ?
-
-
-      <Atag href="http://localhost:3000/about">
-        About
-      </Atag>
-
-      :
-
-
-
       <NavBar path={path}>
       <div style={{ display: 'flex', flexDirection: 'column' }}>
         <NavElement to="/">HOME</NavElement>
