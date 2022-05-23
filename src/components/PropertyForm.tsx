@@ -227,7 +227,6 @@ function PropertyForm({
       </div>
 
       <p style={{ display: `${error ? 'block' : 'none'}` }}>{error}</p>
-{ /* todo stop button flashing on create  */ }
       {requestMethod === 'POST' ? (
         <FormButtonContainer>
           {!close ? (

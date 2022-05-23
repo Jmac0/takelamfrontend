@@ -34,7 +34,6 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
     token
   });
 
-  // todo make api call to protect route and log user in
   useEffect(() => {
     if (token) {
       sendRequest('', () =>{
