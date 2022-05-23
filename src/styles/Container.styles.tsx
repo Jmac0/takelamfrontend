@@ -29,7 +29,7 @@ const Container = styled.div<Props>`
 @media screen and (min-width: 850px){
 
   grid-template-rows: 18rem min-content 1fr;
-  grid-template-columns: 0.7fr 1fr 0fr;
+  grid-template-columns: 0.7fr 1fr .3fr;
   grid-template-areas:
       'logo main side'
       'nav  main side'
@@ -38,7 +38,7 @@ const Container = styled.div<Props>`
   
   @media screen and (min-width: 1400px) {
 
-   // grid-template-columns: 1fr 1.5fr .5fr;
+    grid-template-columns: 1fr 1.5fr .3fr;
     grid-template-areas:
       'logo main side'
       'nav  main side'
@@ -51,7 +51,7 @@ const Container = styled.div<Props>`
     width: 100%;
     height: 100%;
     grid-template-rows: 18rem min-content 1fr;
-    grid-template-columns: 1fr 1.3fr .5fr;
+    grid-template-columns: 1fr 1.3fr .3fr;
     grid-template-areas:
       'logo main side'
       'nav  main side'

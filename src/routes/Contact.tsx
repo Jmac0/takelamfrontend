@@ -1,10 +1,10 @@
 import React from 'react';
 import 'styles/styles.css';
 import { ContactFormButton } from '../styles/Admin.Styles';
-
+import {Atag} from '../styles/Container.styles';
 
 interface Props {
-  path: string;
+  path: any
 }
 
 function Contact({path}: Props) {
@@ -12,7 +12,7 @@ function Contact({path}: Props) {
   return (
     <div style={{ marginBottom:`${path.includes('contact') ? '-2rem' : ''}`}}
          className={ `${path.includes('contact') ? "main-page-content" : ""}`}>
-      <h1>Tel: 12345 67891</h1>
+      <Atag href="tel:5554280940">Call us at 555-428-0940</Atag>
       <p>
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus
         cumque cupiditate, debitis delectus{' '}
@@ -28,6 +28,7 @@ function Contact({path}: Props) {
           alignContent: 'space-evenly',
         }}
       >
+        {/* hidden input is for Netlify form */}
         <input type="hidden" name="form-name" value="takelam-contact" />
         <div  className="inputs-divs">
           <label className="form-label" htmlFor="name">

@@ -15,12 +15,6 @@ import {
 import { PropertyList, PrintIcon } from 'styles/PropertyPageStyles';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { useSpring, animated } from 'react-spring';
-import {Atag,
-  Container,
-  NavElement,
-  PageLogo,
-  PageTear
-} from '../styles/Container.styles'
 import Loading from './Loader';
 import logo from '../images/logo_blue.png';
 import useToggleState from '../hooks/useToggleState';
@@ -45,29 +39,26 @@ interface Property {
 }
 
 interface Props {
-  path: string
-  // eslint-disable-next-line react/require-default-props
-  /*
-   handlePrint?: () => void;
-   */
+
+   handlePrint: () => void;
+
   // eslint-disable-next-line react/no-unused-prop-types
-  /*
    auth: {
    user?: any;
    };
-   */
+
 }
 
 interface UrlParams {
   id?: string;
 }
 // eslint-disable-next-line import/prefer-default-export
-function SingleProperty({path}: Props) {
-  // const { handlePrint } = props;
+export const SingleProperty = React.forwardRef(({handlePrint}: Props, ref: any) => {
   const API = process.env.REACT_APP_GOOGLE_API as string;
   // Get current property from url params
   const propertyUrlId = useParams();
   const location = useLocation();
+  const path = location.pathname;
   // Property id from url param object
   const [urlParam, setUrlParam] = useState(propertyUrlId.id);
   const [loading, setLoading] = useToggleState(true);
@@ -75,6 +66,7 @@ function SingleProperty({path}: Props) {
   // @ts-ignore
   const [currentProperty, setCurrentProperty] = useState<Property>({});
   const [renderWidgets, setRenderedWidgets] = useState(true);
+  const [linkExpired, setLinkExpired] = useState(false);
 
   const fadeIn = useSpring({
     cancel: loading,
@@ -130,7 +122,12 @@ let gallery: { destroy: () => void; render: () => any; };
         setCurrentProperty(() => property);
         setLoading(false);
       })
-      .catch((err) => console.log(err.message));
+      .catch((err) => {if(err.response.status === 403){
+        setLinkExpired(true);
+        setLoading(false);
+
+
+      }});
 
     return() => {
       setRenderedWidgets(false)
@@ -197,12 +194,30 @@ let gallery: { destroy: () => void; render: () => any; };
     ));
   }
 
+  // @ts-ignore
   return (
-<>   {/*
-    <Container path={false}>
+<>
+  {!loading && linkExpired && (
 
-      <PageLogo path={false} />
-*/}
+    <animated.div ref={ref} style={fadeIn} className="page">
+
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          marginTop: '10rem',
+        }}
+        className="page"
+      >
+      <h1 style={{margin:'.2rem'}}>This link is no longer active! </h1>
+          <p>Please contact us for help.</p>
+
+      </div>
+      <Contact path={path} />
+    </animated.div>
+      )}
+
       {loading ? (
         <div
           style={{
@@ -215,117 +230,111 @@ let gallery: { destroy: () => void; render: () => any; };
           <Loading loading={loading} />
         </div>
       ) : (
-        <animated.div style={fadeIn} className="page">
-          <div className="print-logo">
-            <img src={logo} width="100" height="86" alt="" />
-            <p>
-              Some contact info <br />
-              01223 1234-4567
-            </p>
-          </div>
 
-          <div className="print-page-btn hidden-on-print">
-            <PrintPageBtn
-              //   onClick={handlePrint}
-              type="button"
-              style={{
-                backgroundColor: 'transparent',
-                border: 'none',
-                outline: 'none',
-              }}
-            >
-              <PrintIcon type="button" />
-              Print
-            </PrintPageBtn>
-          </div>
+         !linkExpired &&  (
+        <animated.div ref={ref} style={fadeIn} className="page">
+        <div className="print-logo">
 
-          {  renderWidgets ? <div id="my-gallery" /> : <div /> }
-
-          <div className="hidden-on-print">
-            {/* conditionally render floor plans */}
-            {floorPlans.length > 0 ? (
-              <div>
-                <h4>Floor Plans</h4> {floorPlans}
-              </div>
-            ) : (
-              ''
-            )}
-          </div>
-          <PropertyList>
-            <div>{currentProperty.location}</div>
-            <div>€{currentProperty.price}</div>
-            <div>
-              <FontAwesomeIcon icon={faBed as IconProp} className="icon" />
-              Bedrooms: {currentProperty.bedrooms}
-            </div>
-            <div>
-              <FontAwesomeIcon icon={faBathtub as IconProp} className="icon" />
-              Bathrooms: {currentProperty.bathrooms}
-            </div>
-
-            <div>
-              <FontAwesomeIcon icon={faHouse as IconProp} className="icon" />
-              Build Size: {currentProperty.buildSize}
-              ms
-            </div>
-
-            <div>
-              <FontAwesomeIcon
-                icon={faVectorSquare as IconProp}
-                className="icon"
-              />
-              Plot Size: {currentProperty.plotSize}
-            </div>
-            {/*
-           conditionally render ownership
-           */}
-            {currentProperty.ownership && (
-              <div style={{ marginTop: '10px' }}>
-                <h4>Ownership:</h4>
-                <p> {currentProperty.ownership}</p>
-              </div>
-            )}
-            <div className="print-page-break">
-              <h4>Property Description:</h4>
-
-              <p
-                dangerouslySetInnerHTML={{
-                  __html: currentProperty.description,
-                }}
-              />
-            </div>
-          </PropertyList>
-          <div className="hidden-on-print">
-
-              <Wrapper apiKey={API}>
-                <Map center={mapCenter} zoom={12}>
-                  <Marker position={mapMarkerPosition} />
-                </Map>
-              </Wrapper>
-            {' '}
-          </div>
-      <Contact path={path}/>
-
-          <div>
-            <Atag style={{ alignSelf: "center" }}
-                   href="http://localhost:3000">
-            Takelam.com
-          </Atag>
+        <img src={logo} width="100" height="86" alt="" />
+        <p>
+        Some contact info <br />
+        01223 1234-4567
+        </p>
         </div>
+        <div className="print-page-btn hidden-on-print">
+        <PrintPageBtn
+        onClick={handlePrint}
+        type="button"
+        style={{
+        backgroundColor: 'transparent',
+        border: 'none',
+        outline: 'none',
+      }}
+        >
+        <PrintIcon onClick={handlePrint} type="button" />
+        Print
+        </PrintPageBtn>
+        </div>
+
+      {renderWidgets ? <div id="my-gallery" /> : <div />}
+
+        <div className="hidden-on-print">
+      {/* conditionally render floor plans */}
+      {floorPlans.length > 0 ? (
+        <div>
+        <h4>Floor Plans</h4> {floorPlans}
+        </div>
+        ) : (
+        ''
+        )}
+        </div>
+        <PropertyList>
+        <div>{currentProperty.location}</div>
+        <div>€{currentProperty.price}</div>
+        <div>
+        <FontAwesomeIcon icon={faBed as IconProp} className="icon" />
+        Bedrooms: {currentProperty.bedrooms}
+        </div>
+        <div>
+        <FontAwesomeIcon icon={faBathtub as IconProp} className="icon" />
+        Bathrooms: {currentProperty.bathrooms}
+        </div>
+
+        <div>
+        <FontAwesomeIcon icon={faHouse as IconProp} className="icon" />
+        Build Size: {currentProperty.buildSize}
+        ms
+        </div>
+
+        <div>
+        <FontAwesomeIcon
+        icon={faVectorSquare as IconProp}
+        className="icon"
+        />
+        Plot Size: {currentProperty.plotSize}
+        </div>
+      {/*
+       conditionally render ownership
+       */}
+      {currentProperty.ownership && (
+        <div style={{marginTop: '10px'}}>
+        <h4>Ownership:</h4>
+        <p> {currentProperty.ownership}</p>
+        </div>
+        )}
+        <div className="print-page-break">
+        <h4>Property Description:</h4>
+
+        <p
+        dangerouslySetInnerHTML={{
+        __html: currentProperty.description,
+      }}
+        />
+        </div>
+        </PropertyList>
+        <div className="hidden-on-print">
+
+        <Wrapper apiKey={API}>
+        <Map center={mapCenter} zoom={12}>
+        <Marker position={mapMarkerPosition} />
+        </Map>
+        </Wrapper>
+      {' '}
+        </div>
+
+
+        <Contact path={path}/>
+
+
+
+        <div />
         </animated.div>
-      )}
+        )       )}
 
-{/*
-      <PageTear path={false} />
-*/}
 
-     {/*
-    </Container>
-*/}
+
   </>
   );
   /// /////////////////// Map ///////////////////////
-}
+})
 
-// eslint-disable-next-line import/prefer-default-export
-export { SingleProperty };

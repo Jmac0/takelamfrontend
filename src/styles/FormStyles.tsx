@@ -209,22 +209,32 @@ const XIcon = styled(Cross)`
 
 const FormButtonContainer = styled.div`
   display: flex;
-  width: fit-content;
+  width: 90%;
   flex-wrap: wrap;
   align-self: center;
   flex-direction: row;
-  justify-content: start;
+  justify-content: center;
+  input{
+  margin-top: 1rem;  
+  }
 
-  @media screen and (min-width: 650px) {
-    align-self: flex-start;
-    margin-left: 5rem;
+  @media screen and (min-width: 500px) {
     justify-content: center;
+    input{
+      margin-top: 0;
+    }
   }
   @media screen and (min-width: 850px) {
     justify-content: center;
+    input{
+      margin-top: 0;
+    }
   }
   @media screen and (min-width: 1400px) {
     justify-content: center;
+    input{
+      margin-top: 0;
+    }
   }
 `;
 

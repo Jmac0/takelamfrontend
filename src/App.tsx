@@ -14,11 +14,10 @@ import ForgotPassword from './routes/ForgotPassword';
 import { AuthProvider } from './components/auth/AuthProvider';
 import RequireAuth from './components/auth/RequireAuth';
 import Users from './routes/Users';
-import { SingleProperty } from './components/SingleProperty'
 import ResetPassword from './routes/ResetPassword';
-// import PrintSingleProperty from './routes/PrintSingleProperty';
 import UpdateAdminInfo from './components/UpdateAdminInfo';
 import CreateAdmin from "./components/CreateAdmin";
+import PrintSingleProperty from "./routes/PrintSingleProperty";
 
 interface Component {
   index: string;
@@ -40,6 +39,7 @@ export default function App() {
   // eslint-disable-next-line no-constant-condition
   const transitionTime = 650;
 
+  // @ts-ignore
   return (
     // eslint-disable-next-line react/jsx-no-useless-fragment
     <>
@@ -107,11 +107,12 @@ export default function App() {
                   <Route path="contact" element={<Contact path={path} />} />
                   <Route
                     path="property/:id"
-                    element={<SingleProperty path={path} />}
+                    element={<PrintSingleProperty />}
                   />
                   <Route
                     path="property/view/:id"
-                    element={<SingleProperty path={path} />}
+
+                    element={<PrintSingleProperty  />}
                   />
                 <Route path="*" element={<NotFound />} />
                 </Route>

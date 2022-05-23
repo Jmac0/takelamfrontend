@@ -9,25 +9,38 @@ type Props = {
   propertyPage: boolean
 };
 
-export default function Nav({ path, about }: Props) {
+export default function Nav({ path, about, propertyPage }: Props) {
 	const auth = useAuth();
   return (
       <NavBar path={path}>
+
+
+        {propertyPage ?
       <div style={{ display: 'flex', flexDirection: 'column' }}>
-        <NavElement to="/">HOME</NavElement>
-        <NavElement to="about">
-          ABOUT
-          {about && '     →'}
-        </NavElement>
+          <Atag href="/">HOME</Atag>
+          <Atag href="/about">ABOUT</Atag>
+          <Atag href="/properties">PROPERTIES</Atag>
+          <Atag href="/contact">CONTACT</Atag>
+</div>
+          :
 
-        <NavElement to="properties">PROPERTIES</NavElement>
 
-        <NavElement to="contact">CONTACT</NavElement>
-		  <NavElement  to="admin">
-			  { auth.isAuthenticated ? 'Admin' : 'Login'}
-		  </NavElement>
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
+            <NavElement to="/">HOME</NavElement>
+            <NavElement to="about">
+              ABOUT
+              {about && '     →'}
+            </NavElement>
 
-	  </div>
+            <NavElement to="properties">PROPERTIES</NavElement>
+
+            <NavElement to="contact">CONTACT</NavElement>
+            <NavElement to="admin">
+              {auth.isAuthenticated ? 'Admin' : 'Login'}
+            </NavElement>
+
+          </div>
+        }
       {about && (
         <div
           style={{
@@ -55,6 +68,7 @@ export default function Nav({ path, about }: Props) {
           </NavElement>
         </div>
       )}
+
     </NavBar>
   );
 }
