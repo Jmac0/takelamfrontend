@@ -41,6 +41,7 @@ export default function Nav({ path, about, propertyPage }: Props) {
 
           </div>
         }
+        {/* TODO changed position to fixed, check it works!  */}
       {about && (
         <div
           style={{
