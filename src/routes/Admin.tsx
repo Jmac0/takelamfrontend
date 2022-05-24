@@ -5,7 +5,7 @@ import { Property } from 'interfaces';
 import baseUrl from 'utils/urls';
 import EditPageComponent from '../components/EditPageComponent';
 import useAuth from '../components/auth/useAuth';
-
+import Loader from '../components/Loader';
 import { AdminContainer, Button } from '../styles/Admin.Styles';
 import PageListItem from '../components/PageListItem';
 import PropertyForm from '../components/PropertyForm';
@@ -269,7 +269,9 @@ function Admin({
         </Button>
       </div>
 
+        {properties.length < 1 && <div style={{position: 'absolute', left: "50%", marginLeft: "-100px", marginTop: "10%"}}><Loader loading /></div>}
       <AdminContainer>
+
         {showPropertyForm && (
           <PropertyForm
             showPropertyForm={showPropertyForm}
