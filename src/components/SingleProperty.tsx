@@ -227,7 +227,7 @@ export const SingleProperty = React.forwardRef(
           </div>
         ) : (
           !linkExpired && (
-            <animated.div ref={ref} style={fadeIn} className="page">
+            <animated.div  ref={ref} style={fadeIn} className="page">
               <div className="print-logo">
                 <img src={logo} width="100" height="86" alt="" />
                 <p>
@@ -301,12 +301,12 @@ export const SingleProperty = React.forwardRef(
        conditionally render ownership
        */}
                 {currentProperty.ownership && (
-                  <div style={{ marginTop: '10px' }}>
+                  <div style={{ marginTop: '10px', pageBreakBefore: 'always' }}>
                     <h4>Ownership:</h4>
                     <p> {currentProperty.ownership}</p>
                   </div>
                 )}
-                <div className="print-page-break">
+                <div className="print-page-break" >
                   <h4>Property Description:</h4>
 
                   <p
@@ -324,7 +324,7 @@ export const SingleProperty = React.forwardRef(
                 </Wrapper>{' '}
               </div>
 
-              <div
+              <div className="hidden-on-print"
                 style={{
                   paddingTop: '1rem',
                   marginTop: '1.5rem',

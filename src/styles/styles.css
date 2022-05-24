@@ -1,57 +1,61 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;300&family=Oranienbaum&family=Oswald:wght@200;400;500&display=swap');
 /*Print styles for single property page*/
 .page {
-    width: 98%;
-    margin: 0 auto;
-    grid-area: main;
+  width: 98%;
+  margin: 0 auto;
+  grid-area: main;
 }
 
-
-.print-page-btn{
-
-    display: flex;
-    align-items: center;
-    flex-direction: row;
+.print-page-btn {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
 }
 .print-logo {
-    display: none;
+  display: none;
 }
-#my-gallery{
-    padding-top: -40px;
+
+#my-gallery {
+  padding-top: -40px;
 }
+
 @media print {
+    h1 {break-before: page}
+  .page {
+    margin: 10px;
+  }
+  .print-logo {
+    display: flex;
+    width: 98%;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+  }
 
-    .page{
-        margin: 10px;
+  .print-page-break {
+      position:absolute;
+      top: 100%;
+      margin-top: 10rem;
+      float: none !important;
+      display: inline-block;
+    page-break-inside: avoid !important;
+    page-break-before: page !important;
+  }
+  .hidden-on-print {
+    display: none;
+  }
 
-    }
-    .print-logo{
-        display: flex;
-        width: 98%;
-        justify-content: space-between;
-        align-items: center;
-        flex-direction: row;
-    }
-
-
-    .print-page-break{
-        page-break-after: always;
-    }
-    .hidden-on-print{
-        display: none;
-    }
-
-#my-gallery{
-    width: 210mm;
-    height: 400px;
-    margin-top: 0;
+  #my-gallery {
+    margin-top: 1rem;
+    width: 200mm;
+    height: 500px;
     overflow: hidden;
-    object-fit: fill
+    object-fit: cover;
+    object-position: center;
+  }
 }
-}
-.headings{
-    color: #62707e;
-
+.headings {
+  color: #62707e;
 }
 h1 {
   color: #62707e;
@@ -61,26 +65,24 @@ h1 {
 }
 
 h2 {
-    color: #62707e;
-    font-family: 'Oranienbaum', serif;
-    font-size: 1.6rem;
-    line-height: 2.0rem;
+  color: #62707e;
+  font-family: 'Oranienbaum', serif;
+  font-size: 1.6rem;
+  line-height: 2rem;
 }
-
 
 h3 {
-    color: #62707e;
-    font-family: 'Oranienbaum', serif;
-    font-size: 1.2rem;
-    line-height: 1.5rem;
+  color: #62707e;
+  font-family: 'Oranienbaum', serif;
+  font-size: 1.2rem;
+  line-height: 1.5rem;
 }
 
-
 h4 {
-    color: #62707e;
-    font-family: 'Oranienbaum', serif;
-    font-size: 1.2rem;
-    line-height: 1.0rem;
+  color: #62707e;
+  font-family: 'Oranienbaum', serif;
+  font-size: 1.2rem;
+  line-height: 1rem;
 }
 p {
   min-height: 1rem;
@@ -143,15 +145,11 @@ ul {
   height: 100%;
 }
 .inputs-divs {
-    margin-top:10px;
-    display:flex;
-    align-items: center;
-    flex-wrap:wrap;
-
-
-
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
 }
-
 
 .form-input:focus {
   outline: none;
@@ -161,10 +159,10 @@ ul {
 }
 
 .form-input {
-    width: 15rem;
+  width: 15rem;
   margin: 0;
   border: 1px solid #d0c6b7;
-    height: 1.5rem;
+  height: 1.5rem;
   border-radius: 6px;
 }
 .text-area {
@@ -186,7 +184,7 @@ ul {
 }
 
 .form-label {
-    min-width: 130px;
+  min-width: 130px;
   font-weight: 300;
   color: #62707e;
   font-size: 1rem;
@@ -195,10 +193,9 @@ ul {
 }
 /*///////////////////*/
 @media screen and (min-width: 850px) {
-
-    .page {
-        margin-top: 4rem;
-    }
+  .page {
+    margin-top: 4rem;
+  }
 
   .main-page-content {
     margin-top: 10rem;

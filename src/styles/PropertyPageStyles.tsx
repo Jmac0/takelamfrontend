@@ -57,10 +57,12 @@ const PropertyList = styled.div`
     width: 100%;
     color: ${colors.grey};
     
+    /*
     @media print {
 
       page-break-after: always;
     }
+    */
   }
 `;
 

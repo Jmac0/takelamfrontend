@@ -12,6 +12,7 @@ function Contact({path}: Props) {
   return (
     <div style={{ marginBottom:`${path.includes('contact') ? '-2rem' : ''}`}}
          className={ `${path.includes('contact') ? "main-page-content" : ""}`}>
+
       <Atag href="tel:5554280940">Call us at 555-428-0940</Atag>
       <p>
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus
@@ -34,7 +35,7 @@ function Contact({path}: Props) {
           <label className="form-label" htmlFor="name">
             Name
           </label>
-            <input className="form-input" id="name" type="text" name="name" />
+            <input className="form-input" required id="name" type="text" name="name" />
         </div>
 
         <div className="inputs-divs">
@@ -42,6 +43,7 @@ function Contact({path}: Props) {
             Email address
           </label>
             <input
+              required
               className="form-input"
               id="email"
               type="email"
