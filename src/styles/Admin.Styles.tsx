@@ -307,6 +307,16 @@ const KeyIcon = styled(Key)`
   margin-right: 0.5rem;
   color: white;
 `;
+
+
+
+
+const LoginKey = styled(KeyIcon)`
+  height: 1.5rem;
+  width: auto;
+  margin-right: 0.5rem;
+  color: #b6b4b4;
+`;
 export {
   AdminContainer,
   PageItem,
@@ -320,6 +330,7 @@ export {
   PagesIcon,
   PersonIcon,
   KeyIcon,
+  LoginKey,
   LoginContainer,
   ContactFormButton,
   UserMessageContainer,

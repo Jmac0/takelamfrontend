@@ -1,7 +1,11 @@
 import React from 'react';
-import { Atag, NavBar, NavElement } from "../styles/Container.styles";
+import { Atag, NavBar, NavElement, LoginButton } from "../styles/Container.styles";
 import 'styles/styles.css';
 import useAuth from './auth/useAuth';
+
+import {
+  LoginKey,
+} from '../styles/Admin.Styles';
 
 type Props = {
   path: boolean;
@@ -35,10 +39,11 @@ export default function Nav({ path, about, propertyPage }: Props) {
             <NavElement to="properties">PROPERTIES</NavElement>
 
             <NavElement to="contact">CONTACT</NavElement>
-            <NavElement to="admin">
-              {auth.isAuthenticated ? 'Admin' : 'Login'}
-            </NavElement>
-
+            <div style={{position: 'relative', bottom: '-5rem', color: 'white'}}>
+            <LoginButton to="admin">
+              {auth.isAuthenticated ? 'ADMIN' : <LoginKey />}
+            </LoginButton>
+          </div>
           </div>
         }
         {/* TODO changed position to fixed, check it works!  */}

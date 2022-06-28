@@ -2,7 +2,8 @@ import React from 'react';
 
 import useAuth from './auth/useAuth';
 import { SlideOutMenu } from '../styles/MobileNav.Styles';
-import { Atag, NavElement } from '../styles/Container.styles';
+import { Atag, LoginButton, NavElement } from "../styles/Container.styles";
+import { LoginKey } from "../styles/Admin.Styles";
 
 interface Props {
   open: boolean;
@@ -44,9 +45,17 @@ function MobileNavMenu({ open, setOpen, propertyPage }: Props) {
         CONTACT
       </NavElement>
 
-      <NavElement onClick={setOpen} to="admin">
+      <div style={{position: 'relative', bottom: '-8rem', color: 'white'}}>
+        <LoginButton to="admin">
+          {auth.isAuthenticated ? 'ADMIN' : <LoginKey />}
+        </LoginButton>
+      </div>
+      {/*
+
+       <NavElement onClick={setOpen} to="admin">
         {auth.isAuthenticated ? 'Admin' : 'Login'}
       </NavElement>
+*/}
     </SlideOutMenu>
   );
 }

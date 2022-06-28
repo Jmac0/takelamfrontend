@@ -2,7 +2,12 @@ import React from 'react';
 
 import { Outlet } from 'react-router-dom';
 import MobileNavBar from 'components/MobileNavBar';
-import { Container, PageLogo, PageTear } from 'styles/Container.styles';
+import {
+  Container,
+  LoginButton,
+  PageLogo,
+  PageTear
+} from "styles/Container.styles";
 import Nav from 'components/Nav';
 import MobileNavMenu from '../components/MobileNavMenu';
 import ToggleOpen from '../hooks/useToggleState';

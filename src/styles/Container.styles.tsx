@@ -113,6 +113,10 @@ const NavElement = styled(NavLink)`
   }
 `;
 
+const LoginButton = styled(NavElement)`
+  color: #d9d6d6;
+`;
+
 const Atag = styled.a`
 
   color: ${colors.tan};
@@ -149,5 +153,5 @@ const PageTear = styled.div<Props>`
 
 `;
 export {
-Atag,  NavBar, NavElement, NavElementDark, Container, PageTear, PageLogo,
+Atag,  NavBar, NavElement, NavElementDark, Container, PageTear, PageLogo, LoginButton
 };
