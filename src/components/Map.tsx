@@ -14,11 +14,10 @@ interface MapProps extends google.maps.MapOptions {
     // eslint-disable-next-line react/require-default-props
     onClick?: (e: google.maps.MapMouseEvent) => void;
     // eslint-disable-next-line react/require-default-props
-    onIdle?: (map: google.maps.Map) => void;
+    onIdle?: (map: google.maps.Map | any) => void;
 
 }
 // eslint-disable-next-line react/function-component-definition
-
 const deepCompareEqualsForMaps = createCustomEqual(
   (deepEqual) => (a: any, b: any) => {
     if (
