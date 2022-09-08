@@ -16,6 +16,7 @@ interface MapProps extends google.maps.MapOptions {
     // eslint-disable-next-line react/require-default-props
     onIdle?: (map: google.maps.Map | any) => void;
 
+
 }
 // eslint-disable-next-line react/function-component-definition
 const deepCompareEqualsForMaps = createCustomEqual(
@@ -60,7 +61,7 @@ const Map: React.FC<MapProps> = ({
   ...options
 }) => {
   const ref = React.useRef<HTMLDivElement>(null);
-  const [map, setMap] = React.useState<google.maps.Map>();
+  const [map, setMap] = React.useState<any>();
 
   React.useEffect(() => {
     if (ref.current && !map) {
