@@ -14,7 +14,7 @@ interface MapProps extends google.maps.MapOptions {
     // eslint-disable-next-line react/require-default-props
     onClick?: (e: google.maps.MapMouseEvent) => void;
     // eslint-disable-next-line react/require-default-props
-    onIdle?: (map: google.maps.Map | any) => void;
+    onIdle?: (map: any) => void;
 
 
 }
