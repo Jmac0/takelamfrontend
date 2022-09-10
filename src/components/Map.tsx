@@ -82,7 +82,7 @@ const Map: React.FC<MapProps> = ({
       {React.Children.map(children, (child) => {
         if (React.isValidElement(child)) {
           // set the map prop on the child component
-          return React.cloneElement(child, { map });
+          return React.cloneElement(child, { map } as any );
         }
       })}
     </>
