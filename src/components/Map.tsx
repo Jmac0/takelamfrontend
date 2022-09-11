@@ -2,30 +2,28 @@
 import * as React from 'react';
 import { createCustomEqual } from 'fast-equals';
 // eslint-disable-next-line import/no-extraneous-dependencies
-import {
-  isLatLngLiteral,
-} from '@googlemaps/typescript-guards';
+import { isLatLngLiteral } from '@googlemaps/typescript-guards';
 
 declare const google: any;
 
+// working version
 interface MapProps extends google.maps.MapOptions {
-    // eslint-disable-next-line react/require-default-props
-    style?: { [key: string]: string };
-    // eslint-disable-next-line react/require-default-props
-    onClick?: (e: google.maps.MapMouseEvent) => void;
-    // eslint-disable-next-line react/require-default-props
-    onIdle?: (map: google.maps.Map | any) => void;
-
-
+  // eslint-disable-next-line react/require-default-props
+  style?: { [key: string]: string };
+  // eslint-disable-next-line react/require-default-props
+  onClick?: (e: google.maps.MapMouseEvent) => void;
+  // eslint-disable-next-line react/require-default-props
+  onIdle?: (map: google.maps.Map | any) => void;
 }
+
 // eslint-disable-next-line react/function-component-definition
 const deepCompareEqualsForMaps = createCustomEqual(
   (deepEqual) => (a: any, b: any) => {
     if (
-      isLatLngLiteral(a)
-            || a instanceof google.maps.LatLng
-            || isLatLngLiteral(b)
-            || b instanceof google.maps.LatLng
+      isLatLngLiteral(a) ||
+      a instanceof google.maps.LatLng ||
+      isLatLngLiteral(b) ||
+      b instanceof google.maps.LatLng
     ) {
       return new google.maps.LatLng(a).equals(new google.maps.LatLng(b));
     }
@@ -82,7 +80,7 @@ const Map: React.FC<MapProps> = ({
       {React.Children.map(children, (child) => {
         if (React.isValidElement(child)) {
           // set the map prop on the child component
-          return React.cloneElement(child, { map } as any );
+          return React.cloneElement(child, { map } as any);
         }
       })}
     </>
