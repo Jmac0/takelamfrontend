@@ -267,7 +267,7 @@ export const SingleProperty = React.forwardRef(
                 )}
               </div>
               <PropertyList>
-                <div>{currentProperty.location}</div>
+				  <div><p>{currentProperty.location}</p></div>
                 <div>€{currentProperty.price}</div>
                 <div>
                   <FontAwesomeIcon icon={faBed as IconProp} className="icon" />
