@@ -30,7 +30,7 @@ export default function Nav({ path, about, propertyPage }: Props) {
 
 
           <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <NavElement to="/">HOME</NavElement>
+            <NavElement to="/">HOME!</NavElement>
             <NavElement to="about">
               ABOUT
               {about && '     →'}
