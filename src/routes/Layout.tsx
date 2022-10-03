@@ -21,6 +21,7 @@ function Layout({ path }: Path) {
   const propertyPage = path.includes('/property')
   // show sub-menu on about pages
   const about: boolean = path.includes('/about');
+  console.log(about)
   const [open, setOpen] = ToggleOpen(false);
 
   return (

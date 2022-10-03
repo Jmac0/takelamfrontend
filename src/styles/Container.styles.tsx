@@ -102,10 +102,10 @@ const NavBar = styled.nav<Props>`
 
 const NavElement = styled(NavLink)`
   color: ${colors.tan};
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-family: 'Oswald', sans-serif;
   font-weight: 300;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.12em;
   text-decoration: none;
   margin: 0.3rem;
   &:hover {
@@ -120,10 +120,10 @@ const LoginButton = styled(NavElement)`
 const Atag = styled.a`
 
   color: ${colors.tan};
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-family: 'Oswald', sans-serif;
   font-weight: 300;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.12em;
   text-decoration: none;
   margin: .3rem;
   &:hover {

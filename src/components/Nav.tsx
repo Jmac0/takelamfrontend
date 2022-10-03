@@ -22,21 +22,25 @@ export default function Nav({ path, about, propertyPage }: Props) {
         {propertyPage ?
       <div style={{ display: 'flex', flexDirection: 'column' }}>
           <Atag href="/">HOME</Atag>
-          <Atag href="/about">ABOUT</Atag>
+          <Atag href="our-services">OUR SERVICES</Atag>
+{/*
           <Atag href="/properties">PROPERTIES</Atag>
+*/}
           <Atag href="/contact">CONTACT</Atag>
 </div>
           :
 
 
           <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <NavElement to="/">HOME!</NavElement>
-            <NavElement to="about">
-              ABOUT
+            <NavElement to="/">HOME</NavElement>
+            <NavElement to="about/our-services">
+				OUR SERVICES
               {about && '     →'}
             </NavElement>
 
+{/*
             <NavElement to="properties">PROPERTIES</NavElement>
+*/}
 
             <NavElement to="contact">CONTACT</NavElement>
             <div style={{position: 'relative', bottom: '-5rem', color: 'white'}}>
@@ -63,14 +67,14 @@ export default function Nav({ path, about, propertyPage }: Props) {
 				Admin
 			</NavElement>
 			</div>
-			<NavElement className="subMenu" to="about/our-vision">
-				OUR VISION
+			<NavElement className="subMenu" to="about/acquisition">
+				PROPERTY ACQUISITION
 			</NavElement>
-          <NavElement className="subMenu" to="about/interiors">
-            INTERIOR DESIGN
+          <NavElement className="subMenu" to="about/development">
+            PROPERTY DEVELOPMENT
           </NavElement>
-          <NavElement className="subMenu" to="about/uk-services">
-            UK SERVICES
+          <NavElement className="subMenu" to="about/investments">
+            PROPERTY INVESTMENTS
           </NavElement>
         </div>
       )}
