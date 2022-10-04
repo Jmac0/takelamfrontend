@@ -99,9 +99,13 @@ ul {
   margin-top: 1rem;
   font-weight: 300;
   color: #62707e;
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-family: 'Lato', sans-serif;
   letter-spacing: 0.1em;
+}
+
+li {
+    margin-bottom: 1rem;
 }
 
 .icon {

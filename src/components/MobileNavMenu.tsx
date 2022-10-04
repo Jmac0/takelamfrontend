@@ -24,23 +24,25 @@ function MobileNavMenu({ open, setOpen, propertyPage }: Props) {
     </SlideOutMenu>
   ) : (
     <SlideOutMenu open={open}>
-      <NavElement onClick={setOpen} to="about">
-        ABOUT
+      <NavElement onClick={setOpen} to="our-services">
+		  OUR SERVICES
+	  </NavElement>
+
+      <NavElement onClick={setOpen} to="about/acquisition">
+		  PROPERTY ACQUISITION
+      </NavElement>
+      <NavElement onClick={setOpen} to="about/development">
+        PROPERTY DEVELOPMENT
+      </NavElement>
+      <NavElement onClick={setOpen} to="about/investments">
+        PROPERTY INVESTMENTS
       </NavElement>
 
-      <NavElement onClick={setOpen} to="about/our-vision">
-        OUR VISION
-      </NavElement>
-      <NavElement onClick={setOpen} to="about/interiors">
-        INTERIOR DESIGN
-      </NavElement>
-      <NavElement onClick={setOpen} to="about/uk-services">
-        UK SERVICES
-      </NavElement>
-
+{/*
       <NavElement onClick={setOpen} to="properties">
         PROPERTIES
       </NavElement>
+*/}
       <NavElement onClick={setOpen} to="contact">
         CONTACT
       </NavElement>
