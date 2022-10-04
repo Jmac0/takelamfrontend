@@ -29,7 +29,7 @@ const Container = styled.div<Props>`
 @media screen and (min-width: 850px){
 
   grid-template-rows: 18rem min-content 1fr;
-  grid-template-columns: 0.7fr 1fr 0fr;
+  grid-template-columns: 0.7fr .8fr 0fr;
   grid-template-areas:
       'logo main side'
       'nav  main side'
@@ -102,10 +102,10 @@ const NavBar = styled.nav<Props>`
 
 const NavElement = styled(NavLink)`
   color: ${colors.tan};
-  font-size: .9rem;
+  font-size: 1.2rem;
   font-family: 'Oswald', sans-serif;
   font-weight: 300;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.09em;
   text-decoration: none;
   margin: 0.3rem;
   &:hover {
@@ -120,10 +120,10 @@ const LoginButton = styled(NavElement)`
 const Atag = styled.a`
 
   color: ${colors.tan};
-  font-size: 1rem;
+  font-size: 1.2rem;
   font-family: 'Oswald', sans-serif;
   font-weight: 300;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.09em;
   text-decoration: none;
   margin: .3rem;
   &:hover {

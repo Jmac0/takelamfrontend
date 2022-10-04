@@ -24,7 +24,8 @@ function MobileNavMenu({ open, setOpen, propertyPage }: Props) {
     </SlideOutMenu>
   ) : (
     <SlideOutMenu open={open}>
-      <NavElement onClick={setOpen} to="our-services">
+
+		<NavElement onClick={setOpen} to="about/our-services">
 		  OUR SERVICES
 	  </NavElement>
 

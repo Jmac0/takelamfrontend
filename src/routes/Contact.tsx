@@ -13,11 +13,9 @@ function Contact({path}: Props) {
     <div style={{ marginBottom:`${path.includes('contact') ? '-2rem' : ''}`}}
          className={ `${path.includes('contact') ? "main-page-content" : ""}`}>
 
-      <Atag href="tel:5554280940">Call us at 555-428-0940</Atag>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus
-        cumque cupiditate, debitis delectus{' '}
-      </p>
+      <h1>
+		  Contact us
+      </h1>
       <form
         name="takelam-contact"
         method="POST"

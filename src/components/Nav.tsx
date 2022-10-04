@@ -58,8 +58,8 @@ export default function Nav({ path, about, propertyPage }: Props) {
             position: 'relative',
             display: 'flex',
             flexDirection: 'column',
-            top: '40px',
-            left: '20px',
+            top: '33px',
+            left: '15px',
           }}
         >
 			<div style={{display: 'none'}}>
