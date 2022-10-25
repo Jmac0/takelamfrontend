@@ -63,8 +63,8 @@ const Container = styled.div<Props>`
 const PageLogo = styled.div<Props>`
   grid-area: logo;
   background-image: url(${(props) => (props.path ? '' : Logo)});
-  height: 15rem;
-  width: 15rem;
+  height: 12rem;
+  width: 12rem;
   z-index: -2;
   align-self: center;
   justify-self: center;
@@ -75,8 +75,8 @@ const PageLogo = styled.div<Props>`
   
   @media screen and (min-width: 850px) {
     align-self: flex-start;
-	width: 25rem;
-	height: 12rem;
+	width: 20rem;
+	height: 10.5rem;
     justify-self: flex-start;
     background-position: 100px;
     margin-top: 5rem;
