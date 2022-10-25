@@ -64,6 +64,7 @@ const PageLogo = styled.div<Props>`
   grid-area: logo;
   background-image: url(${(props) => (props.path ? '' : Logo)});
   height: 12rem;
+  margin-top: 5rem;
   width: 12rem;
   z-index: -2;
   align-self: center;
@@ -106,10 +107,10 @@ const NavBar = styled.nav<Props>`
 
 const NavElement = styled(NavLink)`
   color: ${colors.tan};
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-family: 'Oswald', sans-serif;
   font-weight: 300;
-  letter-spacing: 0.09em;
+  letter-spacing: 0.01em;
   text-decoration: none;
   margin: 0.3rem;
   &:hover {
