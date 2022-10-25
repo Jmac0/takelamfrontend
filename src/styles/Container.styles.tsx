@@ -50,7 +50,7 @@ const Container = styled.div<Props>`
 
     width: 100%;
     height: 100%;
-    grid-template-rows: 18rem min-content 1fr;
+    grid-template-rows: 15rem min-content 1fr;
     grid-template-columns: 1fr 1.3fr .3fr;
     grid-template-areas:
       'logo main side'
@@ -62,20 +62,24 @@ const Container = styled.div<Props>`
 
 const PageLogo = styled.div<Props>`
   grid-area: logo;
-  margin-top: 5rem;
   background-image: url(${(props) => (props.path ? '' : Logo)});
-  height: 10rem;
+  height: 15rem;
+  width: 15rem;
   z-index: -2;
-  align-self: start;
+  align-self: center;
+  justify-self: center;
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
 
   
   @media screen and (min-width: 850px) {
-    background-position: 30%;
-    margin-top: 1rem;
-    height: 12rem;
+    align-self: flex-start;
+	width: 25rem;
+	height: 12rem;
+    justify-self: flex-start;
+    background-position: 100px;
+    margin-top: 5rem;
   }
   
 `;
@@ -141,7 +145,7 @@ const PageTear = styled.div<Props>`
   z-index: 0;
   height: 271px;
   width: 100%;
-  margin-top: 5rem;
+  margin-top: 0;
   contain: content;
   grid-area: footer;
   background-color: transparent;

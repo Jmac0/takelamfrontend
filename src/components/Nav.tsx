@@ -58,7 +58,7 @@ export default function Nav({ path, about, propertyPage }: Props) {
             position: 'relative',
             display: 'flex',
             flexDirection: 'column',
-            top: '33px',
+            top: '90px',
             left: '15px',
           }}
         >
