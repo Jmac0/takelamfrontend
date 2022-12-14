@@ -3,7 +3,7 @@ export interface Property {
   tag: string;
   location: string;
   cords: string;
-  price: number;
+  price: string;
   bedrooms: number;
   bathrooms: number;
   buildSize: string;

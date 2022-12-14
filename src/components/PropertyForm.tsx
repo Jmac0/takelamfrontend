@@ -47,7 +47,7 @@ function PropertyForm({
     buildSize: '',
     bedrooms: 0,
     bathrooms: 0,
-    price: 0,
+    price: '',
     location: '',
     floorPlan: [],
     cords: '',
@@ -128,7 +128,7 @@ function PropertyForm({
           aria-label="price"
           id="price"
           name="price"
-          type="number"
+          type="text"
           value={form.price}
           onChange={handleUpdate}
         />

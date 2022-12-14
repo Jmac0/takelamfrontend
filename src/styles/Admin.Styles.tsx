@@ -62,13 +62,7 @@ const AdminMenu = styled.div`
   flex-direction: row;
  padding: 0.75rem 0 0.75rem 0;
   border-bottom: 3px solid ${colors.grey};
-
-  background: url(${logo}),
-  linear-gradient(to top, ${colors.blue} 100%, white 0%);
-  background-blend-mode: overlay;
-  background-color: ${colors.blue};
-  background-position: 50% 50%;
-  background-size: 30%;
+  background-color: #162644;
   .logo {
     grid-area: logo;
     color: ${colors.tan};
