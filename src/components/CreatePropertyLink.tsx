@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import baseUrl from 'utils/urls';
 import { Button } from '../styles/Admin.Styles';
-import useAuth from "./auth/useAuth";
-import ButtonLoading from "./ButtonLoading";
+import useAuth from './auth/useAuth';
+import ButtonLoading from './ButtonLoading';
 
 interface Props {
   id: string;
@@ -32,11 +32,11 @@ function CreatePropertyLink({ id }: Props) {
         const {
           data: { link },
         } = response;
-        setTimeout(() =>{
-        setLoading(false);
+        setTimeout(() => {
+          setLoading(false);
 
-        setClientLink(() => link);
-        }, 1000)
+          setClientLink(() => link);
+        }, 1000);
       });
   };
 
@@ -47,7 +47,7 @@ function CreatePropertyLink({ id }: Props) {
   function copyToClipboard(newLink: string) {
     navigator.clipboard
       .writeText(newLink)
-      .then((res) => {
+      .then(() => {
         setCopied(true);
         setTimeout(() => {
           setCopied(false);
@@ -55,7 +55,7 @@ function CreatePropertyLink({ id }: Props) {
         }, 1500);
       })
       .catch((err) => {
-        console.log(err);
+        throw new Error(err);
       });
   }
 
@@ -64,16 +64,14 @@ function CreatePropertyLink({ id }: Props) {
     <>
       {clientLink === '' ? (
         <form onSubmit={createLink}>
-          <ButtonLoading  loading={loading}>
-            Create Link
-          </ButtonLoading>
+          <ButtonLoading loading={loading}>Create Link</ButtonLoading>
         </form>
-/*
+      ) : (
+        /*
         <Button className="create-btn" onClick={createLink}>
           Create Link
         </Button>
 */
-      ) : (
         <Button
           className="create-btn"
           onClick={() => copyToClipboard(clientLink)}

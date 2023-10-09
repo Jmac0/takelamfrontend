@@ -94,20 +94,18 @@ function Admin({
         },
       )
       .then((response) => {
-
-
-          setMessage({
-            isErrorMessage: false,
-            showUserMessage: true,
-            message: response.data.message,
-          })
-            /* Updates the index dependency in
+        setMessage({
+          isErrorMessage: false,
+          showUserMessage: true,
+          message: response.data.message,
+        });
+        /* Updates the index dependency in
 					 FetchContent to cause re-render and get
 					 the updated data  */
-            setLoading(false);
-          setIndex((index: number) => index + 1);
-        }
-      )    .catch((err) => {
+        setLoading(false);
+        setIndex((index: number) => index + 1);
+      })
+      .catch((err) => {
         setLoading(false);
         setMessage({
           isErrorMessage: true,
@@ -142,16 +140,14 @@ function Admin({
           });
         }, 500);
       })
-      .catch((err) =>{
+      .catch((err) => {
         setLoading(false);
         setMessage({
           isErrorMessage: true,
           showUserMessage: true,
           message: err.response.data.message,
-        }) }
-
-      );
-
+        });
+      });
   };
   const updateProperty = async (id: string, body: any, images: string) => {
     setLoading(true);
@@ -192,9 +188,8 @@ function Admin({
           isErrorMessage: true,
           showUserMessage: true,
           message: err.response.data.message,
-        })
-      }
-      );
+        });
+      });
   };
   const deleteProperty = async (id: string) => {
     // eslint-disable-next-line no-restricted-globals
@@ -224,6 +219,7 @@ function Admin({
     setLoading(false);
     setClose(false);
   };
+
   /* open form, set current property id & request
 	 method */
   const editProperty = (id: string) => {
@@ -269,9 +265,19 @@ function Admin({
         </Button>
       </div>
 
-        {properties.length < 1 && <div style={{position: 'absolute', left: "50%", marginLeft: "-100px", marginTop: "10%"}}><Loader loading /></div>}
+      {properties.length < 1 && (
+        <div
+          style={{
+            position: 'absolute',
+            left: '50%',
+            marginLeft: '-100px',
+            marginTop: '10%',
+          }}
+        >
+          <Loader loading />
+        </div>
+      )}
       <AdminContainer>
-
         {showPropertyForm && (
           <PropertyForm
             showPropertyForm={showPropertyForm}

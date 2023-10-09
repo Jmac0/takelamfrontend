@@ -11,7 +11,7 @@ function UpdateAdminInfo() {
     user: { token },
   } = useAuth();
 
-  const { loading, setLoading, message, setMessage, sendRequest } = useHttp({
+  const { loading, setLoading, message, sendRequest } = useHttp({
     url: `users/create`,
     method: 'POST',
     withCredentials: true,

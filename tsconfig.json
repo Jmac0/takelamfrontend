@@ -1,6 +1,9 @@
 {
   "compilerOptions": {
-    "noUnusedLocals": false,                /* Report errors on unused locals. */
+    "types": [
+      "node"
+    ],
+    "noUnusedLocals": false, /* Report errors on unused locals. */
     "noUnusedParameters": false,
     "target": "es5",
     "baseUrl": "src",
@@ -22,13 +25,23 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "paths": {
+      "react": [
+        "./node_modules/@types/react"
+      ]
+    }
   },
-
   "rules": {
-    "noUnusedLocals": "off",
+    "noUnusedLocals": true,
     "react/no-unused-prop-types typescript": false,
-    "@typescript-eslint/no-unused-vars": false,
+    "@typescript-eslint/no-unused-vars": true,
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.jsx", "src"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.jsx",
+    "src"
+  ]
 }

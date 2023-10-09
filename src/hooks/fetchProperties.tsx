@@ -3,7 +3,6 @@ import axios from 'axios';
 import baseUrl from 'utils/urls';
 
 export default function fetchProperties(initialState: [], token = '') {
-
   const [propertyData, setPropertyData] = useState<any>(initialState);
   const [propertyIndex, setPropertyIndex] = useState<number>(0);
 
@@ -11,10 +10,12 @@ export default function fetchProperties(initialState: [], token = '') {
   useEffect(() => {
     async function getProperties(): Promise<void> {
       await axios
-        .get(`${baseUrl}/properties`, {withCredentials: true,
-headers : {
-  Authorization: `Bearer ${token}`
-}})
+        .get(`${baseUrl}/properties`, {
+          withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
         .then((res) => {
           const {
             data: { properties },
@@ -22,7 +23,7 @@ headers : {
           setPropertyData(properties);
         })
         .catch((err) => {
-          console.log(`${err} The connection has been refused`);
+          throw new Error(err.message);
         });
     }
 
@@ -30,5 +31,3 @@ headers : {
   }, [propertyIndex]);
   return [propertyData, setPropertyIndex];
 }
-
-

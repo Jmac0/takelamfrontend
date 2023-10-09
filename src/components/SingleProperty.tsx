@@ -227,7 +227,7 @@ export const SingleProperty = React.forwardRef(
           </div>
         ) : (
           !linkExpired && (
-            <animated.div  ref={ref} style={fadeIn} className="page">
+            <animated.div ref={ref} style={fadeIn} className="page">
               <div className="print-logo">
                 <img src={logo} width="100" height="86" alt="" />
                 <p>
@@ -267,7 +267,9 @@ export const SingleProperty = React.forwardRef(
                 )}
               </div>
               <PropertyList>
-				  <div><p>{currentProperty.location}</p></div>
+                <div>
+                  <p>{currentProperty.location}</p>
+                </div>
                 <div>€{currentProperty.price}</div>
                 <div>
                   <FontAwesomeIcon icon={faBed as IconProp} className="icon" />
@@ -306,10 +308,11 @@ export const SingleProperty = React.forwardRef(
                     <p> {currentProperty.ownership}</p>
                   </div>
                 )}
-                <div className="print-page-break" >
+                <div className="print-page-break">
                   <h4>Property Description:</h4>
 
                   <p
+                    // eslint-disable-next-line react/no-danger
                     dangerouslySetInnerHTML={{
                       __html: currentProperty.description,
                     }}
@@ -324,7 +327,8 @@ export const SingleProperty = React.forwardRef(
                 </Wrapper>{' '}
               </div>
 
-              <div className="hidden-on-print"
+              <div
+                className="hidden-on-print"
                 style={{
                   paddingTop: '1rem',
                   marginTop: '1.5rem',

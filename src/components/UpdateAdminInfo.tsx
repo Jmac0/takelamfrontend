@@ -8,11 +8,11 @@ import useAuth from './auth/useAuth';
 
 function UpdateAdminInfo() {
   const {
-    user: { token }
+    user: { token },
   } = useAuth();
 
-  const {setUser} = useAuth();
-  const { loading, setLoading, message, setMessage, sendRequest } = useHttp({
+  const { setUser } = useAuth();
+  const { loading, setLoading, message, sendRequest } = useHttp({
     url: `users/update`,
     method: 'PATCH',
     withCredentials: true,
@@ -44,13 +44,11 @@ function UpdateAdminInfo() {
       // using the new token from the server.
       sendRequest(form, (data: any) => {
         // create new user object
-        const user = {email: data.email, password: '', token:data.token};
+        const user = { email: data.email, password: '', token: data.token };
         // set new token in local storage
         localStorage.setItem('_Tuser', JSON.stringify(data.token));
         // log user back in
-        setUser(user)
-
-
+        setUser(user);
       });
       setForm(emptyForm);
     }
@@ -112,7 +110,11 @@ function UpdateAdminInfo() {
           Send
         </ButtonLoading>
         <p style={{ height: '.5rem' }}>{passwordsMatch}</p>
-        <UserMessage  isErrorMessage={message.isErrorMessage} message={message.message} showUserMessage={message.showUserMessage}/>
+        <UserMessage
+          isErrorMessage={message.isErrorMessage}
+          message={message.message}
+          showUserMessage={message.showUserMessage}
+        />
       </EmilandPasswordFormStyles>
     </LoginContainer>
   );

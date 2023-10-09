@@ -22,30 +22,29 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
   const [loginError, setLoginError] = useState<UserMessageInterface>(
     initialUserMessageState,
   );
- // const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
   const [user, setUser] = React.useState<User>(initialUserState);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const token = JSON.parse(localStorage.getItem('_Tuser') as string);
+  const token = JSON.parse(localStorage.getItem('_Tuser') as string);
 
-  const { loading, setLoading, message, setMessage, sendRequest } = useHttp({
+  const { loading, setLoading, sendRequest } = useHttp({
     url: `auth/isAuth`,
     method: 'GET',
     withCredentials: false,
-    token
+    token,
   });
 
   useEffect(() => {
     if (token) {
-      sendRequest('', () =>{
-      setIsAuthenticated(true);
-      setUser({
-        email: '',
-        password: '',
-        token,
+      sendRequest('', () => {
+        setIsAuthenticated(true);
+        setUser({
+          email: '',
+          password: '',
+          token,
+        });
       });
-      })
     }
-
   }, [isAuthenticated]);
 
   const signIn = async (

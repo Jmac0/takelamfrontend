@@ -16,8 +16,8 @@ import RequireAuth from './components/auth/RequireAuth';
 import Users from './routes/Users';
 import ResetPassword from './routes/ResetPassword';
 import UpdateAdminInfo from './components/UpdateAdminInfo';
-import CreateAdmin from "./components/CreateAdmin";
-import PrintSingleProperty from "./routes/PrintSingleProperty";
+import CreateAdmin from './components/CreateAdmin';
+import PrintSingleProperty from './routes/PrintSingleProperty';
 
 interface Component {
   index: string;
@@ -93,15 +93,13 @@ export default function App() {
               timeout={transitionTime}
             >
               <Routes location={location}>
-                <Route path="/" element={<Layout path={path}  />}>
+                <Route path="/" element={<Layout path={path} />}>
                   <Route index element={<LandingPage />} />
                   {pageContent.map((el: Component) => (
                     <Route
                       key={el._id}
                       path={el.path}
-                      element={
-                        <Page bodyText={el.bodyText} />
-                      }
+                      element={<Page bodyText={el.bodyText} />}
                     />
                   ))}
                   <Route path="contact" element={<Contact path={path} />} />
@@ -111,10 +109,9 @@ export default function App() {
                   />
                   <Route
                     path="property/view/:id"
-
-                    element={<PrintSingleProperty  />}
+                    element={<PrintSingleProperty />}
                   />
-                <Route path="*" element={<NotFound />} />
+                  <Route path="*" element={<NotFound />} />
                 </Route>
               </Routes>
             </CSSTransition>

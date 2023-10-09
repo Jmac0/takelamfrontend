@@ -7,10 +7,9 @@ interface Props {
   loading: boolean;
   children?: string;
   completedActionText?: string;
-  action?: 'submit' | 'button'
+  // eslint-disable-next-line react/no-unused-prop-types
+  action?: 'submit' | 'button';
 }
-
-
 
 function ButtonLoader({ loading, children, completedActionText }: Props) {
   /* showLoader is used to stay in the "isLoading state" a bit longer to avoid loading flashes
@@ -25,23 +24,21 @@ function ButtonLoader({ loading, children, completedActionText }: Props) {
     }
 
     // Show loader a bit longer to avoid loading flash
-	  if (!loading && showLoader) {
+    if (!loading && showLoader) {
+      const timeout = setTimeout(() => {
+        setShowLoader(false);
+      }, 2000);
 
-		  const timeout = setTimeout(() => {
-		  setShowLoader(false)
-		  }, 2000)
+      const savedTimer = setTimeout(() => {
+        setSaved(true);
+      }, 1000);
 
-		  const savedTimer = setTimeout(() => {
-			  setSaved(true);
-		  }, 1000)
+      setSaved(false);
 
-		  setSaved(false);
-
-		  return () => {
-			  clearTimeout(savedTimer);
-			  clearTimeout(timeout);
-		  };
-
+      return () => {
+        clearTimeout(savedTimer);
+        clearTimeout(timeout);
+      };
     }
   }, [loading, showLoader]);
 
@@ -80,15 +77,18 @@ function ButtonLoader({ loading, children, completedActionText }: Props) {
     >
       {showLoader ? (
         <animated.span style={fadeOutProps}>
-			{ saved ? completedActionText : <Loader /> }
+          {saved ? completedActionText : <Loader />}
         </animated.span>
       ) : (
         <animated.span style={fadeInProps}>{children}</animated.span>
       )}
-
     </Button>
   );
 }
-ButtonLoader.defaultProps= {children: '', completedActionText:  'SAVED', action: 'submit'}
+ButtonLoader.defaultProps = {
+  children: '',
+  completedActionText: 'SAVED',
+  action: 'submit',
+};
 
-export default ButtonLoader
+export default ButtonLoader;

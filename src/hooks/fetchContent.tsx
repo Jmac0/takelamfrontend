@@ -18,7 +18,7 @@ function FetchContent(initialState: []) {
           setState(content);
         })
         .catch((err) => {
-          console.log(`${err} The connection has been refused 😭`);
+          throw new Error(err.message);
         });
     }
 

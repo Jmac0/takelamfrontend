@@ -1,13 +1,10 @@
 import React from 'react';
 import 'styles/styles.css';
 import { useLocation } from 'react-router-dom';
-import InteriorsImage
-  from '../images/interiors_page.png';
+import InteriorsImage from '../images/interiors_page.png';
 
 interface Props {
-
-    bodyText: string
-
+  bodyText: string;
 }
 
 function Page(props: Props) {
@@ -21,8 +18,8 @@ function Page(props: Props) {
     return (
       <div className="three-column-page">
         <div className="three-column-page-text">
+          {/* eslint-disable-next-line react/no-danger */}
           <p dangerouslySetInnerHTML={{ __html: bodyText }} />
-
         </div>
         <div className="three-column-page-image-container">
           <img
@@ -35,7 +32,7 @@ function Page(props: Props) {
     );
   }
   return (
-  // stangard page layout
+    // stangard page layout
     <div className="main-page-content">
       {/* eslint-disable-next-line react/no-danger */}
       <p dangerouslySetInnerHTML={{ __html: bodyText }} />

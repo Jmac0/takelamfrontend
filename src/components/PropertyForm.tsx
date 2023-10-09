@@ -1,9 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from 'react';
 import ButtonLoader from 'components/ButtonLoading';
 import { Property } from '../interfaces';
 import { Button } from '../styles/Admin.Styles';
-import UserMessage from "./UserMessage"
-import {UserMessageInterface} from '../utils/interfaces';
+import UserMessage from './UserMessage';
+import { UserMessageInterface } from '../utils/interfaces';
 
 import {
   FormButtonContainer,
@@ -11,6 +11,17 @@ import {
   XIcon,
 } from '../styles/FormStyles';
 import WYSIWYG from './WYSIWYG';
+
+// Format image tag Trim all spaces, removes special chars, and make uppercase
+const formatTag = (value: string): string => {
+  const formattedTag = value
+    .replace(/[^a-zA-Z ]/g, '')
+    .replace(/\s/g, '')
+    .toUpperCase()
+    .trim();
+
+  return formattedTag;
+};
 
 interface Props {
   showPropertyForm: boolean;
@@ -52,14 +63,15 @@ function PropertyForm({
     floorPlan: [],
     cords: '',
     _id: '',
-
   };
+
   const [form, setForm] = useState<Property>(initialState);
   const [images, setImages] = useState('');
   const [description, setDescription] = useState('');
-  const imageInput = useRef(null)
+  const imageInput = useRef(null);
   const handleUpdate = (evt: React.ChangeEvent) => {
     // set values from form to state
+
     // @ts-ignore
     setForm({ ...form, [evt.target.name]: evt.target.value });
   };
@@ -69,29 +81,29 @@ function PropertyForm({
   };
 
   const handleSubmit = (evt: Event) => {
-	  // different http request for different methods
+    // different http request for different methods
     evt.preventDefault();
     if (requestMethod === 'POST') {
-      createProperty({... form, description});
-    }else if (requestMethod === 'PATCH') {
-    updateProperty(currentProperty._id, {...form, description}, images);
-    // @ts-ignore
-      imageInput.current.value = ''
-  }};
+      createProperty({ ...form, description });
+    } else if (requestMethod === 'PATCH') {
+      updateProperty(currentProperty._id, { ...form, description }, images);
+      // @ts-ignore
+      imageInput.current.value = '';
+    }
+  };
 
   useEffect(() => {
     /* set state to currently editing property or
        empty object */
     // eslint-disable-next-line no-param-reassign
-    currentProperty.floorPlan = []
+    currentProperty.floorPlan = [];
+
     requestMethod === 'PATCH' && setForm({ ...currentProperty });
     requestMethod === 'POST' && setForm({ ...initialState });
   }, [showPropertyForm]);
 
   return (
-    <PropertyFormList
-      onSubmit={handleSubmit}
-    >
+    <PropertyFormList onSubmit={handleSubmit}>
       <XIcon onClick={handleFormClosed} />
       <h1>
         {requestMethod === 'POST' ? 'Create New Listing' : 'Edit Listing'}
@@ -118,7 +130,8 @@ function PropertyForm({
           id="tag"
           name="tag"
           type="text"
-          value={form.tag}
+          // make sure tag appears correctly formatted
+          value={formatTag(form.tag)}
           onChange={handleUpdate}
         />
       </div>
@@ -216,10 +229,13 @@ function PropertyForm({
           onChange={handleUpdate}
         />
       </div>
-      <div style={{display: 'flex', flexDirection: 'column', minHeight: '300px'}} className="inputs">
-      <label style={{ marginBottom: '.5rem' }} htmlFor="description">
-        Description
-      </label>
+      <div
+        style={{ display: 'flex', flexDirection: 'column', minHeight: '300px' }}
+        className="inputs"
+      >
+        <label style={{ marginBottom: '.5rem' }} htmlFor="description">
+          Description
+        </label>
         <WYSIWYG
           content={currentProperty.description}
           setRichTextContent={setDescription}
@@ -232,7 +248,9 @@ function PropertyForm({
           {!close ? (
             <ButtonLoader loading={loading}>Create</ButtonLoader>
           ) : (
-            <Button type="button" onClick={handleFormClosed}>CLOSE</Button>
+            <Button type="button" onClick={handleFormClosed}>
+              CLOSE
+            </Button>
           )}
         </FormButtonContainer>
       ) : (
@@ -240,20 +258,23 @@ function PropertyForm({
           <div style={{ width: 'fit-content', height: '56px' }}>
             <ButtonLoader loading={loading}>Save</ButtonLoader>
           </div>
-            <input
-              ref={imageInput}
-              style={{ padding: '0', height: 'fit-content', width: '14rem' }}
-              className="custom-file-input"
-              type="file"
-              id="images"
-              name="images"
-              onChange={handleImageInput}
-              multiple
-            />
-
+          <input
+            ref={imageInput}
+            style={{ padding: '0', height: 'fit-content', width: '14rem' }}
+            className="custom-file-input"
+            type="file"
+            id="images"
+            name="images"
+            onChange={handleImageInput}
+            multiple
+          />
         </FormButtonContainer>
       )}
-      <UserMessage showUserMessage={message.showUserMessage} isErrorMessage={message.isErrorMessage} message={message.message}/>
+      <UserMessage
+        showUserMessage={message.showUserMessage}
+        isErrorMessage={message.isErrorMessage}
+        message={message.message}
+      />
     </PropertyFormList>
   );
 }

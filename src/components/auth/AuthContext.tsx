@@ -1,5 +1,5 @@
 import React from 'react';
-import { User } from "../../utils/interfaces";
+import { User } from '../../utils/interfaces';
 
 interface VoidFunction {
   (): void;
@@ -12,7 +12,8 @@ interface AuthContextType {
   email: string;
   signIn: (_password: string, _email: string, _callback: VoidFunction) => void;
   signOut: (_callback: VoidFunction) => void;
-  setUser: ({email, password, token}: User) => void;
+  // eslint-disable-next-line no-unused-vars
+  setUser: ({ email, password, token }: User) => void;
   loginError: {
     showUserMessage: boolean;
     isErrorMessage: boolean;
